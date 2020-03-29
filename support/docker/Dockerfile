@@ -9,7 +9,7 @@ RUN mkdir /qsa-storage
 ENV DIRPATH /qsa-storage
 
 COPY ./qsa-calculator-server/build/libs/qsa-final.jar $DIRPATH/qsa-backend.jar
-COPY ./support/docker/backend/init.sh $DIRPATH/init.sh
+COPY ./support/docker/init.sh $DIRPATH/init.sh
 RUN chmod 755 $DIRPATH/init.sh
 WORKDIR $DIRPATH
 
