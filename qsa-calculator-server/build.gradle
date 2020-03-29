@@ -1,0 +1,57 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+}
+
+dependencies {
+	/* PROJECT */
+	implementation project(':qsa-calculator-domain')
+	implementation project(':qsa-calculator-implementation')
+	/* DEPENDENCY */
+	implementation 'com.maxmind.geoip2:geoip2'
+	implementation 'com.ryantenney.metrics:metrics-spring'
+	implementation 'io.dropwizard.metrics:metrics-annotation'
+	implementation 'io.dropwizard.metrics:metrics-core'
+	implementation 'io.dropwizard.metrics:metrics-graphite'
+	implementation 'io.dropwizard.metrics:metrics-healthchecks'
+	implementation 'io.dropwizard.metrics:metrics-json'
+	implementation 'io.dropwizard.metrics:metrics-jvm'
+	implementation 'io.dropwizard.metrics:metrics-servlet'
+	implementation 'io.dropwizard.metrics:metrics-servlets'
+	implementation 'org.apache.httpcomponents:httpclient'
+	implementation 'org.apache.httpcomponents:httpasyncclient'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework:spring-aspects'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	/* TEST */
+	testImplementation 'ch.qos.logback:logback-classic'
+	testImplementation 'org.testng:testng'
+	testImplementation 'org.mockito:mockito-core'
+	/* INTEGRATION TEST */
+	testImplementation 'com.google.code.gson:gson'
+	testImplementation 'com.sun.xml.bind:jaxb-osgi'
+	testImplementation 'io.rest-assured:rest-assured'
+	testImplementation 'io.rest-assured:rest-assured-all'
+	testImplementation 'javax.xml.bind:jaxb-api'
+	testImplementation 'org.json:json'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+configurations {
+	testImplementation.exclude group: 'com.vaadin.external.google', module: 'android-json'
+}
+
+description = 'qsa-calculator-server'
+
+springBoot {
+	buildInfo {
+		properties {
+			version = rootProject.projectVersion
+			group = rootProject.projectGroup
+		}
+	}
+}
+
+test {
+	useTestNG()
+}

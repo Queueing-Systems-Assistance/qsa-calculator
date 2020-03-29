@@ -1,0 +1,44 @@
+<configuration>
+
+	<conversionRule conversionWord="qsa_exception_converter" converterClass="com.unideb.qsa.calculator.server.logging.QsaExceptionDataConverter" />
+
+	<property name="LAYOUT_PATTERN_PREFIX" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-5p[requestId=%X{request_id:-NO_REQUEST}] %c" />
+	<property name="LAYOUT_PATTERN_BODY" value="%msg%n%qsa_exception_converter{}" />
+	<property name="LAYOUT_PATTERN" value="${LAYOUT_PATTERN_PREFIX} - ${LAYOUT_PATTERN_BODY}" />
+
+
+	<appender name="QSA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>true</append>
+		<file>logs/qsa.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${LAYOUT_PATTERN}</pattern>
+			<immediateFlush>true</immediateFlush>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>logs/qsa.log.%d{yyyy-MM-dd}</FileNamePattern>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${LAYOUT_PATTERN}</pattern>
+		</layout>
+	</appender>
+
+	<logger name="org" level="WARN" />
+	<logger name="com" level="WARN" />
+	<logger name="com.unideb.qsa.calculator" level="INFO" />
+	<logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
+
+	<root level="info">
+		<appender-ref ref="QSA" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<jmxConfigurator contextName="QSA" />
+
+</configuration>

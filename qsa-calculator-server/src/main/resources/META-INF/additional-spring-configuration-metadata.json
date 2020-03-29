@@ -1,0 +1,40 @@
+{
+	"properties": [
+		{
+			"name": "management.geo.enabled",
+			"type": "java.lang.Boolean",
+			"description": "Enable of disable the GEO Location Services. For more information, please read the README.md file.",
+			"defaultValue": false
+		},
+		{
+			"name": "management.geo.maxmind.path",
+			"type": "java.lang.String",
+			"description": "The database location.",
+			"defaultValue": "/resources/maxmind.mmdbb"
+		},
+		{
+			"name": "logging.port",
+			"type": "java.lang.Integer",
+			"description": "Logging port.",
+			"defaultValue": 9500
+		},
+		{
+			"name": "logging.host",
+			"type": "java.lang.String",
+			"description": "Logging host.",
+			"defaultValue": "localhost"
+		},
+		{
+			"name": "logging.url",
+			"type": "java.lang.String",
+			"description": "Logging URL. This value assembles the logging.host and logging.port values.",
+			"defaultValue": "http://${logging.host}:${logging.port}"
+		},
+		{
+			"name": "kubernetes.pod-name",
+			"type": "java.lang.String",
+			"description": "Used by the metric prefix.",
+			"defaultValue": "dev"
+		}
+	]
+}

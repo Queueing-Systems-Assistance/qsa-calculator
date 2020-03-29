@@ -1,0 +1,15 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+# Gradle
+classes/
+.gradle
+!gradle-wrapper.jar
+# Builds
+**/build/**
+**/node_modules/**
+**/out/**
+**/dist/**
+# Application downloaded resources
+/resources/**
+**/logs/**

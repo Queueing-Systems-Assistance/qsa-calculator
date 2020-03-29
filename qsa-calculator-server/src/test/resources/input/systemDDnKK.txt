@@ -1,0 +1,7 @@
+| ID     |       |
+| Alpha  | Alpha |
+| Mu     | Mu    |
+| c      | c     |
+| K      | K     |
+| n      | n     |
+| ID_END |       |

@@ -1,0 +1,5 @@
+rootProject.name = 'qsa-calculator'
+
+include(':qsa-calculator-domain')
+include(':qsa-calculator-implementation')
+include(':qsa-calculator-server')

@@ -1,0 +1,54 @@
+<configuration>
+
+	<springProperty name="kubernetes.pod-name" source="kubernetes.pod-name" />
+	<springProperty name="logging.url" source="logging.url" />
+
+	<property name="JSON_PATTERN" value='
+		{
+		"timestamp": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
+		"instance": "${kubernetes.pod-name}",
+		"level": "%-5p",
+		"class": "%c",
+		"requestId": "%X{request_id:-NO_REQUEST}",
+		"message": "%m",
+		"exception": "%ex"
+		}
+		' />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<mdc />
+				<pattern>
+					<pattern>${JSON_PATTERN}</pattern>
+				</pattern>
+			</providers>
+		</encoder>
+	</appender>
+
+	<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>${logging.url}</destination>
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<providers>
+				<mdc />
+				<pattern>
+					<pattern>${JSON_PATTERN}</pattern>
+				</pattern>
+			</providers>
+		</encoder>
+	</appender>
+
+	<logger name="org" level="WARN" />
+	<logger name="com" level="WARN" />
+	<logger name="com.unideb.qsa" level="INFO" />
+
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="LOGSTASH" />
+	</root>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+</configuration>

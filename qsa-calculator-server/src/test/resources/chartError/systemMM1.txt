@@ -1,0 +1,14 @@
+| INPUT         |        |        |        |        |        |        |        |        |        |        |
+| Mu            | -3     | 3      | 3      | 3      | 0      | 3      | 3      | 3      | 3      | 3      |
+| n             | 1      | -1     | 1      | 1      | 1      | 1      | 1      | 1      | 1      | 1      |
+| t             | 1      | 1      | -1     | 1      | 0      | 1      | 1      | 1      | 1      | 1      |
+| r             | 1      | 1      | 1      | -1     | 1      | 1      | 1      | 1      | 1      | 1      |
+| INPUT_END     |        |        |        |        |        |        |        |        |        |        |
+| X_AXIS        |        |        |        |        |        |        |        |        |        |        |
+| from          | 1      | 1      | 1      | 1      | 1      | 0      | -1     | 1      | 1      | 1      |
+| to            | 2      | 2      | 2      | 2      | 2      | 2      | 2      | -1     | 2      | 3      |
+| steps         | 1      | 1      | 1      | 1      | 1      | 1      | 1      | 1      | 0      | 0      |
+| X_AXIS_END    |        |        |        |        |        |        |        |        |        |        |
+| X_AXIS_ID     |        |        |        |        |        |        |        |        |        |        |
+| id            | Lambda | Lambda | Lambda | Lambda | Lambda | Lambda | Lambda | Lambda | Lambda | Lambda |
+| X_AXIS_ID_END |        |        |        |        |        |        |        |        |        |        |
