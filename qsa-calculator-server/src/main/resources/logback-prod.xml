@@ -42,7 +42,7 @@
 
 	<logger name="org" level="WARN" />
 	<logger name="com" level="WARN" />
-	<logger name="com.unideb.qsa" level="INFO" />
+	<logger name="com.unideb.qsa.calculator" level="INFO" />
 	<logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
 
 	<root level="info">
