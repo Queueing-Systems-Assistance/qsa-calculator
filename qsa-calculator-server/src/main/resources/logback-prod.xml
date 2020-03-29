@@ -1,5 +1,7 @@
 <configuration>
 
+	<conversionRule conversionWord="qsa_exception_converter" converterClass="com.unideb.qsa.calculator.server.logging.QsaExceptionDataConverter" />
+
 	<springProperty name="kubernetes.pod-name" source="kubernetes.pod-name" />
 	<springProperty name="logging.url" source="logging.url" />
 
@@ -11,7 +13,7 @@
 		"class": "%c",
 		"requestId": "%X{request_id:-NO_REQUEST}",
 		"message": "%m",
-		"exception": "%ex"
+		"exception": "%qsa_exception_converter{}"
 		}
 		' />
 
@@ -41,6 +43,7 @@
 	<logger name="org" level="WARN" />
 	<logger name="com" level="WARN" />
 	<logger name="com.unideb.qsa" level="INFO" />
+	<logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
 
 	<root level="info">
 		<appender-ref ref="CONSOLE" />
