@@ -43,6 +43,10 @@ configurations {
 
 description = 'qsa-calculator-server'
 
+bootJar {
+	archiveFileName = 'qsa-final.jar'
+}
+
 springBoot {
 	buildInfo {
 		properties {
