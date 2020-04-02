@@ -31,6 +31,8 @@ public class SystemCalculatorResolver {
     private ApplicationContext applicationContext;
     @Autowired
     private DefaultFeatureValidator featureValidator;
+    @Autowired
+    private XAxisResolver xAxisResolver;
 
     /**
      * Resolves a system feature value by calling the corresponding calculator.
@@ -66,33 +68,12 @@ public class SystemCalculatorResolver {
         Map<SystemFeature, Double> features = chartRequest.getFeatures();
         return DoubleStream.iterate(
                 xAxis.get(XAxis.from),
-                value -> checkXAxisShouldCalculate(xAxis, value),
-                value -> calculateNextValue(xAxis, value))
+                value -> xAxisResolver.checkXAxisShouldCalculate(xAxis, value),
+                value -> xAxisResolver.calculateNextValue(xAxis, value))
                            .boxed()
                            .map(nextValue -> features.put(xAxisId, nextValue))
                            .map(nextValue -> features)
                            .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
                            .collect(Collectors.toList());
     }
-
-    private boolean checkXAxisShouldCalculate(Map<XAxis, Double> xAxis, double currentValue) {
-        boolean shouldCalculate;
-        if (xAxis.get(XAxis.from) > xAxis.get(XAxis.to)) {
-            shouldCalculate = currentValue >= xAxis.get(XAxis.to);
-        } else {
-            shouldCalculate = currentValue <= xAxis.get(XAxis.to);
-        }
-        return shouldCalculate;
-    }
-
-    private double calculateNextValue(Map<XAxis, Double> xAxis, double currentValue) {
-        double steps;
-        if (xAxis.get(XAxis.from) > xAxis.get(XAxis.to)) {
-            steps = Math.abs(xAxis.get(XAxis.steps)) * -1;
-        } else {
-            steps = Math.abs(xAxis.get(XAxis.steps));
-        }
-        return currentValue + steps;
-    }
-
 }
