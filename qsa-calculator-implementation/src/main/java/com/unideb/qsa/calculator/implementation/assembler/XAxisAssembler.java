@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.XAxis;
+import com.unideb.qsa.calculator.implementation.resolver.XAxisResolver;
 import com.unideb.qsa.calculator.implementation.validator.DefaultFeatureValidator;
 
 /**
@@ -19,6 +20,8 @@ public class XAxisAssembler {
 
     @Autowired
     private DefaultFeatureValidator featureValidator;
+    @Autowired
+    private XAxisResolver xAxisResolver;
 
     /**
      * Assembles the x axis values.
@@ -28,7 +31,7 @@ public class XAxisAssembler {
      */
     public List<Double> assemble(Map<XAxis, Double> xAxis) {
         featureValidator.validateXAxis(xAxis);
-        return DoubleStream.iterate(xAxis.get(XAxis.from), value -> value < xAxis.get(XAxis.to), nextValue -> nextValue += xAxis.get(XAxis.steps))
+        return DoubleStream.iterate(xAxis.get(XAxis.from), value -> xAxisResolver.checkXAxisShouldCalculate(xAxis, value), nextValue -> xAxisResolver.calculateNextValue(xAxis, nextValue))
                            .boxed()
                            .collect(Collectors.toUnmodifiableList());
     }
