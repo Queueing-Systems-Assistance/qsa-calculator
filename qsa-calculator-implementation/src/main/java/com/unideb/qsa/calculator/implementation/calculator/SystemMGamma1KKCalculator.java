@@ -1,15 +1,13 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Alpha;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Beta;
-import static com.unideb.qsa.calculator.domain.SystemFeature.K;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.pow;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper;
 
 /**
  * System M | Gamma | 1 | K | K Service.
@@ -18,59 +16,80 @@ import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelp
 public class SystemMGamma1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Alpha);
+        final double Alpha = features.get(SystemFeature.Alpha);
+        return 1 / Alpha;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        return a(features) / SAvg(features);
+        final double a = a(features);
+        final double SAvg = SAvg(features);
+        return a / SAvg;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
-        return LambdaAvg(features) * TAvg(features);
+        final double LambdaAvg = LambdaAvg(features);
+        final double TAvg = TAvg(features);
+        return LambdaAvg * TAvg;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double Alpha = features.get(SystemFeature.Alpha);
+        final double Beta = features.get(SystemFeature.Beta);
+        final double SAvg = SAvg(features);
+        final double E0 = E0(features);
         double sum = 0;
-        for (double i = 0; i < features.get(K); i++) {
-            sum += (CalculatorHelper.factorial(features.get(K) - 1))
-                   / (CalculatorHelper.factorial(i) * CalculatorHelper.factorial((features.get(K) - 1) - i))
-                   * functionBn(i, features.get(Alpha), features.get(Beta));
+        for (double i = 0; i < K; i++) {
+            final double part1 = factorial(K - 1);
+            final double part2 = factorial(i) * factorial((K - 1) - i);
+            final double part3 = functionBn(i, Alpha, Beta);
+            sum += part1 / part2 * part3;
         }
-        return Math.pow(1 + features.get(K) * SAvg(features) / E0(features) * sum, -1);
+        return pow(1 + K * SAvg / E0 * sum, -1);
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        return LambdaAvg(features) * WAvg(features);
+        final double LambdaAvg = LambdaAvg(features);
+        final double WAvg = WAvg(features);
+        return LambdaAvg * WAvg;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Beta);
+        final double Beta = features.get(SystemFeature.Beta);
+        return 1 / Beta;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        return features.get(K) / LambdaAvg(features) - E0(features);
+        final double K = features.get(SystemFeature.K);
+        final double LambdaAvg = LambdaAvg(features);
+        final double E0 = E0(features);
+        return K / LambdaAvg - E0;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        return TAvg(features) - SAvg(features);
+        final double TAvg = TAvg(features);
+        final double SAvg = SAvg(features);
+        return TAvg - SAvg;
     }
 
     public double a(Map<SystemFeature, Double> features) {
-        return 1 - P0(features);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     private double functionBn(double index, double alphaMGamma1KK, double betaMGamma1KK) {
         double result = 1;
         if (index != 0) {
             for (double i = 1; i <= index; i++) {
-                result *= (1 - functionLaplace(betaMGamma1KK, alphaMGamma1KK, i))
-                          / functionLaplace(betaMGamma1KK, alphaMGamma1KK, i);
+                final double laplace = functionLaplace(betaMGamma1KK, alphaMGamma1KK, i);
+                result *= (1 - laplace) / laplace;
             }
         }
         return result;
     }
 
-    private double functionLaplace(double betaMGamma1KK, double alphaMGamma1KK, double index) {
-        return Math.pow(betaMGamma1KK / (betaMGamma1KK + index * alphaMGamma1KK), alphaMGamma1KK);
+    private double functionLaplace(double Beta, double Alpha, double index) {
+        double divisor = Beta + index * Alpha;
+        return pow(Beta / divisor, Alpha);
     }
 }

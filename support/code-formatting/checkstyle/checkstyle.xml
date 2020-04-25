@@ -119,9 +119,7 @@
 		<property name="header" value="package" />
 		<property name="fileExtensions" value="java" />
 	</module>
-	<module name="NewlineAtEndOfFile">
-		<property name="lineSeparator" value="lf" />
-	</module>
+	<module name="NewlineAtEndOfFile" />
 	<module name="FileLength">
 		<property name="max" value="300" />
 	</module>

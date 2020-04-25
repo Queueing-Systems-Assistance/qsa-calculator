@@ -1,15 +1,14 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Lambda;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Mu;
-import static com.unideb.qsa.calculator.domain.SystemFeature.n;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.E;
+import static java.lang.Math.pow;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper;
 
 /**
  * System M | M | 1 | Balking Service.
@@ -22,28 +21,41 @@ public class SystemMM1BalkingCalculator {
     }
 
     public double bN(Map<SystemFeature, Double> features) {
-        return 1 / (1 + features.get(n));
+        final double n = features.get(SystemFeature.n);
+        return 1 / (1 + n);
     }
 
     public double LambdaN(Map<SystemFeature, Double> features) {
-        return bN(features) * features.get(Lambda);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double bN = bN(features);
+        return bN * Lambda;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        return NAvg(features) / TAvg(features);
+        final double NjAvg = NAvg(features);
+        final double TAvg = TAvg(features);
+        return NjAvg / TAvg;
     }
 
     public double D2Q(Map<SystemFeature, Double> features) {
-        return Ro(features) - Math.pow(Math.E, -Ro(features)) * (Math.pow(Math.E, -Ro(features)) + 2 * Ro(features) - 1);
+        final double Ro = Ro(features);
+        final double part1 = pow(E, -Ro) + 2 * Ro - 1;
+        final double part2 = pow(E, -Ro);
+        return Ro - part1 * part2;
     }
 
     public double D2T(Map<SystemFeature, Double> features) {
-        return Ro(features) * (2 - (Ro(features) + 2) * Math.pow(Math.E, -Ro(features)))
-               / (Math.pow(features.get(Mu), 2) * Math.pow(1 - Math.pow(Math.E, -Ro(features)), 2));
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Ro = Ro(features);
+        final double dividend = 2 - (Ro + 2) * pow(E, -Ro);
+        final double divisor = pow(Mu, 2) * pow(1 - pow(E, -Ro), 2);
+        return Ro * dividend / divisor;
     }
 
     public double D2W(Map<SystemFeature, Double> features) {
-        return D2T(features) - Math.pow(SAvg(features), 2);
+        final double D2T = D2T(features);
+        final double SAvg = SAvg(features);
+        return D2T - pow(SAvg, 2);
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -51,35 +63,48 @@ public class SystemMM1BalkingCalculator {
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        return Math.pow(Ro(features), features.get(n)) / CalculatorHelper.factorial(features.get(n)) * P0(features);
+        final double Ro = Ro(features);
+        final double n = features.get(SystemFeature.n);
+        final double P0 = P0(features);
+        return pow(Ro, n) / factorial(n) * P0;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        return Math.pow(Math.E, -Ro(features));
+        final double Ro = Ro(features);
+        return pow(E, -Ro);
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        return 1 - P0(features);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        return NAvg(features) - US(features);
+        final double NAvg = NAvg(features);
+        final double US = US(features);
+        return NAvg - US;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
-        return features.get(Lambda) / features.get(Mu);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        return Lambda / Mu;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        return Ro(features) / (features.get(Mu) * (1 - Math.pow(Math.E, -Ro(features))));
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Ro = Ro(features);
+        return Ro / (Mu * (1 - pow(E, -Ro)));
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        return TAvg(features) - 1 / features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double TAvg = TAvg(features);
+        return TAvg - 1 / Mu;
     }
-
 }
