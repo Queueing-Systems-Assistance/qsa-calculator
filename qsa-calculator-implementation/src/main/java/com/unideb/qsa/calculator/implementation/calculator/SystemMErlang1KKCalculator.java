@@ -1,15 +1,13 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Alpha;
-import static com.unideb.qsa.calculator.domain.SystemFeature.K;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Mu;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.pow;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper;
 
 /**
  * System M | Erlang | 1 | K | K Service.
@@ -18,53 +16,73 @@ import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelp
 public class SystemMErlang1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Alpha);
+        final double Alpha = features.get(SystemFeature.Alpha);
+        return 1 / Alpha;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        return a(features) / SAvg(features);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        return a / SAvg;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
-        return LambdaAvg(features) * TAvg(features);
+        final double LambdaAvg = LambdaAvg(features);
+        final double TAvg = TAvg(features);
+        return LambdaAvg * TAvg;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double Alpha = features.get(SystemFeature.Alpha);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double SAvg = SAvg(features);
+        final double E0 = E0(features);
         double sum = 0;
-        for (double i = 0; i < features.get(K); i++) {
-            sum += ((CalculatorHelper.factorial(features.get(K) - 1))
-                    / (CalculatorHelper.factorial(i) * CalculatorHelper.factorial((features.get(K) - 1) - i)))
-                   * functionBn(i, features.get(Alpha), features.get(Mu));
+        for (double i = 0; i < K; i++) {
+            double dividend = factorial(K - 1);
+            double divisor = factorial(i) * factorial((K - 1) - i);
+            double functionBn = functionBn(i, Alpha, Mu);
+            sum += dividend / divisor * functionBn;
         }
-        return Math.pow(1 + features.get(K) * SAvg(features) / E0(features) * sum, -1);
+        return pow(1 + K * SAvg / E0 * sum, -1);
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        return LambdaAvg(features) * WAvg(features);
+        double LambdaAvg = LambdaAvg(features);
+        double WAvg = WAvg(features);
+        return LambdaAvg * WAvg;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        return features.get(K) / LambdaAvg(features) - E0(features);
+        final double K = features.get(SystemFeature.K);
+        final double LambdaAvg = LambdaAvg(features);
+        final double E0 = E0(features);
+        return K / LambdaAvg - E0;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        return TAvg(features) - SAvg(features);
+        final double SAvg = SAvg(features);
+        final double TAvg = TAvg(features);
+        return TAvg - SAvg;
     }
 
     public double a(Map<SystemFeature, Double> features) {
-        return 1 - P0(features);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     private double functionBn(double index, double alphaMErlang1KK, double muMErlang1KK) {
         double result = 1;
         if (index != 0) {
             for (double i = 1; i <= index; i++) {
-                result *= (1 - functionLaplace(muMErlang1KK, alphaMErlang1KK, i))
-                          / functionLaplace(muMErlang1KK, alphaMErlang1KK, i);
+                final double laplace = functionLaplace(muMErlang1KK, alphaMErlang1KK, i);
+                result *= (1 - laplace) / laplace;
             }
 
         }
@@ -72,6 +90,6 @@ public class SystemMErlang1KKCalculator {
     }
 
     private double functionLaplace(double muMErlang1KK, double alphaMErlang1KK, double index) {
-        return Math.pow(muMErlang1KK / (muMErlang1KK + index * alphaMErlang1KK), index);
+        return pow(muMErlang1KK / (muMErlang1KK + index * alphaMErlang1KK), index);
     }
 }

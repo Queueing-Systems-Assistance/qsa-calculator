@@ -1,16 +1,14 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Lambda;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Mu;
-import static com.unideb.qsa.calculator.domain.SystemFeature.n;
-import static com.unideb.qsa.calculator.domain.SystemFeature.t;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.E;
+import static java.lang.Math.pow;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper;
 
 /**
  * System M | M | Inf Service.
@@ -23,7 +21,9 @@ public class SystemMMInfCalculator {
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
-        return 1 - Math.pow(Math.E, -(features.get(Mu) * features.get(t)));
+        final double Mu = features.get(SystemFeature.Mu);
+        final double t = features.get(SystemFeature.t);
+        return 1 - pow(E, -Mu * t);
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -31,11 +31,14 @@ public class SystemMMInfCalculator {
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        return (Math.pow(Ro(features), features.get(n)) / CalculatorHelper.factorial(features.get(n))) * Math.pow(Math.E, -Ro(features));
+        final double n = features.get(SystemFeature.n);
+        final double Ro = Ro(features);
+        return pow(Ro, n) / factorial(n) * pow(E, -Ro);
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        return Math.pow(Math.E, -Ro(features));
+        final double Ro = Ro(features);
+        return pow(E, -Ro);
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
@@ -43,11 +46,14 @@ public class SystemMMInfCalculator {
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
-        return features.get(Lambda) / features.get(Mu);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        return Lambda / Mu;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        return 1 / features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {

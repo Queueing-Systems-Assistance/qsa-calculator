@@ -24,6 +24,7 @@ import com.unideb.qsa.calculator.domain.table.TableRepresentation;
 public class ResponseValidator {
 
     private static final int TABLE_VALUE_INDEX = 0;
+    private static final double DELTA = 0.0001;
 
     /**
      * Validate response elements if they are present and sorted.
@@ -57,8 +58,14 @@ public class ResponseValidator {
         assertNotNull(tableRepresentation);
         validateSystemElement(tableRepresentation.getSystemElement());
         tableRepresentation.getSystemOutputs()
-                           .forEach(systemOutput -> assertEquals(outputs.get(systemOutput.getId()),
-                                   String.valueOf(systemOutput.getValues().get(TABLE_VALUE_INDEX))));
+                           .forEach(systemOutput -> assertEquals(
+                                   String.format(
+                                           "Table [%s] system output [%s] is different",
+                                           systemOutput.getId(),
+                                           tableRepresentation.getSystemElement().getId()),
+                                   Double.parseDouble(outputs.get(systemOutput.getId())),
+                                   systemOutput.getValues().get(TABLE_VALUE_INDEX),
+                                   DELTA));
     }
 
     /**
@@ -70,7 +77,13 @@ public class ResponseValidator {
     public void validateChartRepresentation(ChartRepresentation chartRepresentation, Map<String, List<String>> outputs) {
         assertNotNull(chartRepresentation);
         validateSystemElement(chartRepresentation.getSystemElement());
-        chartRepresentation.getSystemOutputs().forEach(systemOutput -> assertEquals(outputs.get(systemOutput.getId()),
+        chartRepresentation.getSystemOutputs().forEach(systemOutput -> assertEquals(
+                String.format(
+                        "Chart [%s] system output [%s] is different",
+                        chartRepresentation.getSystemElement().getId(),
+                        systemOutput.getId()
+                ),
+                outputs.get(systemOutput.getId()),
                 systemOutput.getValues().stream().map(String::valueOf).collect(Collectors.toList())));
     }
 

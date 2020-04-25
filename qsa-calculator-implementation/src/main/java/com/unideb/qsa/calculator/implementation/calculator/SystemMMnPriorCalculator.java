@@ -1,19 +1,18 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Lambda1;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Lambda2;
-import static com.unideb.qsa.calculator.domain.SystemFeature.Mu;
-import static com.unideb.qsa.calculator.domain.SystemFeature.c;
-import static com.unideb.qsa.calculator.domain.SystemFeature.n;
-import static com.unideb.qsa.calculator.domain.SystemFeature.r;
-import static com.unideb.qsa.calculator.domain.SystemFeature.t;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.E;
+import static java.lang.Math.exp;
+import static java.lang.Math.log10;
+import static java.lang.Math.max;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper;
 
 /**
  * System M | M | n Prior Service.
@@ -22,227 +21,354 @@ import com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelp
 public class SystemMMnPriorCalculator {
 
     public double Lambda(Map<SystemFeature, Double> features) {
-        return features.get(Lambda1) + features.get(Lambda2);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        return Lambda1 + Lambda2;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        return features.get(Lambda1) / Lambda(features) + features.get(Lambda2) / Lambda(features);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda = Lambda(features);
+        return Lambda1 / Lambda + Lambda2 / Lambda;
     }
 
     public double C1(Map<SystemFeature, Double> features) {
-        return PNc(features) / (1 - features.get(c) * (1 - a(features))) - 1;
+        final double c = features.get(SystemFeature.c);
+        final double PNc = PNc(features);
+        final double a = a(features);
+        final double divisor = 1 - c * (1 - a);
+        return PNc / divisor - 1;
     }
 
     public double C2(Map<SystemFeature, Double> features) {
-        return PNc(features) / (features.get(c) * (1 - a(features)) - 1);
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double divisor = c * (1 - a) - 1;
+        return PNc / divisor;
     }
 
     public double D2N(Map<SystemFeature, Double> features) {
-        return D2Q(features) + Ro(features) * (1 + PNc(features));
+        final double D2Q = D2Q(features);
+        final double Ro = Ro(features);
+        final double PNc = PNc(features);
+        return D2Q + Ro * (1 + PNc);
     }
 
     public double D2Q(Map<SystemFeature, Double> features) {
-        return ((a(features) * PNc(features)) * (1 + a(features) - a(features) * PNc(features))) / (Math.pow(
-                1 - a(features), 2));
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double dividend = 1 + a - a * PNc;
+        final double divisor = pow(1 - a, 2);
+        return a * PNc * dividend / divisor;
     }
 
     public double D2T(Map<SystemFeature, Double> features) {
-        return ET2(features) - Math.pow(TAvg(features), 2);
+        final double ET2 = ET2(features);
+        final double TAvg = TAvg(features);
+        return ET2 - pow(TAvg, 2);
     }
 
     public double D2W(Map<SystemFeature, Double> features) {
-        return ((2 - PNc(features)) * (PNc(features) * Math.pow(SAvg(features), 2)))
-               / (Math.pow(features.get(c), 2) * Math.pow(1 - a(features), 2));
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double dividend = PNc * pow(SAvg, 2);
+        final double divisor = pow(c, 2) * pow(1 - a, 2);
+        return (2 - PNc) * dividend / divisor;
     }
 
     public double D2WW0(Map<SystemFeature, Double> features) {
-        return Math.pow(SAvg(features) / (features.get(c) * (1 - a(features))), 2);
+        final double c = features.get(SystemFeature.c);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        final double divisor = c * (1 - a);
+        return pow(SAvg / divisor, 2);
     }
 
     public double ET2(Map<SystemFeature, Double> features) {
-        double result;
-        if (Ro(features) == features.get(c) - 1) {
-            result = 2 * (2 * PNc(features) + 1) * SAvg(features);
+        final double c = features.get(SystemFeature.c);
+        final double result;
+        final double SAvg = SAvg(features);
+        final double PNc = PNc(features);
+        final double Ro = Ro(features);
+        if (Ro == c - 1) {
+            result = 2 * (2 * PNc + 1) * SAvg;
         } else {
-            result = 2 * PNc(features) * (1 - Math.pow(features.get(c), 2)
-                                              * Math.pow(1 - a(features), 2)) * Math.pow(SAvg(features), 2)
-                     / ((Ro(features) + 1 - features.get(c)) * Math.pow(features.get(c), 2) * Math.pow(1 - a(features), 2))
-                     + 2 * Math.pow(SAvg(features), 2);
+            final double a = a(features);
+            final double dividend = (1 - pow(c, 2) * pow(1 - a, 2)) * pow(SAvg, 2);
+            final double divisor = (Ro + 1 - c) * pow(c, 2) * pow(1 - a, 2);
+            result = 2 * PNc * dividend / divisor + 2 * pow(SAvg, 2);
         }
         return result;
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
-        return SAvg(features) / (features.get(c) * (1 - a(features)));
+        final double c = features.get(SystemFeature.c);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        return SAvg / (c * (1 - a));
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
-        double result;
-        if (Ro(features) == (features.get(c) - 1)) {
-            result = 1 - (1 + PNc(features) * features.get(Mu) * features.get(t))
-                         * Math.pow(Math.E, -features.get(Mu) * features.get(t));
+        final double result;
+        final double c = features.get(SystemFeature.c);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double t = features.get(SystemFeature.t);
+        if (Ro(features) == (c - 1)) {
+            final double PNc = PNc(features);
+            final double part1 = 1 + PNc * Mu * t;
+            result = 1 - part1 * pow(E, -Mu * t);
         } else {
-            result = 1 + (C1(features) * Math.pow(Math.E, -features.get(Mu) * features.get(t)))
-                     + (C2(features) * Math.pow(Math.E, (-features.get(Mu) * features.get(t)
-                                                         * features.get(c)) * (1 - a(features))));
+            final double a = a(features);
+            final double C2 = C2(features);
+            final double C1 = C1(features);
+            final double part1 = C1 * pow(E, -Mu * t);
+            final double part2 = C2 * pow(E, -Mu * t * c * (1 - a));
+            result = 1 + part1 + part2;
         }
         return result;
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
-        return 1 - PNc(features) * Math.exp(-features.get(c) * features.get(Mu) * features.get(t) * (1 - a(features)));
+        final double c = features.get(SystemFeature.c);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double t = features.get(SystemFeature.t);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        return 1 - PNc * exp(-c * Mu * t * (1 - a));
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
-        return QAvg(features) + Ro(features);
+        final double QAvg = QAvg(features);
+        final double Ro = Ro(features);
+        return QAvg + Ro;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        return CalculatorHelper.factorial(features.get(c)) * (1 - a(features)) * PNc(features)
-               / (Math.pow(Ro(features), features.get(c)));
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        return factorial(c) * (1 - a) * PNc / (pow(Ro, c));
     }
 
     public double PNc(Map<SystemFeature, Double> features) {
-        double recursive = ErlangBRecursive(features.get(c), Ro(features));
-        return features.get(c) * recursive
-               / (features.get(c) - Ro(features) + Ro(features) * recursive);
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double recursive = ErlangBRecursive(c, Ro);
+        return c * recursive / (c - Ro + Ro * recursive);
     }
 
     public double PNn(Map<SystemFeature, Double> features) {
-        double tmp = 0;
-        double result;
-        for (double i = features.get(n); i < features.get(c); i++) {
-            tmp += Math.pow(Ro(features), i) / CalculatorHelper.factorial(i);
+        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double Ro = Ro(features);
+        final double result;
+        double sum = 0;
+        for (double i = n; i < c; i++) {
+            sum += pow(Ro, i) / factorial(i);
         }
-        if (features.get(c) > features.get(n)) {
-            result = P0(features) * (tmp + (Math.pow(Ro(features), features.get(c))
-                                            / (CalculatorHelper.factorial(features.get(c)) * (1 - a(features)))));
+        if (c > n) {
+            final double P0 = P0(features);
+            result = P0 * (sum + pow(Ro, c) / (factorial(c) * (1 - a)));
         } else {
-            result = PNc(features) * Math.pow(a(features), features.get(n) - features.get(c));
+            final double PNc = PNc(features);
+            result = PNc * pow(a, n - c);
         }
         return result;
     }
 
     public double PiT90(Map<SystemFeature, Double> features) {
-        return TAvg(features) + CalculatorHelper.VALUE_1_3 * Math.sqrt(D2T(features));
+        final double TAvg = TAvg(features);
+        final double D2T = D2T(features);
+        return TAvg + 1.3 * sqrt(D2T);
     }
 
     public double PiT95(Map<SystemFeature, Double> features) {
-        return TAvg(features) + 2 * Math.sqrt(D2T(features));
+        final double TAvg = TAvg(features);
+        final double D2T = D2T(features);
+        return TAvg + 2 * sqrt(D2T);
     }
 
     public double PiW90(Map<SystemFeature, Double> features) {
-        double tmp = (SAvg(features) / (features.get(c) * (1 - a(features))))
-                     * Math.log10(CalculatorHelper.VALUE_10 * PNc(features));
-        return Math.max(0, tmp);
+        final double c = features.get(SystemFeature.c);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double part1 = SAvg / (c * (1 - a));
+        final double result = part1 * log10(10 * PNc);
+        return max(0, result);
     }
 
     public double PiW95(Map<SystemFeature, Double> features) {
-        double num = CalculatorHelper.VALUE_20 * PNc(features);
-        double tmp = (SAvg(features) / (features.get(c) * (1 - a(features))))
-                     * Math.log10(num);
-        return Math.max(0, tmp);
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double part1 = SAvg / (c * (1 - a));
+        final double result = part1 * log10(20 * PNc);
+        return max(0, result);
     }
 
     public double PiWr(Map<SystemFeature, Double> features) {
-        double tmp = (SAvg(features) / (features.get(c) * (1 - a(features))))
-                     * Math.log10((CalculatorHelper.VALUE_100 * PNc(features)) / (CalculatorHelper.VALUE_100 - features.get(r)));
-        return Math.max(0, tmp);
+        final double c = features.get(SystemFeature.c);
+        final double r = features.get(SystemFeature.r);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double part1 = SAvg / (c * (1 - a));
+        final double part2 = log10((100 * PNc) / (100 - r));
+        final double result = part1 * part2;
+        return max(0, result);
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        double result;
-        if (features.get(c) > features.get(n)) {
-            result = P0(features) * (Math.pow(Ro(features), features.get(n)) / CalculatorHelper.factorial(features.get(n)));
+        final double c = features.get(SystemFeature.c);
+        final double n = features.get(SystemFeature.n);
+        final double Ro = Ro(features);
+        final double P0 = P0(features);
+        final double result;
+        if (c > n) {
+            result = P0 * (pow(Ro, n) / factorial(n));
         } else {
-            result = Math.pow(Ro(features), features.get(n))
-                     / (CalculatorHelper.factorial(features.get(c)) * Math.pow(features.get(c),
-                    features.get(n) - features.get(c))) * P0(features);
+            final double divisor = factorial(c) * pow(c, n - c);
+            result = pow(Ro, n) / divisor * P0;
         }
         return result;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        return Ro(features) * PNc(features) / (features.get(c) * (1 - a(features)));
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double PNc = PNc(features);
+        final double a = a(features);
+        return Ro * PNc / (c * (1 - a));
     }
 
     public double QAvg1(Map<SystemFeature, Double> features) {
-        return features.get(Lambda1) / Lambda(features) * WAvg1(features);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda = Lambda(features);
+        final double WAvg1 = WAvg1(features);
+        return Lambda1 / Lambda * WAvg1;
     }
 
     public double QAvg2(Map<SystemFeature, Double> features) {
-        return features.get(Lambda2) / Lambda(features) * WAvg2(features);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda = Lambda(features);
+        final double WAvg2 = WAvg2(features);
+        return Lambda2 / Lambda * WAvg2;
     }
 
     public double NAvg1(Map<SystemFeature, Double> features) {
-        return features.get(Lambda1) / Lambda(features) * TAvg1(features);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda = Lambda(features);
+        final double TAvg1 = TAvg1(features);
+        return Lambda1 / Lambda * TAvg1;
     }
 
     public double NAvg2(Map<SystemFeature, Double> features) {
-        return features.get(Lambda2) / Lambda(features) * TAvg2(features);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda = Lambda(features);
+        final double TAvg2 = TAvg2(features);
+        return Lambda2 / Lambda * TAvg2;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
-        return Lambda(features) / features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Lambda = Lambda(features);
+        return Lambda / Mu;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        return features.get(c) - Lambda(features) / features.get(Mu);
+        final double c = features.get(SystemFeature.c);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Lambda = Lambda(features);
+        return c - Lambda / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        return WAvg(features) + SAvg(features);
+        final double WAvg = WAvg(features);
+        final double SAvg = SAvg(features);
+        return WAvg + SAvg;
     }
 
     public double TAvg1(Map<SystemFeature, Double> features) {
-        return WAvg1(features) + SAvg(features);
+        final double WAvg1 = WAvg1(features);
+        final double SAvg = SAvg(features);
+        return WAvg1 + SAvg;
     }
 
     public double TAvg2(Map<SystemFeature, Double> features) {
-        return WAvg2(features) + SAvg(features);
+        final double WAvg2 = WAvg2(features);
+        final double SAvg = SAvg(features);
+        return WAvg2 + SAvg;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        return (PNc(features) * SAvg(features)) / (features.get(c) * (1 - a(features)));
+        final double c = features.get(SystemFeature.c);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        return PNc * SAvg / (c * (1 - a));
     }
 
     public double WAvg2(Map<SystemFeature, Double> features) {
-        return (PNc(features) * SAvg(features))
-               / (features.get(c) * (1 - SAvg(features) * features.get(Lambda1)
-                                         / features.get(c)) * (1 - Lambda(features) * SAvg(features)
-                                                                   / features.get(c)));
+        final double c = features.get(SystemFeature.c);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double SAvg = SAvg(features);
+        final double Lambda = Lambda(features);
+        final double PNc = PNc(features);
+        final double divisorPart1 = 1 - SAvg * Lambda1 / c;
+        final double divisorPart2 = 1 - Lambda * SAvg / c;
+        final double divisor = c * divisorPart1 * divisorPart2;
+        return PNc * SAvg / divisor;
     }
 
     public double WAvg0(Map<SystemFeature, Double> features) {
-        return 1 - PNc(features);
+        final double PNc = PNc(features);
+        return 1 - PNc;
     }
 
     public double WAvgW(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double t = features.get(SystemFeature.t);
         double result = 0;
-        if (features.get(t) > 0) {
-            result = 1 - Math.exp((-features.get(c) * features.get(t) * (1 - a(features))) / SAvg(features));
+        if (t > 0) {
+            final double a = a(features);
+            final double SAvg = SAvg(features);
+            result = 1 - exp((-c * t * (1 - a)) / SAvg);
         }
         return result;
     }
 
     public double WAvg1(Map<SystemFeature, Double> features) {
-        return PNc(features) * SAvg(features) / (features.get(c) * (1 - (features.get(Lambda1) * SAvg(features) / features.get(c))));
+        final double c = features.get(SystemFeature.c);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double divisor = c * (1 - (Lambda1 * SAvg / c));
+        return PNc * SAvg / divisor;
     }
 
     public double a(Map<SystemFeature, Double> features) {
-        return Ro(features) / features.get(c);
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        return Ro / c;
     }
 
-    private double ErlangBRecursive(double cMmcc, double roMmcc) {
-        double result;
-        if (cMmcc == 1) {
-            result = roMmcc / (1 + roMmcc);
+    private double ErlangBRecursive(double c, double Ro) {
+        final double result;
+        if (c == 1) {
+            result = Ro / (1 + Ro);
         } else {
-            double recursive = ErlangBRecursive(cMmcc - 1, roMmcc);
-            result = roMmcc * recursive / (cMmcc + roMmcc * recursive);
+            final double recursive = ErlangBRecursive(c - 1, Ro);
+            result = Ro * recursive / (c + Ro * recursive);
         }
         return result;
     }
-
 }
 

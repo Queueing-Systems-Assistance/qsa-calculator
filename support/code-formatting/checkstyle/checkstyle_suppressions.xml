@@ -11,6 +11,10 @@
 	<suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.implementation.calculator" />
 	<suppress checks="MethodName" files="com.unideb.qsa.calculator.implementation.calculator" />
 	<suppress checks="ParameterName" files="com.unideb.qsa.calculator.implementation.calculator" />
+	<suppress checks="VariableName" files="com.unideb.qsa.calculator.implementation.calculator" />
+	<suppress checks="MagicNumber" files="com.unideb.qsa.calculator.implementation.calculator" />
+	<suppress checks="MethodLength" files="com.unideb.qsa.calculator.implementation.calculator" />
+	<suppress checks="FileLength" files="com.unideb.qsa.calculator.implementation.calculator" />
 	<!-- Server classes -->
 	<suppress checks="HideUtilityClassConstructor" files="com.unideb.qsa.calculator.server.Application" />
 	<!-- Test files -->
