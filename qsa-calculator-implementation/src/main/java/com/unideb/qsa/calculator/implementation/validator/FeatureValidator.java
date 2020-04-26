@@ -29,7 +29,7 @@ public abstract class FeatureValidator {
     public abstract Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId);
 
     /**
-     * Validate system features that is present.If the system feature is not in the map, then an {@link ValidationErrorResponse} will create.
+     * Validate system features that is present. If the system feature is not in the map, then an {@link ValidationErrorResponse} will create.
      *
      * @param features       features and values from the request
      * @param systemFeatures feature id
