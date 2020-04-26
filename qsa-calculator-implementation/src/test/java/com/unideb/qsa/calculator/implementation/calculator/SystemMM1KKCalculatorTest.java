@@ -182,17 +182,6 @@ public class SystemMM1KKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
-    @Test
-    public void BKzTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.095238095;
-        // WHEN
-        double result = systemMM1KKCalculatorUnderTest.BKz(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMM1KK = new HashMap<>();
         systemMM1KK.put(SystemFeature.Alpha, 1.2);
@@ -202,5 +191,4 @@ public class SystemMM1KKCalculatorTest {
         systemMM1KK.put(SystemFeature.t, 3.0);
         return systemMM1KK;
     }
-
 }

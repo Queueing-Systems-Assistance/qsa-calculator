@@ -1,6 +1,7 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.E;
 import static java.lang.Math.pow;
 
 import java.util.Map;
@@ -15,25 +16,19 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 @Component
 public class SystemMM1KKCalculator {
 
-    public double BKz(Map<SystemFeature, Double> features) {
-        return P0(features);
-    }
-
     public double E0(Map<SystemFeature, Double> features) {
         final double Alpha = features.get(SystemFeature.Alpha);
         return 1 / Alpha;
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
-        final double z = z(features);
         final double WAvg = WAvg(features);
-        double sum = 0;
-        for (double i = 0; i <= K - 1; i++) {
-            sum += (pow(z, i)) / factorial(i);
-        }
-        final double dividend = 1 - ((pow(z, K - 1)) / factorial(K - 1) / sum);
-        return WAvg / dividend;
+        final double Pi0 = Pi0(features);
+        return WAvg / (1 - Pi0);
+    }
+
+    public double PTt(Map<SystemFeature, Double> features) {
+        return FTt(features);
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
@@ -41,9 +36,13 @@ public class SystemMM1KKCalculator {
         final double t = features.get(SystemFeature.t);
         final double Mu = features.get(SystemFeature.Mu);
         final double z = z(features);
-        final double dividend = QnxFunc(K - 1, z + t * Mu);
-        final double divisor = QnxFunc(K - 1, z);
+        final double dividend = Qnx(K - 1, z + t * Mu);
+        final double divisor = Qnx(K - 1, z);
         return 1 - dividend / divisor;
+    }
+
+    public double PWt(Map<SystemFeature, Double> features) {
+        return FWt(features);
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
@@ -51,8 +50,8 @@ public class SystemMM1KKCalculator {
         final double t = features.get(SystemFeature.t);
         final double Mu = features.get(SystemFeature.Mu);
         final double z = z(features);
-        final double dividend = QnxFunc(K - 2, z + t * Mu);
-        final double divisor = QnxFunc(K - 1, z);
+        final double dividend = Qnx(K - 2, z + t * Mu);
+        final double divisor = Qnx(K - 1, z);
         return 1 - dividend / divisor;
     }
 
@@ -73,23 +72,23 @@ public class SystemMM1KKCalculator {
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
         double sum = 0;
-        for (int i = 0; i <= K; i++) {
-            final double part1 = factorial(K);
-            final double part2 = factorial(K - i);
-            final double part3 = pow(SAvg / E0, i);
-            sum += part1 / part2 * part3;
+        for (int k = 0; k <= K; k++) {
+            final double part1 = factorial(K) / factorial(K - k);
+            final double part2 = pow(SAvg / E0, k);
+            sum += part1 * part2;
         }
         return pow(sum, -1);
     }
 
     public double Pi0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
+        final double z = z(features);
+        final double part1 = pow(z, K - 1) / factorial(K - 1);
         double sum = 0;
-        for (double i = 0; i <= K - 1; i++) {
-            sum += pow(z(features), i) / factorial(i);
+        for (double k = 0; k <= K - 1; k++) {
+            sum += pow(z, k) / factorial(k);
         }
-        final double dividend = (pow(z(features), K - 1)) / factorial(K - 1);
-        return dividend / sum;
+        return part1 / sum;
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -105,10 +104,13 @@ public class SystemMM1KKCalculator {
     public double Pn(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
         final double n = features.get(SystemFeature.n);
-        final double P0 = P0(features);
-        final double part1 = factorial(K) / (K - n);
-        final double part2 = pow(z(features), -n);
-        return part1 * part2 * P0;
+        final double z = z(features);
+        final double part1 = pow(z, K - n) / factorial(K - n);
+        double sum = 0;
+        for (double k = 0; k <= K; k++) {
+            sum += pow(z, k) / factorial(k);
+        }
+        return part1 / sum;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
@@ -140,11 +142,11 @@ public class SystemMM1KKCalculator {
         return E0 / SAvg;
     }
 
-    private double QnxFunc(double nParam, double xParam) {
+    private double Qnx(double n, double x) {
         double result = 0;
-        for (int i = 0; i <= nParam; i++) {
-            result += pow(xParam, i) / factorial(i);
+        for (double k = 0; k <= n; k++) {
+            result += pow(x, k) / factorial(k);
         }
-        return result * pow(Math.E, -xParam);
+        return pow(E, -x) * result;
     }
 }

@@ -15,6 +15,8 @@
 	<suppress checks="MagicNumber" files="com.unideb.qsa.calculator.implementation.calculator" />
 	<suppress checks="MethodLength" files="com.unideb.qsa.calculator.implementation.calculator" />
 	<suppress checks="FileLength" files="com.unideb.qsa.calculator.implementation.calculator" />
+	<!-- Validator classes -->
+	<suppress checks="LocalVariableName" files="com.unideb.qsa.calculator.implementation.validator" />
 	<!-- Server classes -->
 	<suppress checks="HideUtilityClassConstructor" files="com.unideb.qsa.calculator.server.Application" />
 	<!-- Test files -->
