@@ -11,21 +11,21 @@ import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
- * Validates n <= K.
+ * Validates c < K.
  */
 @Component
-public class SmallerEqualsnFromKValidator extends FeatureValidator {
+public class SmallercFromKValidator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId) {
-        validatePresentFeatures(features, SystemFeature.K);
+    public Optional<ValidationErrorResponse> validate(final Map<SystemFeature, Double> features, final String featureId) {
+        validatePresentFeatures(features, SystemFeature.K, SystemFeature.c);
         Optional<ValidationErrorResponse> result = Optional.empty();
+        double c = features.get(SystemFeature.c);
         double K = features.get(SystemFeature.K);
-        double n = features.getOrDefault(SystemFeature.n, 0.0);
-        if (n > K) {
+        if (c >= K) {
             result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.smallerEquals.parameter.nFromK")
-                    .withInputIds(List.of(SystemFeature.n.name(), SystemFeature.K.name()))
+                    .withErrorMessage("error.smaller.parameter.cFromK")
+                    .withInputIds(List.of(SystemFeature.c.name(), SystemFeature.K.name()))
                     .build());
         }
         return result;

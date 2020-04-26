@@ -62,22 +62,10 @@ public class SystemMMnKKCalculatorTest {
     }
 
     @Test
-    public void PnIsSmallerThenCTest() {
+    public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.22145669;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.Pn(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void PnIsBiggerThenCTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.n, 3.0);
-        double expected = 0.369094488;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.Pn(features);
         // THEN

@@ -1,4 +1,4 @@
-package com.unideb.qsa.calculator.implementation.validator.specific;
+package com.unideb.qsa.calculator.implementation.validator;
 
 import java.util.List;
 import java.util.Map;
@@ -8,24 +8,21 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
-import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
- * Validates n <= K.
+ * Validates the given featureId is greater then 1.
  */
 @Component
-public class SmallerEqualsnFromKValidator extends FeatureValidator {
+public class PositiveFrom1Validator extends FeatureValidator {
 
     @Override
     public Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId) {
-        validatePresentFeatures(features, SystemFeature.K);
+        validatePresentFeatures(features, SystemFeature.valueOf(featureId));
         Optional<ValidationErrorResponse> result = Optional.empty();
-        double K = features.get(SystemFeature.K);
-        double n = features.getOrDefault(SystemFeature.n, 0.0);
-        if (n > K) {
+        if (features.get(SystemFeature.valueOf(featureId)) <= 1.0) {
             result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.smallerEquals.parameter.nFromK")
-                    .withInputIds(List.of(SystemFeature.n.name(), SystemFeature.K.name()))
+                    .withErrorMessage(String.format("error.positiveFrom1.parameter.%s", featureId))
+                    .withInputIds(List.of(featureId))
                     .build());
         }
         return result;
