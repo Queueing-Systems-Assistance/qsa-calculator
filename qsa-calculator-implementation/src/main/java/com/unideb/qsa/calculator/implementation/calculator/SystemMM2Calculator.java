@@ -1,6 +1,5 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.Mu;
 import static java.lang.Math.E;
 import static java.lang.Math.exp;
 import static java.lang.Math.log10;
@@ -23,13 +22,17 @@ public class SystemMM2Calculator {
     public double D2N(Map<SystemFeature, Double> features) {
         final double a = a(features);
         final double D2Q = D2Q(features);
-        final double dividend = 1 + a + 2 * pow(a, 2);
-        return D2Q + 2 * a * dividend / (1 + a);
+        double dividendPart1 = 2 * a;
+        double dividendPart2 = 1 + a + 2 * pow(a, 2);
+        final double dividend = dividendPart1 * dividendPart2;
+        return D2Q + dividend / (1 + a);
     }
 
     public double D2Q(Map<SystemFeature, Double> features) {
         final double a = a(features);
-        final double dividend = 2 * pow(a, 3) * (pow(1 + a, 2) - 2 * pow(a, 3));
+        double dividendPart1 = 2 * pow(a, 3);
+        double dividendPart2 = pow(1 + a, 2) - 2 * pow(a, 3);
+        final double dividend = dividendPart1 * dividendPart2;
         final double divisor = pow(1 - pow(a, 2), 2);
         return dividend / divisor;
     }
@@ -51,7 +54,8 @@ public class SystemMM2Calculator {
     public double D2WW0(Map<SystemFeature, Double> features) {
         final double SAvg = SAvg(features);
         final double a = a(features);
-        return pow(SAvg / (2 * (1 - a)), 2);
+        final double divisor = 2 * (1 - a);
+        return pow(SAvg / divisor, 2);
     }
 
     public double ET2(Map<SystemFeature, Double> features) {
@@ -85,9 +89,8 @@ public class SystemMM2Calculator {
         if (Ro == 1.0) {
             result = 1 - (1 + Mu * t / 3) * pow(E, -Mu * t);
         } else {
-            final double aPow2 = pow(a, 2);
-            final double part1 = (1 - a) / (1 - aPow2 - aPow2 * 2) * pow(E, -Mu * t);
-            final double part2 = aPow2 * 2 / (1 - a - aPow2 * 2) * pow(E, (1 - a) * -Mu * t * 2);
+            final double part1 = (1 - a) / (1 - pow(a, 2) - 2 * pow(a, 2)) * pow(E, -Mu * t);
+            final double part2 = 2 * pow(a, 2) / (1 - a - 2 * pow(a, 2)) * pow(E, -2 * Mu * t * (1 - a));
             result = 1 + part1 + part2;
         }
         return result;
@@ -95,17 +98,17 @@ public class SystemMM2Calculator {
 
 
     public double FWt(Map<SystemFeature, Double> features) {
-        final double mu = features.get(Mu);
+        final double Mu = features.get(SystemFeature.Mu);
         final double t = features.get(SystemFeature.t);
         final double a = a(features);
-        final double part1 = (2 * pow(a, 2)) / (1 + a);
-        final double part2 = exp(-2 * mu * t * (1 - a));
+        final double part1 = 2 * pow(a, 2) / (1 + a);
+        final double part2 = exp(-2 * Mu * t * (1 - a));
         return 1 - part1 * part2;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
         final double a = a(features);
-        return (2 * a) / (1 - pow(a, 2));
+        return 2 * a / (1 - pow(a, 2));
     }
 
     public double P0(Map<SystemFeature, Double> features) {
@@ -115,13 +118,15 @@ public class SystemMM2Calculator {
 
     public double PN2(Map<SystemFeature, Double> features) {
         final double a = a(features);
-        return (2 * pow(a, 2)) / (1 + a);
+        double dividend = 2 * pow(a, 2);
+        return dividend / (1 + a);
     }
 
     public double PNn(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
         final double a = a(features);
-        return (2 * pow(a, n)) / (1 + a);
+        final double dividend = 2 * pow(a, n);
+        return dividend / (1 + a);
     }
 
     public double PiT90(Map<SystemFeature, Double> features) {
@@ -141,8 +146,8 @@ public class SystemMM2Calculator {
         final double SAvg = SAvg(features);
         final double part1 = 2 * (1 - a);
         final double part2 = log10((20 * pow(a, 2)) / (1 + a));
-        final double tmp = SAvg / part1 * part2;
-        return max(0, tmp);
+        final double calculation = SAvg / part1 * part2;
+        return max(0, calculation);
     }
 
     public double PiW95(Map<SystemFeature, Double> features) {
@@ -150,8 +155,8 @@ public class SystemMM2Calculator {
         final double a = a(features);
         final double part1 = 2 * (1 - a);
         final double part2 = log10((40 * pow(a, 2)) / (1 + a));
-        final double tmp = SAvg / part1 * part2;
-        return max(0, tmp);
+        final double calculation = SAvg / part1 * part2;
+        return max(0, calculation);
     }
 
     public double PiWr(Map<SystemFeature, Double> features) {
@@ -160,8 +165,8 @@ public class SystemMM2Calculator {
         final double SAvg = SAvg(features);
         final double part1 = SAvg / (2 * (1 - a));
         final double part2 = log10(200 * pow(a, 2) / ((100 - r) * (1 + a)));
-        final double tmp = part1 * part2;
-        return max(0, tmp);
+        final double calculation = part1 * part2;
+        return max(0, calculation);
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
@@ -172,26 +177,26 @@ public class SystemMM2Calculator {
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        final double a = a(features);
-        return 2 * pow(a, 3) / (1 - pow(a, 2));
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double WAvg = WAvg(features);
+        return Lambda * WAvg;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        final double SAvg = SAvg(features);
+        return Lambda * SAvg;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
-        return 2 - (Lambda / Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        final double Mu = features.get(SystemFeature.Mu);
-        final double WAvg = WAvg(features);
-        return 1 / Mu + WAvg;
+        final double a = a(features);
+        final double SAvg = SAvg(features);
+        return SAvg / (1 - pow(a, 2));
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
