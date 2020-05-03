@@ -58,14 +58,19 @@ public class ResponseValidator {
         assertNotNull(tableRepresentation);
         validateSystemElement(tableRepresentation.getSystemElement());
         tableRepresentation.getSystemOutputs()
-                           .forEach(systemOutput -> assertEquals(
-                                   String.format(
-                                           "Table [%s] system output [%s] is different",
-                                           systemOutput.getId(),
-                                           tableRepresentation.getSystemElement().getId()),
-                                   Double.parseDouble(outputs.get(systemOutput.getId())),
-                                   systemOutput.getValues().get(TABLE_VALUE_INDEX),
-                                   DELTA));
+                           .forEach(systemOutput -> {
+                               String outputIdCalculated = systemOutput.getId();
+                               String outPutCalculated = outputs.get(outputIdCalculated);
+                               assertNotNull(String.format("System output [%s] is null", outputIdCalculated), outPutCalculated);
+                               assertEquals(
+                                       String.format(
+                                               "Table [%s] system output [%s] is different",
+                                               outputIdCalculated,
+                                               tableRepresentation.getSystemElement().getId()),
+                                       Double.parseDouble(outPutCalculated),
+                                       systemOutput.getValues().get(TABLE_VALUE_INDEX),
+                                       DELTA);
+                           });
     }
 
     /**
