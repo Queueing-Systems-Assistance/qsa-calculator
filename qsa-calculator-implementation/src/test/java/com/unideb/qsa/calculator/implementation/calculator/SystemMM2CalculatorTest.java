@@ -164,7 +164,7 @@ public class SystemMM2CalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.1;
+        double expected = 0.10752688;
         // WHEN
         double result = systemMM2CalculatorUnderTest.WAvg(features);
         // THEN
@@ -175,7 +175,7 @@ public class SystemMM2CalculatorTest {
     public void D2WTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.19;
+        double expected = 0.2196785;
         // WHEN
         double result = systemMM2CalculatorUnderTest.D2W(features);
         // THEN
@@ -186,7 +186,7 @@ public class SystemMM2CalculatorTest {
     public void PiWrTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.69897000;
+        double expected = 0.751580649;
         // WHEN
         double result = systemMM2CalculatorUnderTest.PiWr(features);
         // THEN
@@ -208,7 +208,7 @@ public class SystemMM2CalculatorTest {
     public void PiW95Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.30102999566398;
+        double expected = 0.323688167;
         // WHEN
         double result = systemMM2CalculatorUnderTest.PiW95(features);
         // THEN
@@ -219,7 +219,7 @@ public class SystemMM2CalculatorTest {
     public void WAvgWTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9502129;
+        double expected = 0.938578786;
         // WHEN
         double result = systemMM2CalculatorUnderTest.WAvgW(features);
         // THEN
@@ -230,7 +230,7 @@ public class SystemMM2CalculatorTest {
     public void EWW0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1;
+        double expected = 1.0752688;
         // WHEN
         double result = systemMM2CalculatorUnderTest.EWW0(features);
         // THEN
@@ -241,7 +241,7 @@ public class SystemMM2CalculatorTest {
     public void D2WW0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1;
+        double expected = 1.156203029;
         // WHEN
         double result = systemMM2CalculatorUnderTest.D2WW0(features);
         // THEN
@@ -263,7 +263,7 @@ public class SystemMM2CalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.7129;
+        double expected = 1.72043;
         // WHEN
         double result = systemMM2CalculatorUnderTest.TAvg(features);
         // THEN
@@ -274,7 +274,7 @@ public class SystemMM2CalculatorTest {
     public void ET2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 5;
+        double expected = 5.78101514;
         // WHEN
         double result = systemMM2CalculatorUnderTest.ET2(features);
         // THEN
@@ -285,7 +285,7 @@ public class SystemMM2CalculatorTest {
     public void D2TTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.06596;
+        double expected = 2.8211353;
         // WHEN
         double result = systemMM2CalculatorUnderTest.D2T(features);
         // THEN
@@ -296,7 +296,7 @@ public class SystemMM2CalculatorTest {
     public void PiT90Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 3.58145258;
+        double expected = 3.903940769;
         // WHEN
         double result = systemMM2CalculatorUnderTest.PiT90(features);
         // THEN
@@ -307,7 +307,7 @@ public class SystemMM2CalculatorTest {
     public void PiT95Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 4.58759454;
+        double expected = 5.07967727;
         // WHEN
         double result = systemMM2CalculatorUnderTest.PiT95(features);
         // THEN
