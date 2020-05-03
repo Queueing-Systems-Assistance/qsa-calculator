@@ -106,7 +106,7 @@ public class SystemMMnCalculator {
         final double t = features.get(SystemFeature.t);
         final double Ro = Ro(features);
         final double result;
-        if (Ro == c - 1) {
+        if (Ro == c - 1.0) {
             final double PNc = PNc(features);
             final double part1 = 1 + PNc * Mu * t;
             final double part2 = pow(E, -Mu * t);
@@ -116,8 +116,8 @@ public class SystemMMnCalculator {
             final double C2 = C2(features);
             final double a = a(features);
             final double part1 = C1 * pow(E, -Mu * t);
-            final double part2 = C2 * pow(E, -Mu * t * c) * (1 - a);
-            result = 1 + part1 * part2;
+            final double part2 = C2 * pow(E, -Mu * t * c * (1 - a));
+            result = 1 + part1 + part2;
         }
         return result;
     }
@@ -161,18 +161,18 @@ public class SystemMMnCalculator {
     public double PNn(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
         final double c = features.get(SystemFeature.c);
+        final double a = a(features);
         final double Ro = Ro(features);
         double sum = 0;
         double result;
-        for (double i = n; i <= c - 1; i++) {
-            sum += pow(Ro, i) / factorial(i);
+        for (double k = n; k <= c - 1; k++) {
+            sum += pow(Ro, k) / factorial(k);
         }
-        if (c > n) {
+        if (n < c) {
             final double P0 = P0(features);
-            final double calculation = pow(Ro, c) / (factorial(c) * (1 - c));
+            final double calculation = pow(Ro, c) / (factorial(c) * (1 - a));
             result = P0 * (sum + calculation);
         } else {
-            final double a = a(features);
             final double PNc = PNc(features);
             result = PNc * pow(a, n - c);
         }
@@ -249,15 +249,13 @@ public class SystemMMnCalculator {
 
     public double Ro(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        final double SAvg = SAvg(features);
+        return Lambda * SAvg;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
-        return c - (Lambda / Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
