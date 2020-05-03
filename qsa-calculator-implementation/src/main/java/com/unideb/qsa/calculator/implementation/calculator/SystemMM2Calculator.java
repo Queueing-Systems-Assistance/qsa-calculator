@@ -89,9 +89,9 @@ public class SystemMM2Calculator {
         if (Ro == 1.0) {
             result = 1 - (1 + Mu * t / 3) * pow(E, -Mu * t);
         } else {
-            final double part1 = (1 - a) / (1 - pow(a, 2) - 2 * pow(a, 2)) * pow(E, -Mu * t);
+            final double part1 = (1 - a) / (1 - a - 2 * pow(a, 2)) * pow(E, -Mu * t);
             final double part2 = 2 * pow(a, 2) / (1 - a - 2 * pow(a, 2)) * pow(E, -2 * Mu * t * (1 - a));
-            result = 1 + part1 + part2;
+            result = 1 - part1 + part2;
         }
         return result;
     }

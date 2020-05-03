@@ -252,7 +252,7 @@ public class SystemMM2CalculatorTest {
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.155982055;
+        double expected = 0.8254770863414033;
         // WHEN
         double result = systemMM2CalculatorUnderTest.FTt(features);
         // THEN
