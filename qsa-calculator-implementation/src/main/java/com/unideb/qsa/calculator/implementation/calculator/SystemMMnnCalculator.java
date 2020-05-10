@@ -40,21 +40,25 @@ public class SystemMMnnCalculator {
         return LambdaAvg * SAvg;
     }
 
-    public double Pn(Map<SystemFeature, Double> features) {
+    public double P0(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
-        final double Ro = Ro(features);
-        double number = 0;
-        for (int i = 0; i <= n; i++) {
-            number += pow(Ro, i) / factorial(i);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        double sum = 0;
+        for (double k = 0; k <= n; k++) {
+            sum += pow(Lambda / Mu, k) * (1 / factorial(k));
         }
-        return pow(Ro, n) / factorial(n) / number;
+        return pow(sum, -1);
+    }
 
+    public double Pn(Map<SystemFeature, Double> features) {
+        return BcRo(features);
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        final double SAvg = SAvg(features);
+        return Lambda * SAvg;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
@@ -73,13 +77,35 @@ public class SystemMMnnCalculator {
         return LambdaAvg * SAvg / c;
     }
 
+    public double US(Map<SystemFeature, Double> features) {
+        final double n = features.get(SystemFeature.n);
+        final double Ro = Ro(features);
+        final double Pn = Pn(features);
+        return Ro / n * (1 - Pn);
+    }
+
+    public double eAvg(Map<SystemFeature, Double> features) {
+        final double n = features.get(SystemFeature.n);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Pn = Pn(features);
+        final double divisor = Lambda * (1 - Pn);
+        return n / divisor - 1 / Mu;
+    }
+
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double Ro = Ro(features);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        return Ro / Lambda;
+    }
+
     private double ErlangBRecursive(double c, double Ro) {
         final double result;
         if (c == 1.0) {
             result = Ro / (1 + Ro);
         } else {
-            final double recursive = ErlangBRecursive(c - 1, Ro);
-            result = Ro * recursive / (c + Ro * recursive);
+            final double recursive = Ro * ErlangBRecursive(c - 1, Ro);
+            result = recursive / (c + recursive);
         }
         return result;
     }

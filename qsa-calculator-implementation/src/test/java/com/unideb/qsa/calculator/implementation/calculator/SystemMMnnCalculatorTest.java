@@ -65,7 +65,7 @@ public class SystemMMnnCalculatorTest {
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.07692;
+        double expected = 0.01265822;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.Pn(features);
         // THEN
@@ -101,6 +101,39 @@ public class SystemMMnnCalculatorTest {
         double expected = 0.16456;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void UsTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.246835;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.US(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void eAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 6.93473;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.eAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.2727;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.EDelta(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
