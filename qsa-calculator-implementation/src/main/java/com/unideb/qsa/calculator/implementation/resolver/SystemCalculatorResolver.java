@@ -45,8 +45,10 @@ public class SystemCalculatorResolver {
     public Double resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
         featureValidator.validate(features, systemId);
         Double result = Double.NaN;
+        String message = "";
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
+            message = featureValidator.validateCalculationInput(features, systemId, outputId);
             result = (Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOG.warn(SYSTEM_TRANSFORM_FAILED, outputId, systemId);

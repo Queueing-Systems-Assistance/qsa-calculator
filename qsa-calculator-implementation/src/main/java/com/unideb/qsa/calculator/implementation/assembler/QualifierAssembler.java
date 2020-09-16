@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.domain.context.Qualifier;
 
+import java.util.Map;
+
 /**
  * Assembler a {@link Qualifier}.
  */
@@ -23,6 +25,7 @@ public class QualifierAssembler {
     public Qualifier assemble(String name) {
         return new Qualifier.Builder().put(QUALIFIER_NAME, name).put(QUALIFIER_LOCALE, getLocale()).build();
     }
+
 
     /**
      * Assembles a {@link Qualifier}. It's useful for resolving default config values.

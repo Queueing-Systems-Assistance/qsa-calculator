@@ -51,6 +51,22 @@ public class DefaultFeatureValidator {
     }
 
     /**
+     * Validates input values for a specific calculation.
+     *
+     * @param features features and values from the request
+     * @param systemId system id
+     * @param outputId id of the output that we want to calculate
+     * @return
+     */
+    public String validateCalculationInput(Map<SystemFeature, Double> features, String systemId, String outputId) {
+        StringBuilder errorMessage = new StringBuilder();
+        calculationInputValidation(features, systemId, outputId)
+                .stream()
+                .forEach(message -> errorMessage.append(message+" "));
+        return errorMessage.toString();
+    }
+
+    /**
      * Validates X axis.
      *
      * @param xAxis xAxis properties
@@ -69,12 +85,12 @@ public class DefaultFeatureValidator {
     private List<ValidationErrorResponse> specificValidation(Map<SystemFeature, Double> features, String systemId) {
         List<ValidationErrorResponse> errorResponses = new ArrayList<>();
         configResolver.resolve("SPECIFIC_VALIDATOR_CONSTRAINTS", qualifierAssembler.assemble(systemId))
-                      .ifPresent(specificValidators -> List.of(specificValidators.split(","))
-                                                           .stream()
-                                                           .map(validator -> getValidateResponse(features, "", validator))
-                                                           .filter(Optional::isPresent)
-                                                           .map(Optional::get)
-                                                           .forEach(errorResponses::add));
+            .ifPresent(specificValidators -> List.of(specificValidators.split(","))
+                                           .stream()
+                                           .map(validator -> getValidateResponse(features, "", validator))
+                                           .filter(Optional::isPresent)
+                                           .map(Optional::get)
+                                           .forEach(errorResponses::add));
         return errorResponses;
     }
 
@@ -84,6 +100,24 @@ public class DefaultFeatureValidator {
                 configResolver.resolve("VALIDATOR_CONSTRAINTS", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).build())
                               .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
                               .ifPresent(errorResponses::add));
+        return errorResponses;
+    }
+
+    private List<ValidationErrorResponse> calculationInputValidation(Map<SystemFeature, Double> features, String systemId, String outputId) {
+        List<ValidationErrorResponse> errorResponses = new ArrayList<>();
+        /*configResolver.resolve("CALCULATION_INPUT_VALIDATOR", configConditions)
+                .ifPresent(specificValidators -> List.of(specificValidators.split(","))
+                        .stream()
+                        .map(validator -> getValidateResponse(features, "", validator))
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .forEach(errorResponses::add));*/
+
+        features.keySet().stream().map(Enum::toString).forEach(systemFeature ->
+                configResolver.resolve("CALCULATION_INPUT_VALIDATOR", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).put("output", outputId).build())
+                        .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
+                        .ifPresent(errorResponses::add));
+
         return errorResponses;
     }
 
