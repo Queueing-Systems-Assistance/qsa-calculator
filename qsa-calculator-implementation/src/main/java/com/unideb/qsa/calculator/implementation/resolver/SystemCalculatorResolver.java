@@ -42,14 +42,18 @@ public class SystemCalculatorResolver {
      * @param features features and values from the request
      * @return Double calculated value if it was success, {@link Double#NaN} if it wasn't
      */
-    public Double resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
+    public String resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
         featureValidator.validate(features, systemId);
-        Double result = Double.NaN;
+        String result = "";
         String message = "";
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
             message = featureValidator.validateCalculationInput(features, systemId, outputId);
-            result = (Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features);
+            if(message.isEmpty()) {
+                result = Double.toString((Double)systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features));
+            } else {
+                result = message;
+            }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOG.warn(SYSTEM_TRANSFORM_FAILED, outputId, systemId);
         }
@@ -65,7 +69,7 @@ public class SystemCalculatorResolver {
      * @param chartRequest request
      * @return Double calculated value if it was success, {@link Double#NaN} if it wasn't
      */
-    public List<Double> resolve(String systemId, String outputId, SystemFeature xAxisId, ChartRequest chartRequest) {
+    public List<String> resolve(String systemId, String outputId, SystemFeature xAxisId, ChartRequest chartRequest) {
         Map<XAxis, Double> xAxis = chartRequest.getxAxis();
         Map<SystemFeature, Double> features = chartRequest.getFeatures();
         return DoubleStream.iterate(

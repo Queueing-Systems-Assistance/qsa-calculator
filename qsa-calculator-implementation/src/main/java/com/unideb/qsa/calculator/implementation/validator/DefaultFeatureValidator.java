@@ -62,7 +62,7 @@ public class DefaultFeatureValidator {
         StringBuilder errorMessage = new StringBuilder();
         calculationInputValidation(features, systemId, outputId)
                 .stream()
-                .forEach(message -> errorMessage.append(message+" "));
+                .forEach(message -> errorMessage.append(message.getErrorMessage()+" "));
         return errorMessage.toString();
     }
 

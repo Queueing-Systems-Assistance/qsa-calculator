@@ -10,7 +10,7 @@ public final class SystemOutput {
     private final String id;
     private final String name;
     private final String description;
-    private final List<Double> values;
+    private final List<String> values;
 
     private SystemOutput(SystemOutput.Builder builder) {
         this.id = builder.id;
@@ -31,7 +31,7 @@ public final class SystemOutput {
         return name;
     }
 
-    public List<Double> getValues() {
+    public List<String> getValues() {
         return values;
     }
 
@@ -43,7 +43,7 @@ public final class SystemOutput {
         private String name;
         private String id;
         private String description;
-        private List<Double> values;
+        private List<String> values;
 
         public SystemOutput.Builder withName(String name) {
             this.name = name;
@@ -60,7 +60,7 @@ public final class SystemOutput {
             return this;
         }
 
-        public SystemOutput.Builder withValue(List<Double> values) {
+        public SystemOutput.Builder withValue(List<String> values) {
             this.values = values;
             return this;
         }
