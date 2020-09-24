@@ -105,14 +105,6 @@ public class DefaultFeatureValidator {
 
     private List<ValidationErrorResponse> calculationInputValidation(Map<SystemFeature, Double> features, String systemId, String outputId) {
         List<ValidationErrorResponse> errorResponses = new ArrayList<>();
-        /*configResolver.resolve("CALCULATION_INPUT_VALIDATOR", configConditions)
-                .ifPresent(specificValidators -> List.of(specificValidators.split(","))
-                        .stream()
-                        .map(validator -> getValidateResponse(features, "", validator))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
-                        .forEach(errorResponses::add));*/
-
         features.keySet().stream().map(Enum::toString).forEach(systemFeature ->
                 configResolver.resolve("CALCULATION_INPUT_VALIDATOR", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).put("output", outputId).build())
                         .flatMap(validator -> getValidateResponse(features, systemFeature, validator))

@@ -18,7 +18,7 @@ ext {
     githubOwnUsername = System.getenv('GITHUB_OWN_USERNAME') ?: 'YOUR_USERNAME'
     githubToken = System.getenv('GITHUB_TOKEN') ?: ''
     githubUsername = System.getenv('GITHUB_USERNAME') ?: ''
-    githubOwnToken = System.getenv('GITHUB_OWN_TOKEN') ?: 'YOUR_TOKEN'
+    githubOwnToken = System.getenv('GITHUB_OWN_TOKEN') ?: ''
 }
 
 
