@@ -1,11 +1,14 @@
 package com.unideb.qsa.calculator.implementation.resolver;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
+import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
+import com.unideb.qsa.calculator.implementation.service.ErrorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ public class SystemCalculatorResolver {
     private DefaultFeatureValidator featureValidator;
     @Autowired
     private XAxisResolver xAxisResolver;
+    @Autowired
+    private ErrorService errorService;
 
     /**
      * Resolves a system feature value by calling the corresponding calculator.
@@ -40,19 +45,23 @@ public class SystemCalculatorResolver {
      * @param systemId used for resolving the correct calculator
      * @param outputId used for resolving the correct feature
      * @param features features and values from the request
-     * @return Double calculated value if it was success, {@link Double#NaN} if it wasn't
+     * @return String calculated value if it was success, {@link Double#NaN} if it wasn't
      */
-    public String resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
+    public List<String> resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
         featureValidator.validate(features, systemId);
-        String result = "";
-        String message = "";
+        List<String> result = new ArrayList<>();
+        List<ValidationErrorResponse> validatonErrorResponses;
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
-            message = featureValidator.validateCalculationInput(features, systemId, outputId);
-            if(message.isEmpty()) {
-                result = Double.toString((Double)systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features));
+            validatonErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
+            if (validatonErrorResponses.isEmpty()) {
+                result = List.of(Double.toString((Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features)));
             } else {
-                result = message;
+                result = validatonErrorResponses
+                        .stream()
+                        .map(validationError -> errorService.createErrorResponse(validationError.getErrorMessage()))
+                        .map(errorResponse -> errorResponse.getErrorMessage())
+                        .collect(Collectors.toList());
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOG.warn(SYSTEM_TRANSFORM_FAILED, outputId, systemId);
@@ -76,10 +85,11 @@ public class SystemCalculatorResolver {
                 xAxis.get(XAxis.from),
                 value -> xAxisResolver.checkXAxisShouldCalculate(xAxis, value),
                 value -> xAxisResolver.calculateNextValue(xAxis, value))
-                           .boxed()
-                           .map(nextValue -> features.put(xAxisId, nextValue))
-                           .map(nextValue -> features)
-                           .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
-                           .collect(Collectors.toList());
+                        .boxed()
+                        .map(nextValue -> features.put(xAxisId, nextValue))
+                        .map(nextValue -> features)
+                        .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
+                        .flatMap(List::stream)
+                        .collect(Collectors.toList());
     }
 }

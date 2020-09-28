@@ -45,7 +45,7 @@ public class SystemOutputAssembler {
         Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
         Optional<SystemOutput> result = Optional.empty();
         if (optionalName.isPresent()) {
-            List<String> values = Collections.singletonList(systemCalculatorResolver.resolve(systemId, outputId, features));
+            List<String> values = systemCalculatorResolver.resolve(systemId, outputId, features);
             result = Optional.of(createSystemOutput(outputId, optionalName.get(), values));
         }
         return result;

@@ -58,12 +58,8 @@ public class DefaultFeatureValidator {
      * @param outputId id of the output that we want to calculate
      * @return
      */
-    public String validateCalculationInput(Map<SystemFeature, Double> features, String systemId, String outputId) {
-        StringBuilder errorMessage = new StringBuilder();
-        calculationInputValidation(features, systemId, outputId)
-                .stream()
-                .forEach(message -> errorMessage.append(message.getErrorMessage()+" "));
-        return errorMessage.toString();
+    public List<ValidationErrorResponse> validateCalculationInput(Map<SystemFeature, Double> features, String systemId, String outputId) {
+        return calculationInputValidation(features, systemId, outputId);
     }
 
     /**
