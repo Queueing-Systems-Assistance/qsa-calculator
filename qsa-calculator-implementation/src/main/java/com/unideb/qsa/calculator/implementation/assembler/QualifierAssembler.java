@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.domain.context.Qualifier;
 
-import java.util.Map;
-
 /**
  * Assembler a {@link Qualifier}.
  */

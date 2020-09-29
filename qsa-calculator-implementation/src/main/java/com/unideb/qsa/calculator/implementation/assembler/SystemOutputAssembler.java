@@ -1,6 +1,5 @@
 package com.unideb.qsa.calculator.implementation.assembler;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +30,6 @@ public class SystemOutputAssembler {
     private QualifierAssembler qualifierAssembler;
     @Autowired
     private SystemCalculatorResolver systemCalculatorResolver;
-
 
     /**
      * Assembles a {@link SystemInput} based on its id.

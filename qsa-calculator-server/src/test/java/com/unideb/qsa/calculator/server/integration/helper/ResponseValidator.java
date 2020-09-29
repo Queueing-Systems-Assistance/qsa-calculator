@@ -68,7 +68,7 @@ public class ResponseValidator {
                                                outputIdCalculated,
                                                tableRepresentation.getSystemElement().getId()),
                                        Double.parseDouble(outPutCalculated),
-                                       systemOutput.getValues().get(TABLE_VALUE_INDEX),
+                                       Double.parseDouble(systemOutput.getValues().get(TABLE_VALUE_INDEX)),
                                        DELTA);
                            });
     }

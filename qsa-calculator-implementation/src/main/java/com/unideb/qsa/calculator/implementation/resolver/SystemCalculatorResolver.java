@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
-import com.unideb.qsa.calculator.implementation.service.ErrorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import org.springframework.stereotype.Component;
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.XAxis;
 import com.unideb.qsa.calculator.domain.chart.ChartRequest;
+import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
+import com.unideb.qsa.calculator.implementation.service.ErrorService;
 import com.unideb.qsa.calculator.implementation.validator.DefaultFeatureValidator;
 
 /**
@@ -50,10 +50,9 @@ public class SystemCalculatorResolver {
     public List<String> resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
         featureValidator.validate(features, systemId);
         List<String> result = new ArrayList<>();
-        List<ValidationErrorResponse> validatonErrorResponses;
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
-            validatonErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
+            List<ValidationErrorResponse> validatonErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
             if (validatonErrorResponses.isEmpty()) {
                 result = List.of(Double.toString((Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features)));
             } else {
@@ -85,11 +84,11 @@ public class SystemCalculatorResolver {
                 xAxis.get(XAxis.from),
                 value -> xAxisResolver.checkXAxisShouldCalculate(xAxis, value),
                 value -> xAxisResolver.calculateNextValue(xAxis, value))
-                        .boxed()
-                        .map(nextValue -> features.put(xAxisId, nextValue))
-                        .map(nextValue -> features)
-                        .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
-                        .flatMap(List::stream)
-                        .collect(Collectors.toList());
+                .boxed()
+                .map(nextValue -> features.put(xAxisId, nextValue))
+                .map(nextValue -> features)
+                .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 }

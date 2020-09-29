@@ -81,12 +81,12 @@ public class DefaultFeatureValidator {
     private List<ValidationErrorResponse> specificValidation(Map<SystemFeature, Double> features, String systemId) {
         List<ValidationErrorResponse> errorResponses = new ArrayList<>();
         configResolver.resolve("SPECIFIC_VALIDATOR_CONSTRAINTS", qualifierAssembler.assemble(systemId))
-            .ifPresent(specificValidators -> List.of(specificValidators.split(","))
-                                           .stream()
-                                           .map(validator -> getValidateResponse(features, "", validator))
-                                           .filter(Optional::isPresent)
-                                           .map(Optional::get)
-                                           .forEach(errorResponses::add));
+                .ifPresent(specificValidators -> List.of(specificValidators.split(","))
+                        .stream()
+                        .map(validator -> getValidateResponse(features, "", validator))
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .forEach(errorResponses::add));
         return errorResponses;
     }
 
@@ -94,8 +94,8 @@ public class DefaultFeatureValidator {
         List<ValidationErrorResponse> errorResponses = new ArrayList<>();
         features.keySet().stream().map(Enum::toString).forEach(systemFeature ->
                 configResolver.resolve("VALIDATOR_CONSTRAINTS", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).build())
-                              .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
-                              .ifPresent(errorResponses::add));
+                        .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
+                        .ifPresent(errorResponses::add));
         return errorResponses;
     }
 
