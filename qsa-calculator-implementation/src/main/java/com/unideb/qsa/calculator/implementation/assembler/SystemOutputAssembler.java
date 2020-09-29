@@ -1,6 +1,5 @@
 package com.unideb.qsa.calculator.implementation.assembler;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,7 +31,6 @@ public class SystemOutputAssembler {
     @Autowired
     private SystemCalculatorResolver systemCalculatorResolver;
 
-
     /**
      * Assembles a {@link SystemInput} based on its id.
      *
@@ -45,7 +43,7 @@ public class SystemOutputAssembler {
         Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
         Optional<SystemOutput> result = Optional.empty();
         if (optionalName.isPresent()) {
-            List<Double> values = Collections.singletonList(systemCalculatorResolver.resolve(systemId, outputId, features));
+            List<String> values = systemCalculatorResolver.resolve(systemId, outputId, features);
             result = Optional.of(createSystemOutput(outputId, optionalName.get(), values));
         }
         return result;
@@ -64,13 +62,13 @@ public class SystemOutputAssembler {
         Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
         Optional<SystemOutput> result = Optional.empty();
         if (optionalName.isPresent()) {
-            List<Double> values = systemCalculatorResolver.resolve(systemId, outputId, xAxisId, chartRequest);
+            List<String> values = systemCalculatorResolver.resolve(systemId, outputId, xAxisId, chartRequest);
             result = Optional.of(createSystemOutput(outputId, optionalName.get(), values));
         }
         return result;
     }
 
-    private SystemOutput createSystemOutput(String outputId, String name, List<Double> values) {
+    private SystemOutput createSystemOutput(String outputId, String name, List<String> values) {
         return new SystemOutput.Builder()
                 .withId(outputId)
                 .withName(name)

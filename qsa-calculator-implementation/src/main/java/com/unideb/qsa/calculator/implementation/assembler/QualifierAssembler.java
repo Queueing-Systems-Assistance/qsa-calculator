@@ -24,6 +24,7 @@ public class QualifierAssembler {
         return new Qualifier.Builder().put(QUALIFIER_NAME, name).put(QUALIFIER_LOCALE, getLocale()).build();
     }
 
+
     /**
      * Assembles a {@link Qualifier}. It's useful for resolving default config values.
      *

@@ -215,13 +215,9 @@ public class SystemMM2Calculator {
 
     public double WAvgW(Map<SystemFeature, Double> features) {
         final double t = features.get(SystemFeature.t);
-        double result = 0;
-        if (t > 0) {
-            final double SAvg = SAvg(features);
-            final double a = a(features);
-            result = 1 - exp(-2 * t * (1 - a) / SAvg);
-        }
-        return result;
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        return 1 - exp(-2 * t * (1 - a) / SAvg);
     }
 
     public double a(Map<SystemFeature, Double> features) {
