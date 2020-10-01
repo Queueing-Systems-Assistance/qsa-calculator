@@ -172,8 +172,14 @@ public class SystemMM2Calculator {
     public double Pn(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
         final double P0 = P0(features);
-        final double a = a(features);
-        return 2 * P0 * pow(a, n);
+        double result;
+        if(n == 0) {
+            result = P0;
+        } else {
+            final double a = a(features);
+            result = 2 * P0 * pow(a, n);
+        }
+        return result;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
