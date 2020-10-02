@@ -62,10 +62,10 @@ public class SystemMMnCalculator {
         final double PNc = PNc(features);
         final double SAvg = SAvg(features);
         final double a = a(features);
-        final double part1 = 2 - PNc;
-        final double part2 = PNc * pow(SAvg, 2);
-        final double part3 = pow(c, 2) * pow(1 - a, 2);
-        return part1 * part2 / part3;
+        final double dividendPart1 = 2 - PNc;
+        final double dividendPart2 = PNc * pow(SAvg, 2);
+        final double divisor = pow(c, 2) * pow(1 - a, 2);
+        return dividendPart1 * dividendPart2 / divisor;
     }
 
     public double D2WW0(Map<SystemFeature, Double> features) {
@@ -82,7 +82,7 @@ public class SystemMMnCalculator {
         final double SAvg = SAvg(features);
         final double result;
         if (Ro == c - 1) {
-            result = 2 * (2 * PNc + 1) * SAvg;
+            result = 2 * (2 * PNc + 1) * pow(SAvg, 2);
         } else {
             final double a = a(features);
             final double part1 = 2 * PNc * (1 - pow(c, 2) * pow(1 - a, 2)) * pow(SAvg, 2);
@@ -140,22 +140,18 @@ public class SystemMMnCalculator {
 
     public double P0(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double Ro = Ro(features);
-        double sum = 0;
-        for (int i = 0; i <= c - 1; i++) {
-            sum += pow(Ro, i) / factorial(i);
-        }
         final double a = a(features);
-        final double calculation = pow(Ro, c) / (factorial(c) * (1 - a));
-        return pow(sum + calculation, -1);
+        final double Ro = Ro(features);
+        final double PNc = PNc(features);
+        final double dividend = factorial(c) * (1 - a) * PNc;
+        return dividend / pow(Ro, c);
     }
 
     public double PNc(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Ro = Ro(features);
-        final double recursive = ErlangBRecursive(c, Ro);
-        final double divisor = c - Ro + Ro * recursive;
-        return c * recursive / divisor;
+        final double result = ErlangCRecursive(c, Ro);
+        return result;
     }
 
     public double PNn(Map<SystemFeature, Double> features) {
@@ -163,12 +159,12 @@ public class SystemMMnCalculator {
         final double c = features.get(SystemFeature.c);
         final double a = a(features);
         final double Ro = Ro(features);
-        double sum = 0;
         double result;
-        for (double k = n; k <= c - 1; k++) {
-            sum += pow(Ro, k) / factorial(k);
-        }
         if (n < c) {
+            double sum = 0;
+            for (double k = n; k <= c - 1; k++) {
+                sum += pow(Ro, k) / factorial(k);
+            }
             final double P0 = P0(features);
             final double calculation = pow(Ro, c) / (factorial(c) * (1 - a));
             result = P0 * (sum + calculation);
@@ -231,7 +227,7 @@ public class SystemMMnCalculator {
         final double Ro = Ro(features);
         final double P0 = P0(features);
         final double result;
-        if (c > n) {
+        if (c >= n) {
             result = P0 * (pow(Ro, n) / factorial(n));
         } else {
             result = P0 * (pow(Ro, n) / (factorial(c) * pow(c, n - c)));
@@ -259,18 +255,19 @@ public class SystemMMnCalculator {
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        final double Mu = features.get(SystemFeature.Mu);
+        final double SAvg = SAvg(features);
         final double WAvg = WAvg(features);
-        return WAvg + 1 / Mu;
+        return WAvg + SAvg;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
-        final double Ro = Ro(features);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
         final double PNc = PNc(features);
-        final double calculation = Mu * (c - Ro);
-        return 1 / calculation * PNc;
+        final double dividend = PNc * SAvg;
+        final double divisor = c * (1 - a);
+        return dividend / divisor;
     }
 
     public double WAvg0(Map<SystemFeature, Double> features) {
@@ -280,14 +277,10 @@ public class SystemMMnCalculator {
     public double WAvgW(Map<SystemFeature, Double> features) {
         final double t = features.get(SystemFeature.t);
         final double c = features.get(SystemFeature.c);
-        double result = 0;
-        if (t > 0) {
-            final double a = a(features);
-            final double SAvg = SAvg(features);
-            final double calculation = exp((-c * t * (1 - a)) / SAvg);
-            result = 1 - calculation;
-        }
-        return result;
+        final double a = a(features);
+        final double SAvg = SAvg(features);
+        final double calculation = exp((-c * t * (1 - a)) / SAvg);
+        return 1 - calculation;
     }
 
     public double a(Map<SystemFeature, Double> features) {
@@ -300,13 +293,15 @@ public class SystemMMnCalculator {
         return a(features);
     }
 
-    private double ErlangBRecursive(double c, double Ro) {
+    private double ErlangCRecursive(double c, double Ro) {
         final double result;
         if (c == 1) {
-            result = Ro / (1 + Ro);
+            result = Ro;
         } else {
-            final double recursive = ErlangBRecursive(c - 1, Ro);
-            result = Ro * recursive / (c + Ro * recursive);
+            final double recursive = ErlangCRecursive(c - 1, Ro);
+            final double dividend = Ro * (c - 1 - Ro) * recursive;
+            final double divisor = (c - 1) * (c - Ro) - Ro * recursive;
+            result = dividend / divisor;
         }
         return result;
     }
