@@ -277,14 +277,10 @@ public class SystemMMnCalculator {
     public double WAvgW(Map<SystemFeature, Double> features) {
         final double t = features.get(SystemFeature.t);
         final double c = features.get(SystemFeature.c);
-        double result = 0;
-        if (t > 0) {
-            final double a = a(features);
-            final double SAvg = SAvg(features);
-            final double calculation = exp((-c * t * (1 - a)) / SAvg);
-            result = 1 - calculation;
-        }
-        return result;
+        final double a = a(features);
+        final double SAvg = SAvg(features);
+        final double calculation = exp((-c * t * (1 - a)) / SAvg);
+        return 1 - calculation;
     }
 
     public double a(Map<SystemFeature, Double> features) {
