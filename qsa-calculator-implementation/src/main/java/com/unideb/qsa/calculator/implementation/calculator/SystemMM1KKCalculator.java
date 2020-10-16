@@ -15,6 +15,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  */
 @Component
 public class SystemMM1KKCalculator {
+
     public double E0(Map<SystemFeature, Double> features) {
         final double Alpha = features.get(SystemFeature.Alpha);
         return 1 / Alpha;
@@ -25,7 +26,7 @@ public class SystemMM1KKCalculator {
         final double P0 = P0(features);
         return WAvg / (1 - P0);
     }
-    //?
+
     public double PTt(Map<SystemFeature, Double> features) {
         return FTt(features);
     }
