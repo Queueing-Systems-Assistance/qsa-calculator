@@ -23,8 +23,8 @@ public class SystemMM1KKCalculator {
 
     public double EWW0(Map<SystemFeature, Double> features) {
         final double WAvg = WAvg(features);
-        final double Pi0 = Pi0(features);
-        return WAvg / (1 - Pi0);
+        final double P0 = P0(features);
+        return WAvg / (1 - P0);
     }
 
     public double PTt(Map<SystemFeature, Double> features) {
@@ -69,26 +69,17 @@ public class SystemMM1KKCalculator {
 
     public double P0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double SAvg = SAvg(features);
-        final double E0 = E0(features);
-        double sum = 0;
-        for (int k = 0; k <= K; k++) {
-            final double part1 = factorial(K) / factorial(K - k);
-            final double part2 = pow(SAvg / E0, k);
-            sum += part1 * part2;
-        }
-        return pow(sum, -1);
+        final double z = z(features);
+        return ErlangBRecursive(K, z);
     }
 
     public double Pi0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double z = z(features);
-        final double part1 = pow(z, K - 1) / factorial(K - 1);
-        double sum = 0;
-        for (double k = 0; k <= K - 1; k++) {
-            sum += pow(z, k) / factorial(k);
-        }
-        return part1 / sum;
+        final double NAvg = NAvg(features);
+        final double P0 = P0(features);
+        final double dividend = K * P0;
+        final double divisor = K - NAvg;
+        return dividend / divisor;
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -105,12 +96,9 @@ public class SystemMM1KKCalculator {
         final double K = features.get(SystemFeature.K);
         final double n = features.get(SystemFeature.n);
         final double z = z(features);
-        final double part1 = pow(z, K - n) / factorial(K - n);
-        double sum = 0;
-        for (double k = 0; k <= K; k++) {
-            sum += pow(z, k) / factorial(k);
-        }
-        return part1 / sum;
+        final double P0 = P0(features);
+        final double fraction = factorial(K) / factorial(K - n);
+        return fraction * pow(z, -1 * n) * P0;
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
@@ -142,11 +130,24 @@ public class SystemMM1KKCalculator {
         return E0 / SAvg;
     }
 
+    private double ErlangBRecursive(double c, double Ro) {
+        final double result;
+        if(c == 1) {
+            result = Ro / (1 + Ro);
+        } else {
+            final double recursive = ErlangBRecursive(c - 1, Ro);
+            final double dividend = Ro * recursive;
+            final double divisor = c + Ro * recursive;
+            result = dividend / divisor;
+        }
+        return result;
+    }
+
     private double Qnx(double n, double x) {
         double result = 0;
         for (double k = 0; k <= n; k++) {
             result += pow(x, k) / factorial(k);
         }
-        return pow(E, -x) * result;
+        return pow(E, -1 * x) * result;
     }
 }
