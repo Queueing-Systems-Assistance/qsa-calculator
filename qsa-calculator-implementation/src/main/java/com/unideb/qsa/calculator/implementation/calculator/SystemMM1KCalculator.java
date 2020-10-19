@@ -64,11 +64,13 @@ public class SystemMM1KCalculator {
 
     public double P0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double Ro = Ro(features);
-        double result;
-        if (Ro == 1.0) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        double result = 0;
+        if (Lambda == Mu) {
             result = 1 / (K + 1);
         } else {
+            final double Ro = Ro(features);
             result = (1 - Ro) / (1 - pow(Ro, K + 1));
         }
         return result;
@@ -78,7 +80,7 @@ public class SystemMM1KCalculator {
         final double K = features.get(SystemFeature.K);
         final Map<SystemFeature, Double> PnKFeatures = copyOf(features);
         PnKFeatures.put(SystemFeature.n, K);
-        return Pn(features);
+        return Pn(PnKFeatures);
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -89,12 +91,19 @@ public class SystemMM1KCalculator {
 
     public double Pn(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double Ro = Ro(features);
-        double result = 0.0;
-        for (double i = 0; i <= K; i++) {
-            result += pow(Ro, i);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        double result = 0;
+        if (Lambda == Mu) {
+            result = 1 / (K + 1);
+        } else {
+            final double n = features.get(SystemFeature.n);
+            final double Ro = Ro(features);
+            final double dividend = (1 - Ro) * pow(Ro, n);
+            final double divisor = 1 - pow(Ro, K + 1);
+            result = dividend / divisor;
         }
-        return pow(Ro, K) / result;
+        return result;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
@@ -118,6 +127,11 @@ public class SystemMM1KCalculator {
         final double NAvg = NAvg(features);
         final double LambdaAvg = LambdaAvg(features);
         return NAvg / LambdaAvg;
+    }
+
+    public double US(Map<SystemFeature, Double> features) {
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
