@@ -21,7 +21,7 @@ public class SystemMM1KCalculatorTest {
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.015873;
+        double expected = 0.06349;
         // WHEN
         double result = systemMM1KCalculatorUnderTest.Pn(features);
         // THEN
@@ -87,7 +87,7 @@ public class SystemMM1KCalculatorTest {
     public void PinTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.016129;
+        double expected = 0.06451;
         // WHEN
         double result = systemMM1KCalculatorUnderTest.Pin(features);
         // THEN
@@ -153,7 +153,7 @@ public class SystemMM1KCalculatorTest {
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.927741;
+        double expected = 0.23633;
         // WHEN
         double result = systemMM1KCalculatorUnderTest.FTt(features);
         // THEN
@@ -164,7 +164,7 @@ public class SystemMM1KCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.94386733;
+        double expected = 0.26858;
         // WHEN
         double result = systemMM1KCalculatorUnderTest.FWt(features);
         // THEN
