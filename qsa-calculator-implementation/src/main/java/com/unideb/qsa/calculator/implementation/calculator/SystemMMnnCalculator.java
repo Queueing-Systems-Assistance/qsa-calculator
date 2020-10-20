@@ -1,6 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
 
@@ -25,7 +25,7 @@ public class SystemMMnnCalculator {
     public double FTt(Map<SystemFeature, Double> features) {
         final double t = features.get(SystemFeature.t);
         final double SAvg = SAvg(features);
-        return 1 - exp(-t / SAvg);
+        return 1 - exp(-1 * t / SAvg);
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -41,18 +41,15 @@ public class SystemMMnnCalculator {
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
-        double sum = 0;
-        for (double k = 0; k <= n; k++) {
-            sum += pow(Lambda / Mu, k) * (1 / factorial(k));
-        }
-        return pow(sum, -1);
+        final Map<SystemFeature, Double> p0Features = copyOf(features);
+        p0Features.put(SystemFeature.n, 0.0);
+        return Pn(p0Features);
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        return BcRo(features);
+        final double n = features.get(SystemFeature.n);
+        final double Ro = Ro(features);
+        return ErlangBRecursive(n, Ro);
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
