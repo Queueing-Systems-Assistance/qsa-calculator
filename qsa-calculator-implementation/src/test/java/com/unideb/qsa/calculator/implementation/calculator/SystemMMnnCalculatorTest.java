@@ -65,7 +65,7 @@ public class SystemMMnnCalculatorTest {
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.01265822;
+        double expected = 0.07692;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.Pn(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMMnnCalculatorTest {
     public void UsTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.246835;
+        double expected = 0.23076;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.US(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMMnnCalculatorTest {
     public void eAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 6.93473;
+        double expected = 7.57575;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.eAvg(features);
         // THEN

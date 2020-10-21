@@ -164,7 +164,7 @@ public class SystemMM1KCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.26858;
+        double expected = 0.63429;
         // WHEN
         double result = systemMM1KCalculatorUnderTest.FWt(features);
         // THEN

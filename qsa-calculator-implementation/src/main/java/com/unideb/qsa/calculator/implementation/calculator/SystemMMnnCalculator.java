@@ -25,7 +25,7 @@ public class SystemMMnnCalculator {
     public double FTt(Map<SystemFeature, Double> features) {
         final double t = features.get(SystemFeature.t);
         final double SAvg = SAvg(features);
-        return 1 - exp(-t / SAvg);
+        return 1 - exp(-1 * t / SAvg);
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -52,7 +52,15 @@ public class SystemMMnnCalculator {
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        return BcRo(features);
+        final double n = features.get(SystemFeature.n);
+        double result;
+        if (n == 0) {
+            result = P0(features);
+        } else {
+            final double Ro = Ro(features);
+            result = ErlangBRecursive(n, Ro);
+        }
+        return result;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
