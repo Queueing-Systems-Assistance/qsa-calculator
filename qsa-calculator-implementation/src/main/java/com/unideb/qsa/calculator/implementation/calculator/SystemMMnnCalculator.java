@@ -53,7 +53,7 @@ public class SystemMMnnCalculator {
 
     public double Pn(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
-        double result = 0.0;
+        double result;
         if (n == 0) {
             result = P0(features);
         } else {

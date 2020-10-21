@@ -24,18 +24,24 @@ public class SystemMM1KCalculator {
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
         final double Mu = features.get(SystemFeature.Mu);
         final double t = features.get(SystemFeature.t);
-        final double K = features.get(SystemFeature.K);
-        double result = 0.0;
-        for (double n = 0; n <= K - 2; n++) {
-            final Map<SystemFeature, Double> PinFeatures = copyOf(features);
-            PinFeatures.put(SystemFeature.n, n);
-            final double Pin = Pin(PinFeatures);
-            final double QnMuT = QnMuT(n, Mu * t);
-            result += Pin * QnMuT;
+        final double P0 = P0(features);
+        final double PK = PK(features);
+        double sum = 0.0;
+        for(double k = 1; k <= K - 1; k++) {
+            double innerSum = 0.0;
+            for(int i = 0; i <= k - 1; i++) {
+                double Mut = Mu * t;
+                innerSum += pow(Mut, i) / factorial(i) * pow(E, -1 * Mut);
+            }
+            Map<SystemFeature, Double> PkFeatures = copyOf(features);
+            PkFeatures.put(SystemFeature.n, k);
+            double Pk = Pn(PkFeatures);
+            sum += (1 - innerSum) * Pk / (1 - PK);
         }
-        return 1 - result;
+        return P0 / (1 - PK) + sum;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
