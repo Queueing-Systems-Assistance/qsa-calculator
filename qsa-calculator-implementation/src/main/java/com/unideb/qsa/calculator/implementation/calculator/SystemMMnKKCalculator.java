@@ -1,12 +1,12 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
 import static java.lang.Math.E;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -39,7 +39,10 @@ public class SystemMMnKKCalculator {
         final double c = features.get(SystemFeature.c);
         double sum = 0;
         for (double n = 0; n <= c - 1; n++) {
-            sum += PinForD(features, n);
+            Map<SystemFeature, Double> PinFeatures = copyOf(features);
+            PinFeatures.put(SystemFeature.n, n);
+            double Pin = Pin(PinFeatures);
+            sum += Pin;
         }
         return 1 - sum;
     }
@@ -130,9 +133,9 @@ public class SystemMMnKKCalculator {
         final double z = z(features);
         final double P0KMinus1 = P0KMinus1(features);
         final double part1 = pow(c, c) / factorial(c);
-        final double part2Dividend = pkAlpha(K - n - 1, c * z);
-        final double part3Divisor = pkAlpha(K - 1, c * z);
-        return part1 * (part2Dividend / part3Divisor) * P0KMinus1;
+        final double dividend = pkAlpha(K - n - 1, c * z);
+        final double divisor = pkAlpha(K - 1, c * z);
+        return part1 * (dividend / divisor) * P0KMinus1;
     }
 
     public double PnKMin1(Map<SystemFeature, Double> features) {
@@ -164,10 +167,10 @@ public class SystemMMnKKCalculator {
         final double z = z(features);
         double result = 0;
         for (double n = c + 1; n <= K; n++) {
-            final double part1 = factorial(n) / (factorial(c) * pow(c, n - c));
-            final double part2 = binomialCoefficientDouble((int) K, (int) n) * pow(z, -n) * P0;
-            final double currentPn = part1 * part2;
-            result += (n - c) * currentPn;
+            Map<SystemFeature, Double> PnFeatures = copyOf(features);
+            PnFeatures.put(SystemFeature.n, n);
+            final double Pn = Pn(PnFeatures);
+            result += (n - c) * Pn;
         }
         return result;
     }
@@ -198,17 +201,9 @@ public class SystemMMnKKCalculator {
         return E0 / SAvg;
     }
 
-    private double PinForD(Map<SystemFeature, Double> features, double n) {
-        final Map<SystemFeature, Double> PinFeatures = new HashMap<>();
-        features.keySet().forEach(systemFeature -> PinFeatures.put(systemFeature, features.get(systemFeature)));
-        PinFeatures.put(SystemFeature.n, n);
-        return Pin(PinFeatures);
-    }
-
     private double P0KMinus1(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final Map<SystemFeature, Double> P0K1Features = new HashMap<>();
-        features.keySet().forEach(systemFeature -> P0K1Features.put(systemFeature, features.get(systemFeature)));
+        final Map<SystemFeature, Double> P0K1Features = copyOf(features);
         P0K1Features.put(SystemFeature.K, K - 1);
         return P0(P0K1Features);
     }
