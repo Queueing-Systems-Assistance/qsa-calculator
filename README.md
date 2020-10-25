@@ -8,11 +8,9 @@
 - Visualize queue properties
 
 For those who want to help develop the application:
-- [Git workflow](https://github.com/Queueing-Systems-Assistance/qsa-application/docs/git-workflow.md)
-- Build the app pack:
+- Build the app:
   - Use `gradle clean build` to build the project
   - You can run the application, just start `Application.java` main entry point
-
 
 The application contains several modules:
 
@@ -26,8 +24,3 @@ The application contains several modules:
 - qsa-calculator-server
   - responsible for the access of the application
   - integration tests for the application
-
-Contributors:
-
-- Szilágyi Zoltán
-- Szászi Szabolcs
