@@ -21,7 +21,7 @@ public class SystemMMnKCalculatorTest {
     public void EWW0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.488400488;
+        double expected = 0.47983;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.EWW0(features);
         // THEN
@@ -32,7 +32,7 @@ public class SystemMMnKCalculatorTest {
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.389863206;
+        double expected = 0.38996;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.LambdaAvg(features);
         // THEN
@@ -65,7 +65,7 @@ public class SystemMMnKCalculatorTest {
     public void PKTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.00035075;
+        double expected = 0.000087688;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.PK(features);
         // THEN
@@ -76,7 +76,7 @@ public class SystemMMnKCalculatorTest {
     public void PinTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.07578947;
+        double expected = 0.07576;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.Pin(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMMnKCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.28924876;
+        double expected = 1.2889;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.TAvg(features);
         // THEN
