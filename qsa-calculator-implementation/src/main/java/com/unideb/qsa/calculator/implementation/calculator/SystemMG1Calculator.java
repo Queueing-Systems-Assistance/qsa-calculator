@@ -78,10 +78,12 @@ public class SystemMG1Calculator {
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
-        final Double eS = features.get(SystemFeature.eS);
+        final double eS = features.get(SystemFeature.eS);
         final double Ro = Ro(features);
         final double C2S = C2S(features);
-        return eS / (1 - Ro) * ((1 + C2S) / 2);
+        final double part1 = eS / (1 - Ro);
+        final double part2 = ((1 + C2S) / 2);
+        return part1 * part2;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
