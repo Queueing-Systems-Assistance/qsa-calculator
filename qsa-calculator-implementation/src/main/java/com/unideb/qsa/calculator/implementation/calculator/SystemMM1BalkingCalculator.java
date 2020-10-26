@@ -32,9 +32,9 @@ public class SystemMM1BalkingCalculator {
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        final double NjAvg = NAvg(features);
+        final double NAvg = NAvg(features);
         final double TAvg = TAvg(features);
-        return NjAvg / TAvg;
+        return NAvg / TAvg;
     }
 
     public double D2Q(Map<SystemFeature, Double> features) {
