@@ -82,7 +82,7 @@ public class SystemMG1Calculator {
         final double Ro = Ro(features);
         final double C2S = C2S(features);
         final double part1 = eS / (1 - Ro);
-        final double part2 = ((1 + C2S) / 2);
+        final double part2 = (1 + C2S) / 2;
         return part1 * part2;
     }
 
