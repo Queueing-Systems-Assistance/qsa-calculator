@@ -157,12 +157,14 @@ public class SystemMM1nonPreempCalculator {
 
     public double QAvg1(Map<SystemFeature, Double> features) {
         final double Ro1 = Ro1(features);
-        return pow(Ro1, 2) / (1 - Ro1);
+        final double NAvg1 = NAvg1(features);
+        return NAvg1 - Ro1;
     }
 
     public double QAvg2(Map<SystemFeature, Double> features) {
         final double Ro2 = Ro2(features);
-        return pow(Ro2, 2) / (1 - Ro2);
+        final double NAvg2 = NAvg2(features);
+        return NAvg2 - Ro2;
     }
 
     public double Ro1(Map<SystemFeature, Double> features) {
@@ -196,7 +198,12 @@ public class SystemMM1nonPreempCalculator {
     }
 
     public double TAvg1(Map<SystemFeature, Double> features) {
-        return WAvg1(features) + SAvg(features);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Ro1 = Ro1(features);
+        final double Ro2 = Ro2(features);
+        final double dividend = (1 + Ro2) / Mu;
+        final double divisor = 1 - Ro1;
+        return dividend / divisor;
     }
 
     public double TAvg2(Map<SystemFeature, Double> features) {
@@ -215,15 +222,14 @@ public class SystemMM1nonPreempCalculator {
     }
 
     public double WAvg1(Map<SystemFeature, Double> features) {
-        final double Ro2 = Ro2(features);
-        final double NAvg1 = NAvg1(features);
+        final double TAvg1 = TAvg1(features);
         final double SAvg = SAvg(features);
-        return Ro2 * SAvg + NAvg1 * SAvg;
+        return TAvg1 - SAvg;
     }
 
     public double WAvg2(Map<SystemFeature, Double> features) {
-        final double NAvg2 = NAvg2(features);
-        final double Mu = features.get(SystemFeature.Mu);
-        return NAvg2 * (1 / Mu);
+        final double TAvg2 = TAvg2(features);
+        final double SAvg = SAvg(features);
+        return TAvg2 - SAvg;
     }
 }
