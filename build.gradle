@@ -9,15 +9,14 @@ plugins {
 ext {
     projectGroup = 'com.unideb.qsa'
     projectVersion = project.getProperties().get('release.version') ?: 'RELEASE.VERSION.UNKNOWN'
-    print('Release version [' + projectVersion + ']')
     /* Secrets */
     // Note: Use your own name and token
     githubOwnUsername = System.getenv('GITHUB_OWN_USERNAME') ?: 'YOUR_USERNAME'
     githubToken = System.getenv('GITHUB_TOKEN') ?: ''
     githubUsername = System.getenv('GITHUB_USERNAME') ?: ''
     githubOwnToken = System.getenv('GITHUB_OWN_TOKEN') ?: ''
+    print('Release version [' + projectVersion + ']')
 }
-
 
 allprojects {
 
