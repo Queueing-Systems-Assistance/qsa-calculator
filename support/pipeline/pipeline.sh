@@ -23,7 +23,7 @@ echo "BRANCH_NAME=${BRANCH_NAME}"
 echo "GITHUB_ENDPOINT=${GITHUB_ENDPOINT}"
 echo "RELEASE_VERSION=${RELEASE_VERSION}"
 
-export RELEASE_VERSION=${RELEASE_VERSION}
+echo "RELEASE_VERSION=${RELEASE_VERSION}" >> gradle.properties
 
 # Build
 printf "Build QSA Calculator"
