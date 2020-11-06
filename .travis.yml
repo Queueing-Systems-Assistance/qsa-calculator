@@ -17,7 +17,7 @@ env:
 
 branches:
   only:
-    - /^feature\/CHK-[0-9]+/
+    - /^feature\/QSA-[0-9]+/
     - master
 
 before_install:
