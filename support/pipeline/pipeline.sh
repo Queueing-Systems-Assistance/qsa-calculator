@@ -37,6 +37,6 @@ echo "${DOCKER_PASSWORD}" | docker login docker.pkg.github.com -u "${DOCKER_USER
 # Docker Build Image
 sudo docker build \
 -f ./support/docker/Dockerfile \
--t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${SELECTED_VERSION}" . || exit
+-t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:${SELECTED_VERSION} . || exit
 
-sudo docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${SELECTED_VERSION}" || exit
+sudo docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:${SELECTED_VERSION} || exit
