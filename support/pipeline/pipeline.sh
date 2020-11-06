@@ -27,10 +27,6 @@ echo "RELEASE_VERSION=${RELEASE_VERSION}"
 echo "Build QSA Calculator"
 ./gradlew clean build -Prelease.version="${RELEASE_VERSION}" || exit
 
-# Create git tag & push to GitHub
-git tag -a -f "${RELEASE_VERSION}" -m "${RELEASE_VERSION}" || exit
-git push -f "${GITHUB_ENDPOINT}" refs/tags/"${RELEASE_VERSION}" || exit
-
 # Docker Login
 echo "${DOCKER_PASSWORD}" | docker login docker.pkg.github.com -u "${DOCKER_USERNAME}" --password-stdin || exit
 
@@ -40,3 +36,7 @@ sudo docker build \
 -t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}" . || exit
 
 sudo docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}" || exit
+
+# Create git tag & push to GitHub
+git tag -a -f "${RELEASE_VERSION}" -m "${RELEASE_VERSION}" || exit
+git push -f "${GITHUB_ENDPOINT}" refs/tags/"${RELEASE_VERSION}" || exit
