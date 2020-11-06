@@ -5,7 +5,6 @@ notifications:
 
 os: linux
 sudo: required
-language: groovy
 jdk:
   - "openjdk11"
 git:

@@ -27,7 +27,7 @@ echo "RELEASE_VERSION=${RELEASE_VERSION}" >> gradle.properties
 
 # Build
 printf "Build QSA Calculator"
-./gradlew clean build || exit
+./gradlew clean build -Prelease.version="${RELEASE_VERSION}" || exit
 
 # Create git tag & push to GitHub
 # git tag -a "${RELEASE_VERSION}" -m "${RELEASE_VERSION}" || exit

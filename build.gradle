@@ -8,7 +8,7 @@ plugins {
 
 ext {
     projectGroup = 'com.unideb.qsa'
-    projectVersion = System.getenv('RELEASE_VERSION') ?: 'RELEASE.VERSION.UNKNOWN'
+    projectVersion = project.getProperties().get('release.version') ?: 'RELEASE.VERSION.UNKNOWN'
     print('Release version [' + projectVersion + ']')
     /* Secrets */
     // Note: Use your own name and token
