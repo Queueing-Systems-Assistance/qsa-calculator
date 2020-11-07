@@ -5,24 +5,22 @@ notifications:
 
 os: linux
 sudo: required
-language: groovy
 jdk:
   - "openjdk11"
 git:
   depth: false
 
+env:
+  PROJECT_MAJOR_VERSION=1
+  PROJECT_MINOR_VERSION=0
+
+branches:
+  only:
+    - /^feature\/QSA-[0-9]+/
+    - master
+
 before_install:
   - chmod +x gradlew
-  - chmod +x ./support/pipeline/pipeline-setup.sh
-  - chmod +x ./support/pipeline/pipeline-backend.sh
-  - chmod +x ./support/pipeline/pipeline-deploy.sh
-install:
-  - ./support/pipeline/pipeline-setup.sh
+  - chmod +x ./support/pipeline/pipeline.sh
 script:
-  - ./support/pipeline/pipeline-backend.sh
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./support/pipeline/pipeline-deploy.sh
-  on:
-    branch: master
+  - ./support/pipeline/pipeline.sh
