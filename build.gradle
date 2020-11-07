@@ -7,20 +7,16 @@ plugins {
 }
 
 ext {
-    /* Project Information */
     projectGroup = 'com.unideb.qsa'
-    projectMajorVersion = '1'
-    projectMinorVersion = '0'
-    projectBuildVersion = System.getenv('TRAVIS_BUILD_NUMBER') ?: '0-SNAPSHOT'
-    projectVersion = projectMajorVersion + '.' + projectMinorVersion + '.' + projectBuildVersion
+    projectVersion = project.getProperties().get('release.version') ?: 'RELEASE.VERSION.UNKNOWN'
     /* Secrets */
     // Note: Use your own name and token
     githubOwnUsername = System.getenv('GITHUB_OWN_USERNAME') ?: 'YOUR_USERNAME'
     githubToken = System.getenv('GITHUB_TOKEN') ?: ''
     githubUsername = System.getenv('GITHUB_USERNAME') ?: ''
     githubOwnToken = System.getenv('GITHUB_OWN_TOKEN') ?: ''
+    print('Release version [' + projectVersion + ']')
 }
-
 
 allprojects {
 
@@ -131,9 +127,4 @@ publishing {
             from(components.java)
         }
     }
-}
-
-// Builds production code Backend
-task buildProdBackend(type: GradleBuild) {
-    tasks = ['clean', 'build', 'bootJar']
 }

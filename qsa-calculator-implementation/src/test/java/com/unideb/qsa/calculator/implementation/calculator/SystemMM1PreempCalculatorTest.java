@@ -286,7 +286,7 @@ public class SystemMM1PreempCalculatorTest {
     public void QAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.443076923;
+        double expected = 1.1073;
         // WHEN
         double result = systemMM1PreempCalculatorUnderTest.QAvg2(features);
         // THEN
@@ -407,7 +407,7 @@ public class SystemMM1PreempCalculatorTest {
     public void WAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 6.34920634920;
+        double expected = 9.2275;
         // WHEN
         double result = systemMM1PreempCalculatorUnderTest.WAvg2(features);
         // THEN
