@@ -150,8 +150,9 @@ public class SystemMMnCalculator {
     public double PNc(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Ro = Ro(features);
-        final double result = ErlangCRecursive(c, Ro);
-        return result;
+        final double recursive = ErlangBRecursive(c, Ro);
+        final double divisor = c - Ro + Ro * recursive;
+        return c * recursive / divisor;
     }
 
     public double PNn(Map<SystemFeature, Double> features) {
@@ -293,15 +294,13 @@ public class SystemMMnCalculator {
         return a(features);
     }
 
-    private double ErlangCRecursive(double c, double Ro) {
+    private double ErlangBRecursive(double c, double Ro) {
         final double result;
         if (c == 1) {
-            result = Ro;
+            result = Ro / (1 + Ro);
         } else {
-            final double recursive = ErlangCRecursive(c - 1, Ro);
-            final double dividend = Ro * (c - 1 - Ro) * recursive;
-            final double divisor = (c - 1) * (c - Ro) - Ro * recursive;
-            result = dividend / divisor;
+            final double recursive = ErlangBRecursive(c - 1, Ro);
+            result = Ro * recursive / (c + Ro * recursive);
         }
         return result;
     }
