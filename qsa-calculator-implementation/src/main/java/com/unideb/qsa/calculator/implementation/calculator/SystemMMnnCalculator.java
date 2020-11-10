@@ -1,5 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
@@ -88,16 +89,20 @@ public class SystemMMnnCalculator {
     public double US(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Ro = Ro(features);
-        final double Pn = Pn(features);
-        return Ro / c * (1 - Pn);
+        Map<SystemFeature, Double> PcFeatures = copyOf(features);
+        PcFeatures.put(SystemFeature.n, c);
+        final double Pc = Pn(PcFeatures);
+        return Ro / c * (1 - Pc);
     }
 
     public double eAvg(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Mu = features.get(SystemFeature.Mu);
         final double Lambda = features.get(SystemFeature.Lambda);
-        final double Pn = Pn(features);
-        final double divisor = Lambda * (1 - Pn);
+        Map<SystemFeature, Double> PcFeatures = copyOf(features);
+        PcFeatures.put(SystemFeature.n, c);
+        final double Pc = Pn(PcFeatures);
+        final double divisor = Lambda * (1 - Pc);
         return c / divisor - 1 / Mu;
     }
 

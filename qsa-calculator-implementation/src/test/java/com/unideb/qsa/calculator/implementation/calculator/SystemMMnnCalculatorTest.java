@@ -109,7 +109,7 @@ public class SystemMMnnCalculatorTest {
     public void UsTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.23076;
+        double expected = 0.16455;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.US(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMMnnCalculatorTest {
     public void eAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 7.57575;
+        double expected = 11.5384;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.eAvg(features);
         // THEN
