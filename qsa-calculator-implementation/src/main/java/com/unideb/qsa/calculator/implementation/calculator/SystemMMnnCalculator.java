@@ -41,11 +41,11 @@ public class SystemMMnnCalculator {
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         double sum = 0;
-        for (double k = 0; k <= n; k++) {
+        for (double k = 0; k <= c; k++) {
             sum += pow(Lambda / Mu, k) * (1 / factorial(k));
         }
         return pow(sum, -1);
@@ -86,19 +86,19 @@ public class SystemMMnnCalculator {
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
         final double Ro = Ro(features);
         final double Pn = Pn(features);
-        return Ro / n * (1 - Pn);
+        return Ro / c * (1 - Pn);
     }
 
     public double eAvg(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
         final double Mu = features.get(SystemFeature.Mu);
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Pn = Pn(features);
         final double divisor = Lambda * (1 - Pn);
-        return n / divisor - 1 / Mu;
+        return c / divisor - 1 / Mu;
     }
 
     public double EDelta(Map<SystemFeature, Double> features) {
