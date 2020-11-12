@@ -232,6 +232,7 @@ public class SystemMM2Calculator {
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        return a(features);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 }
