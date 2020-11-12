@@ -1,5 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
@@ -41,11 +42,11 @@ public class SystemMMnnCalculator {
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         double sum = 0;
-        for (double k = 0; k <= n; k++) {
+        for (double k = 0; k <= c; k++) {
             sum += pow(Lambda / Mu, k) * (1 / factorial(k));
         }
         return pow(sum, -1);
@@ -86,19 +87,19 @@ public class SystemMMnnCalculator {
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
-        final double Ro = Ro(features);
-        final double Pn = Pn(features);
-        return Ro / n * (1 - Pn);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     public double eAvg(Map<SystemFeature, Double> features) {
-        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
         final double Mu = features.get(SystemFeature.Mu);
         final double Lambda = features.get(SystemFeature.Lambda);
-        final double Pn = Pn(features);
-        final double divisor = Lambda * (1 - Pn);
-        return n / divisor - 1 / Mu;
+        Map<SystemFeature, Double> PcFeatures = copyOf(features);
+        PcFeatures.put(SystemFeature.n, c);
+        final double Pc = Pn(PcFeatures);
+        final double divisor = Lambda * (1 - Pc);
+        return c / divisor - 1 / Mu;
     }
 
     public double EDelta(Map<SystemFeature, Double> features) {
