@@ -291,7 +291,8 @@ public class SystemMMnCalculator {
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        return a(features);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     private double ErlangBRecursive(double c, double Ro) {

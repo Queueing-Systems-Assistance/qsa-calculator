@@ -43,7 +43,7 @@ public class SystemMM2CalculatorTest {
     public void USTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.25;
+        double expected = 0.4;
         // WHEN
         double result = systemMM2CalculatorUnderTest.US(features);
         // THEN
