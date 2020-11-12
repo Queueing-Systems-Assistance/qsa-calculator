@@ -87,12 +87,8 @@ public class SystemMMnnCalculator {
     }
 
     public double US(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double Ro = Ro(features);
-        Map<SystemFeature, Double> PcFeatures = copyOf(features);
-        PcFeatures.put(SystemFeature.n, c);
-        final double Pc = Pn(PcFeatures);
-        return Ro / c * (1 - Pc);
+        final double P0 = P0(features);
+        return 1 - P0;
     }
 
     public double eAvg(Map<SystemFeature, Double> features) {
