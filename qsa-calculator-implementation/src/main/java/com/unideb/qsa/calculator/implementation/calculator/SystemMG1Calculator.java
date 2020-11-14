@@ -1,7 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
 import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 import java.util.Map;
 
@@ -121,18 +120,6 @@ public class SystemMG1Calculator {
         final double dividend = Lambda * eSPow2;
         final double divisor = 2 * (1 - Ro);
         return dividend / divisor;
-    }
-
-    public double PiT90(Map<SystemFeature, Double> features) {
-        final double TAvg = TAvg(features);
-        final double D2T = D2T(features);
-        return TAvg + 1.3 * sqrt(D2T);
-    }
-
-    public double PiT95(Map<SystemFeature, Double> features) {
-        final double TAvg = TAvg(features);
-        final double D2T = D2T(features);
-        return TAvg + 2 * sqrt(D2T);
     }
 
 }
