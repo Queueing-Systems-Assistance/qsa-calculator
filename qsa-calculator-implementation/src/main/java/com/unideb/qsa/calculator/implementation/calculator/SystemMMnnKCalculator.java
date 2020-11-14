@@ -20,20 +20,20 @@ public class SystemMMnnKCalculator {
 
     public double PBcn(Map<SystemFeature, Double> features) {
         final double Ro = Ro(features);
+        final double K = features.get(SystemFeature.K);
         final double c = features.get(SystemFeature.c);
-        final double n = features.get(SystemFeature.n);
-        return EngsetRecursive(c, n, Ro);
+        return EngsetRecursive(K, c, Ro);
     }
 
-    private double EngsetRecursive(double c, double n, double Ro) {
+    private double EngsetRecursive(double K, double c, double Ro) {
         double result = 0;
-        if (n == 1) {
-            final double base = (c - 1) * Ro;
+        if (c == 1) {
+            final double base = (K - 1) * Ro;
             result = base / (1 + base);
         } else {
-            final double recursive = EngsetRecursive(c, n - 1, Ro);
-            final double base = (c - n) * Ro * recursive;
-            result = base / (n + base);
+            final double recursive = EngsetRecursive(K, c - 1, Ro);
+            final double base = (K - c) * Ro * recursive;
+            result = base / (c + base);
         }
         return result;
     }
