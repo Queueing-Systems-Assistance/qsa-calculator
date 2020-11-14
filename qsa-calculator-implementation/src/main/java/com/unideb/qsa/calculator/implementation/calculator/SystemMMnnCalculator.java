@@ -103,9 +103,11 @@ public class SystemMMnnCalculator {
     }
 
     public double EDelta(Map<SystemFeature, Double> features) {
-        final double Ro = Ro(features);
         final double Lambda = features.get(SystemFeature.Lambda);
-        return Ro / Lambda;
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = Lambda * P0;
+        return dividend / divisor;
     }
 
     private double ErlangBRecursive(double c, double Ro) {
