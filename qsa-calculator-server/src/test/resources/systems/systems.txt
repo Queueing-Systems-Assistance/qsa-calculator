@@ -12,6 +12,7 @@
 | systemMG1          | systemMG1          |
 | systemMM1KK        | systemMM1KK        |
 | systemMMnKK        | systemMMnKK        |
+| systemMMnnK        | systemMMnnK        |
 | systemDDnKK        | systemDDnKK        |
 | systemMErlang1KK   | systemMErlang1KK   |
 | systemMMnPrior     | systemMMnPrior     |
