@@ -117,6 +117,17 @@ public class SystemMMnKKCalculatorTest {
     }
 
     @Test
+    public void aTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.717275;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -189,28 +200,6 @@ public class SystemMMnKKCalculatorTest {
         double expected = 0.4848484848;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.EWW0(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void C2Test() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.718015665796;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.C2(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void C1Test() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.718015665796;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.C1(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }

@@ -19,22 +19,6 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 @Component
 public class SystemMMnKKCalculator {
 
-    public double C1(Map<SystemFeature, Double> features) {
-        final double C2 = C2(features);
-        return 1 + C2;
-    }
-
-    public double C2(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
-        final double z = z(features);
-        final double P0KMinus1 = P0KMinus1(features);
-        final double dividend = pow(c, c) * QkAlpha(K - c - 1, c * z);
-        final double divisorPart1 = factorial(c) * (c - 1) * factorial(K - c - 1);
-        final double divisorPart2 = pkAlpha(K - 1, c * z);
-        return dividend / (divisorPart1 * divisorPart2) * P0KMinus1;
-    }
-
     public double D(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         double sum = 0;
@@ -50,6 +34,12 @@ public class SystemMMnKKCalculator {
     public double E0(Map<SystemFeature, Double> features) {
         final double Alpha = features.get(SystemFeature.Alpha);
         return 1 / Alpha;
+    }
+
+    public double a(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return NAvg / K;
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
@@ -199,6 +189,22 @@ public class SystemMMnKKCalculator {
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
         return E0 / SAvg;
+    }
+
+    private double C1(Map<SystemFeature, Double> features) {
+        final double C2 = C2(features);
+        return 1 + C2;
+    }
+
+    private double C2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final double z = z(features);
+        final double P0KMinus1 = P0KMinus1(features);
+        final double dividend = pow(c, c) * QkAlpha(K - c - 1, c * z);
+        final double divisorPart1 = factorial(c) * (c - 1) * factorial(K - c - 1);
+        final double divisorPart2 = pkAlpha(K - 1, c * z);
+        return dividend / (divisorPart1 * divisorPart2) * P0KMinus1;
     }
 
     private double P0KMinus1(Map<SystemFeature, Double> features) {
