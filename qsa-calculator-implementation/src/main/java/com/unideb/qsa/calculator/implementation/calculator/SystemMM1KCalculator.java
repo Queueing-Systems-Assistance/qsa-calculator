@@ -18,9 +18,11 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMM1KCalculator {
 
     public double EWW0(Map<SystemFeature, Double> features) {
-        final double P0 = P0(features);
+        Map<SystemFeature, Double> Pi0Features = copyOf(features);
+        Pi0Features.put(SystemFeature.n, 0.0);
+        final double Pi0 = Pin(Pi0Features);
         final double WAvg = WAvg(features);
-        return WAvg / (1 - P0);
+        return WAvg / (1 - Pi0);
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
@@ -165,6 +167,14 @@ public class SystemMM1KCalculator {
             result += Pin * QnMuT;
         }
         return 1 - result;
+    }
+
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = Lambda * P0;
+        return dividend / divisor;
     }
 
     private double QnMuT(double n, double Mut) {

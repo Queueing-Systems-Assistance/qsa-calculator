@@ -15,8 +15,8 @@
 | systemMMnnK        | systemMMnnK        |
 | systemDDnKK        | systemDDnKK        |
 | systemMErlang1KK   | systemMErlang1KK   |
-| systemMMnPrior     | systemMMnPrior     |
 | systemMHypo1KK     | systemMHypo1KK     |
 | systemMHyper1KK    | systemMHyper1KK    |
 | systemMGamma1KK    | systemMGamma1KK    |
+| systemMMnPrior     | systemMMnPrior     |
 | ID_END             |                    |

@@ -73,10 +73,21 @@ public class SystemMM1KKCalculatorTest {
     }
 
     @Test
-    public void aTest() {
+    public void USTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.904761905;
+        // WHEN
+        double result = systemMM1KKCalculatorUnderTest.US(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void aTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.547615;
         // WHEN
         double result = systemMM1KKCalculatorUnderTest.a(features);
         // THEN

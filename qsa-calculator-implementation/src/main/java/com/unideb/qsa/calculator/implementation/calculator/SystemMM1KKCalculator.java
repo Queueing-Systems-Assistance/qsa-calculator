@@ -56,9 +56,9 @@ public class SystemMM1KKCalculator {
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        final double a = a(features);
+        final double US = US(features);
         final double SAvg = SAvg(features);
-        return a / SAvg;
+        return US / SAvg;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -119,9 +119,15 @@ public class SystemMM1KKCalculator {
         return TAvg - SAvg;
     }
 
-    public double a(Map<SystemFeature, Double> features) {
+    public double US(Map<SystemFeature, Double> features) {
         final double P0 = P0(features);
         return 1 - P0;
+    }
+
+    public double a(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return NAvg / K;
     }
 
     public double z(Map<SystemFeature, Double> features) {

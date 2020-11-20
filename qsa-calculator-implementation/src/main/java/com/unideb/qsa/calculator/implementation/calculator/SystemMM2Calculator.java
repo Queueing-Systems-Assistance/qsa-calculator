@@ -52,10 +52,8 @@ public class SystemMM2Calculator {
     }
 
     public double D2WW0(Map<SystemFeature, Double> features) {
-        final double SAvg = SAvg(features);
-        final double a = a(features);
-        final double divisor = 2 * (1 - a);
-        return pow(SAvg / divisor, 2);
+        final double EWW0 = EWW0(features);
+        return pow(EWW0, 2);
     }
 
     public double ET2(Map<SystemFeature, Double> features) {
@@ -89,8 +87,9 @@ public class SystemMM2Calculator {
         if (Ro == 1.0) {
             result = 1 - (1 + Mu * t / 3) * pow(E, -Mu * t);
         } else {
-            final double part1 = (1 - a) / (1 - a - 2 * pow(a, 2)) * pow(E, -Mu * t);
-            final double part2 = 2 * pow(a, 2) / (1 - a - 2 * pow(a, 2)) * pow(E, -2 * Mu * t * (1 - a));
+            final double denominator = 1 - 3 * pow(a, 2);
+            final double part1 = (1 - a) / denominator * pow(E, -Mu * t);
+            final double part2 = 2 * pow(a, 2) / denominator * pow(E, -2 * Mu * t * (1 - a));
             result = 1 - part1 + part2;
         }
         return result;
@@ -126,7 +125,12 @@ public class SystemMM2Calculator {
         final double n = features.get(SystemFeature.n);
         final double a = a(features);
         final double dividend = 2 * pow(a, n);
-        return dividend / (1 + a);
+        double result = dividend / (1 + a);
+        if(n == 0) {
+            final double P0 = P0(features);
+            result -= P0;
+        }
+        return result;
     }
 
     public double PiT90(Map<SystemFeature, Double> features) {

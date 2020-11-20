@@ -20,22 +20,6 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 @Component
 public class SystemMMnCalculator {
 
-    public double C1(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double PNc = PNc(features);
-        final double a = a(features);
-        final double divisor = 1 - c * (1 - a);
-        return PNc / divisor - 1;
-    }
-
-    public double C2(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double PNc = PNc(features);
-        final double a = a(features);
-        final double divisor = c * (1 - a) - 1;
-        return PNc / divisor;
-    }
-
     public double D2N(Map<SystemFeature, Double> features) {
         final double D2Q = D2Q(features);
         final double Ro = Ro(features);
@@ -69,10 +53,8 @@ public class SystemMMnCalculator {
     }
 
     public double D2WW0(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double SAvg = SAvg(features);
-        final double a = a(features);
-        return pow(SAvg / (c * (1 - a)), 2);
+        final double EWW0 = EWW0(features);
+        return pow(EWW0, 2);
     }
 
     public double ET2(Map<SystemFeature, Double> features) {
@@ -293,6 +275,22 @@ public class SystemMMnCalculator {
     public double US(Map<SystemFeature, Double> features) {
         final double P0 = P0(features);
         return 1 - P0;
+    }
+
+    private double C1(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double PNc = PNc(features);
+        final double a = a(features);
+        final double divisor = 1 - c * (1 - a);
+        return PNc / divisor - 1;
+    }
+
+    private double C2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double PNc = PNc(features);
+        final double a = a(features);
+        final double divisor = c * (1 - a) - 1;
+        return PNc / divisor;
     }
 
     private double ErlangBRecursive(double c, double Ro) {
