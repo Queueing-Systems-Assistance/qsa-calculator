@@ -53,8 +53,6 @@ logging:
 qsa:
   config:
     uris:
-      #- https://qsa.inf.unideb.hu/default/api/config/system
-      #- https://qsa.inf.unideb.hu/default/api/config/feature
-      - C:\Users\csanad.kolcsei\Dev\QSA\qsa-feature-config-pack
-      - C:\Users\csanad.kolcsei\Dev\QSA\qsa-system-config-pack
+      - https://qsa.inf.unideb.hu/default/api/config/system
+      - https://qsa.inf.unideb.hu/default/api/config/feature
 
