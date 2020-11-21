@@ -149,6 +149,17 @@ public class SystemMMnKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void FWtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.9984449;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.FWt(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMnK = new HashMap<>();
         systemMMnK.put(SystemFeature.Lambda, 0.39);
@@ -156,6 +167,7 @@ public class SystemMMnKCalculatorTest {
         systemMMnK.put(SystemFeature.n, 2.0);
         systemMMnK.put(SystemFeature.c, 3.0);
         systemMMnK.put(SystemFeature.K, 5.0);
+        systemMMnK.put(SystemFeature.t, 1.0);
         return systemMMnK;
     }
 
