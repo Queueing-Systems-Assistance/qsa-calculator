@@ -1,8 +1,8 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import static com.unideb.qsa.calculator.domain.SystemFeature.c;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static java.lang.Math.exp;
 import static java.lang.Math.pow;
 
 import java.util.Map;
@@ -135,5 +135,25 @@ public class SystemMMnKCalculator {
         final double Ro = Ro(features);
         final double c = features.get(SystemFeature.c);
         return Ro / c;
+    }
+
+    public double FWt(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final double t = features.get(SystemFeature.t);
+        double sum = 0.0;
+        for(double n = c; n <= K - 1; n++) {
+            Map<SystemFeature, Double> PinFeatures = copyOf(features);
+            PinFeatures.put(SystemFeature.n, n);
+            double Pin = Pin(PinFeatures);
+            double innerSum = 0.0;
+            for(double i = 0.0; i <= n - c; i++) {
+                double dividend = pow(c * Mu * t, i) * exp(-1 * c * Mu * t);
+                innerSum += dividend / factorial(i);
+            }
+            sum += innerSum * Pin;
+        }
+        return 1 - sum;
     }
 }
