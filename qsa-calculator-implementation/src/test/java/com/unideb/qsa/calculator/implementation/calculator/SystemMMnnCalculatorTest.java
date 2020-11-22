@@ -128,12 +128,12 @@ public class SystemMMnnCalculatorTest {
     }
 
     @Test
-    public void EDeltaTest() {
+    public void EDeltarTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 2.9356;
         // WHEN
-        double result = systemMMnnCalculatorUnderTest.EDelta(features);
+        double result = systemMMnnCalculatorUnderTest.EDeltar(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
