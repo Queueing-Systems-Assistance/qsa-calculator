@@ -169,7 +169,7 @@ public class SystemMM1KCalculator {
         return 1 - result;
     }
 
-    public double EDelta(Map<SystemFeature, Double> features) {
+    public double EDeltar(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double P0 = P0(features);
         final double dividend = 1 - P0;
