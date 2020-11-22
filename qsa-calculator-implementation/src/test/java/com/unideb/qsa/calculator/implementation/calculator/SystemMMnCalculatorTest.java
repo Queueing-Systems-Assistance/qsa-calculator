@@ -314,6 +314,39 @@ public class SystemMMnCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.792114;
+        // WHEN
+        double result = systemMMnCalculatorUnderTest.EDelta(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.150537;
+        // WHEN
+        double result = systemMMnCalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void eAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 5.37634;
+        // WHEN
+        double result = systemMMnCalculatorUnderTest.eAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMn = new HashMap<>();
         systemMMn.put(SystemFeature.Lambda, 0.31);

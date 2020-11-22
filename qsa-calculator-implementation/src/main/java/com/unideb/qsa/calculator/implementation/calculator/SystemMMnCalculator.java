@@ -278,7 +278,14 @@ public class SystemMMnCalculator {
     }
 
     public double EDelta(Map<SystemFeature, Double> features) {
-        return 0;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double Pe = 1 - PNc(features);
+        final double dividend = a * (c - (Lambda / Mu));
+        final double divisor = (1 - a) * Lambda * Pe;
+        return dividend / divisor;
     }
 
     public double EDeltar(Map<SystemFeature, Double> features) {
@@ -290,11 +297,12 @@ public class SystemMMnCalculator {
     }
 
     public double eAvg(Map<SystemFeature, Double> features) {
-        return 0;
-    }
-
-    public double eAvgr(Map<SystemFeature, Double> features) {
-        return 0;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double c = features.get(SystemFeature.c);
+        final double Pe = 1 - PNc(features);
+        final double dividend = c - (Lambda / Mu);
+        return dividend / (Lambda * Pe);
     }
 
     private double C1(Map<SystemFeature, Double> features) {
