@@ -125,15 +125,28 @@ public class SystemMM1KKCalculator {
     }
 
     public double a(Map<SystemFeature, Double> features) {
+        return US(features);
+    }
+
+    public double Ut(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
         final double NAvg = NAvg(features);
-        return NAvg / K;
+        return 1 - NAvg / K;
     }
 
     public double z(Map<SystemFeature, Double> features) {
         final double E0 = E0(features);
         final double SAvg = SAvg(features);
         return E0 / SAvg;
+    }
+
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double Alpha = features.get(SystemFeature.Alpha);
+        final double K = features.get(SystemFeature.K);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = K * Alpha * P0;
+        return dividend / divisor;
     }
 
     private double ErlangBRecursive(double c, double Ro) {

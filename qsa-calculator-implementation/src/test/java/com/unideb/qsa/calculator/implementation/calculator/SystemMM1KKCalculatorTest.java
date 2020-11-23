@@ -87,9 +87,20 @@ public class SystemMM1KKCalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.547615;
+        double expected = 0.904761905;
         // WHEN
         double result = systemMM1KKCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void UtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.452385;
+        // WHEN
+        double result = systemMM1KKCalculatorUnderTest.Ut(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -189,6 +200,17 @@ public class SystemMM1KKCalculatorTest {
         double expected = 0.6544318414;
         // WHEN
         double result = systemMM1KKCalculatorUnderTest.EWW0(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.97916;
+        // WHEN
+        double result = systemMM1KKCalculatorUnderTest.EDelta(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
