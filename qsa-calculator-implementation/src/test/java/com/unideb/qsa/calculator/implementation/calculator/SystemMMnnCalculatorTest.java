@@ -62,6 +62,17 @@ public class SystemMMnnCalculatorTest {
     }
 
     @Test
+    public void D2NTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.477808;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.D2N(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();

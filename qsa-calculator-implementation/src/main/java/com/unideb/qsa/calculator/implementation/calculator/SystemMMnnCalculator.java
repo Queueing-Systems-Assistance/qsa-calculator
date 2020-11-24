@@ -41,6 +41,14 @@ public class SystemMMnnCalculator {
         return LambdaAvg * SAvg;
     }
 
+    public double D2N(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double NAvg = NAvg(features);
+        final double multiplication = Ro * ErlangBRecursive(c, Ro) * (c - NAvg);
+        return NAvg - multiplication;
+    }
+
     public double P0(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Lambda = features.get(SystemFeature.Lambda);
