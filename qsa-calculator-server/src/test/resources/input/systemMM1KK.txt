@@ -1,5 +1,5 @@
 | ID     |       |
-| Alpha  | Alpha |
+| Lambda | Lambda |
 | Mu     | Mu    |
 | n      | n     |
 | t      | t     |
