@@ -1,8 +1,8 @@
-| ID     |       |
-| Alpha  | Alpha |
-| Mu     | Mu    |
-| c      | c     |
-| K      | K     |
-| n      | n     |
-| t      | t     |
-| ID_END |       |
+| ID     |        |
+| Lambda | Lambda |
+| Mu     | Mu     |
+| c      | c      |
+| K      | K      |
+| n      | n      |
+| t      | t      |
+| ID_END |        |

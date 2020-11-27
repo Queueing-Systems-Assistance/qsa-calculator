@@ -119,7 +119,7 @@ public class SystemDDnKKCalculatorTest {
 
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
-        features.put(SystemFeature.Alpha, 1.13);
+        features.put(SystemFeature.Lambda, 1.13);
         features.put(SystemFeature.Mu, 2.26);
         features.put(SystemFeature.n, 3.0);
         features.put(SystemFeature.c, 2.0);

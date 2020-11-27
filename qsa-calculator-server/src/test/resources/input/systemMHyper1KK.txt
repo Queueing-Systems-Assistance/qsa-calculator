@@ -1,10 +1,10 @@
-| ID     |       |
-| Alpha  | Alpha |
-| mu1    | mu1   |
-| mu2    | mu2   |
-| mu3    | mu3   |
-| p1     | p1    |
-| p2     | p2    |
-| p3     | p3    |
-| K      | K     |
-| ID_END |       |
+| ID     |        |
+| Lambda | Lambda |
+| Mu1    | Mu1    |
+| Mu2    | Mu2    |
+| Mu3    | Mu3    |
+| p1     | p1     |
+| p2     | p2     |
+| p3     | p3     |
+| K      | K      |
+| ID_END |        |

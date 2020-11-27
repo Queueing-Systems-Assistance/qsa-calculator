@@ -1,5 +1,5 @@
-| ID     |       |
-| Alpha  | Alpha |
-| Mu     | Mu    |
-| K      | K     |
-| ID_END |       |
+| ID     |        |
+| Lambda | Lambda |
+| Mu     | Mu     |
+| K      | K      |
+| ID_END |        |

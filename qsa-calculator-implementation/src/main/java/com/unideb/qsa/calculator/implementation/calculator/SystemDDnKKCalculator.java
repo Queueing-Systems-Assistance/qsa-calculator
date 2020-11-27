@@ -15,8 +15,8 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemDDnKKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Alpha = features.get(SystemFeature.Alpha);
-        return 1 / Alpha;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        return 1 / Lambda;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
