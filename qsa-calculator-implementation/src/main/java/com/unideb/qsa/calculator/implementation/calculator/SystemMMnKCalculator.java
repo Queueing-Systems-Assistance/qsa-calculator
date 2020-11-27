@@ -68,10 +68,14 @@ public class SystemMMnKCalculator {
     }
 
     public double PK(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double K = features.get(SystemFeature.K);
-        Map<SystemFeature, Double> PKFeatures = copyOf(features);
-        PKFeatures.put(SystemFeature.n, K);
-        return Pn(PKFeatures);
+        final double c = features.get(SystemFeature.c);
+        final double P0 = P0(features);
+        final double dividend = pow(Lambda, K) * P0;
+        final double divisor = pow(c, K - c) * factorial(c) * pow(Mu, K);
+        return dividend / divisor;
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
