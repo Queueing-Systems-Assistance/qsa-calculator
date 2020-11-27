@@ -118,8 +118,8 @@ public class SystemMGamma1KKCalculatorTest {
 
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMGamma1KK = new HashMap<>();
-        systemMGamma1KK.put(SystemFeature.Alpha, 1.5);
-        systemMGamma1KK.put(SystemFeature.Beta, 2.2);
+        systemMGamma1KK.put(SystemFeature.Lambda, 1.5);
+        systemMGamma1KK.put(SystemFeature.Mu, 2.2);
         systemMGamma1KK.put(SystemFeature.K, 3.0);
         return systemMGamma1KK;
     }

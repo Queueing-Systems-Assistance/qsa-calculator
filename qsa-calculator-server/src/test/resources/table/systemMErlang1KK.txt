@@ -1,5 +1,5 @@
 | INPUT      |                     |
-| Alpha      | 1.5                 |
+| Lambda     | 1.5                 |
 | K          | 3                   |
 | Mu         | 2.2                 |
 | INPUT_END  |                     |

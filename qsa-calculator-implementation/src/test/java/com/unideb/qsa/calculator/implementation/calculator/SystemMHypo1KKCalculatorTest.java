@@ -43,7 +43,7 @@ public class SystemMHypo1KKCalculatorTest {
     public void SAvgWhenMu3IsNullTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.mu3, 0.0);
+        features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.909090909;
         // WHEN
         double result = systemMHypo1KKCalculatorUnderTest.SAvg(features);
@@ -55,8 +55,8 @@ public class SystemMHypo1KKCalculatorTest {
     public void SAvgWhenMu3AndMu2IsNullTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.mu2, 0.0);
-        features.put(SystemFeature.mu3, 0.0);
+        features.put(SystemFeature.Mu2, 0.0);
+        features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.83333333333333;
         // WHEN
         double result = systemMHypo1KKCalculatorUnderTest.SAvg(features);
@@ -79,7 +79,7 @@ public class SystemMHypo1KKCalculatorTest {
     public void P0WhenMu3IsNullTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.mu3, 0.0);
+        features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.00346143256;
         // WHEN
         double result = systemMHypo1KKCalculatorUnderTest.P0(features);
@@ -91,8 +91,8 @@ public class SystemMHypo1KKCalculatorTest {
     public void P0WhenMu2And3IsNullTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.mu2, 0.0);
-        features.put(SystemFeature.mu3, 0.0);
+        features.put(SystemFeature.Mu2, 0.0);
+        features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.03869407496977;
         // WHEN
         double result = systemMHypo1KKCalculatorUnderTest.P0(features);
@@ -168,10 +168,10 @@ public class SystemMHypo1KKCalculatorTest {
 
     public Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMHypo1KK = new HashMap<>();
-        systemMHypo1KK.put(SystemFeature.Alpha, 1.5);
-        systemMHypo1KK.put(SystemFeature.mu1, 1.2);
-        systemMHypo1KK.put(SystemFeature.mu2, 1.0);
-        systemMHypo1KK.put(SystemFeature.mu3, 0.8);
+        systemMHypo1KK.put(SystemFeature.Lambda, 1.5);
+        systemMHypo1KK.put(SystemFeature.Mu1, 1.2);
+        systemMHypo1KK.put(SystemFeature.Mu2, 1.0);
+        systemMHypo1KK.put(SystemFeature.Mu3, 0.8);
         systemMHypo1KK.put(SystemFeature.K, 3.0);
         return systemMHypo1KK;
     }
