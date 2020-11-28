@@ -42,7 +42,7 @@ public class SystemMGamma1KKCalculator {
         for (double i = 0; i < K; i++) {
             final double part1 = factorial(K - 1);
             final double part2 = factorial(i) * factorial((K - 1) - i);
-            final double part3 = functionBn(i, Lambda, Mu);
+            final double part3 = Bn(i, Lambda, Mu);
             sum += part1 / part2 * part3;
         }
         return pow(1 + K * SAvg / E0 * sum, -1);
@@ -77,19 +77,19 @@ public class SystemMGamma1KKCalculator {
         return 1 - P0;
     }
 
-    private double functionBn(double index, double lambdaMGamma1KK, double muMGamma1KK) {
+    private double Bn(double n, double lambda, double mu) {
         double result = 1;
-        if (index != 0) {
-            for (double i = 1; i <= index; i++) {
-                final double laplace = functionLaplace(muMGamma1KK, lambdaMGamma1KK, i);
+        if (n != 0) {
+            for (double i = 1; i <= n; i++) {
+                final double laplace = laplaceStieltjes(mu, lambda, i);
                 result *= (1 - laplace) / laplace;
             }
         }
         return result;
     }
 
-    private double functionLaplace(double Mu, double Lambda, double index) {
-        double divisor = Mu + index * Lambda;
-        return pow(Mu / divisor, Lambda);
+    private double laplaceStieltjes(double mu, double lambda, double index) {
+        double divisor = mu + index * lambda;
+        return pow(mu / divisor, lambda);
     }
 }
