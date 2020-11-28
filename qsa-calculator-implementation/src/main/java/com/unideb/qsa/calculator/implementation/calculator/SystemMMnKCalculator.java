@@ -51,31 +51,36 @@ public class SystemMMnKCalculator {
         return QAvg + sum1 + c * (1 - sum2);
     }
 
+    public double a(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double cAvg = cAvg(features);
+        return cAvg / c;
+    }
+
     public double P0(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
-        final double Ro = Ro(features);
-        double sum1 = 0;
-        double sum2 = 0;
-        for (int i = 0; i <= c; i++) {
-            sum1 += pow(Ro, i) / factorial(i);
+        double sum = 0.0;
+        for (double i = 0.0; i <= K; i++) {
+            double dividend = pow(Lambda, i);
+            double divisor;
+            if (i < c) {
+                divisor = factorial(i) * pow(Mu, i);
+            } else {
+                divisor = pow(c, i - c) * factorial(c) * pow(Mu, i);
+            }
+            sum += dividend / divisor;
         }
-        for (double i = 1; i <= K - c; i++) {
-            sum2 += pow(Ro / c, i);
-        }
-        final double factor = pow(Ro, c) / factorial(c);
-        return pow(sum1 + factor * sum2, -1);
+        return pow(sum, -1);
     }
 
     public double PK(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
         final double K = features.get(SystemFeature.K);
-        final double c = features.get(SystemFeature.c);
-        final double P0 = P0(features);
-        final double dividend = pow(Lambda, K) * P0;
-        final double divisor = pow(c, K - c) * factorial(c) * pow(Mu, K);
-        return dividend / divisor;
+        Map<SystemFeature, Double> PKFeatures = copyOf(features);
+        PKFeatures.put(SystemFeature.n, K);
+        return Pn(PKFeatures);
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -85,29 +90,42 @@ public class SystemMMnKCalculator {
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double n = features.get(SystemFeature.n);
         final double c = features.get(SystemFeature.c);
-        final double Ro = Ro(features);
         final double P0 = P0(features);
-        double result;
-        if (n <= c) {
-            result = pow(Ro, n) / factorial(n) * P0;
+        final double dividend = pow(Lambda, n) * P0;
+        double divisor;
+        if (n < c) {
+            divisor = factorial(n) * pow(Mu, n);
         } else {
-            result = pow(Ro, n) / factorial(c) * P0 * pow(Ro / c, n - c);
+            divisor = pow(c, n - c) * factorial(c) * pow(Mu, n);
         }
-        return result;
+        return dividend / divisor;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
         final double c = features.get(SystemFeature.c);
-        final double a = a(features);
         final double Ro = Ro(features);
-        final double P0 = P0(features);
-        final double part1 = pow(Ro, c) * a * P0;
-        final double part2 = factorial(c) * pow(1 - a, 2);
-        final double part3 = 1 + (K - c) * pow(a, K - c + 1) - (K - c + 1) * pow(a, K - c);
-        return part1 / part2 * part3;
+        final double r = Ro / c;
+        double result = 0.0;
+        if(r == 1) {
+            for (double i = c + 1; i <= K; i++) {
+                Map<SystemFeature, Double> PiFeatures = copyOf(features);
+                PiFeatures.put(SystemFeature.n, i);
+                double Pi = Pn(PiFeatures);
+                result += (i - c) * Pi;
+            }
+        } else {
+            final double P0 = P0(features);
+            final double part1 = pow(Ro, c) * r * P0;
+            final double part2 = factorial(c) * pow(1 - r, 2);
+            final double part3 = 1 + (K - c) * pow(r, K - c + 1) - (K - c + 1) * pow(r, K - c);
+            result = part1 / part2 * part3;
+        }
+        return result;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
@@ -135,10 +153,54 @@ public class SystemMMnKCalculator {
         return QAvg / LambdaAvg;
     }
 
-    public double a(Map<SystemFeature, Double> features) {
-        final double Ro = Ro(features);
+    public double US(Map<SystemFeature, Double> features) {
+        final double P0 = P0(features);
+        return 1 - P0;
+    }
+
+    public double cAvg(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double LambdaAvg = LambdaAvg(features);
+        return LambdaAvg / Mu;
+    }
+
+    public double Pe(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        return Ro / c;
+        double sum = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PiiFeatures.put(SystemFeature.n, i);
+            sum += Pin(PiiFeatures);
+        }
+        return sum;
+    }
+
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double cAvg = cAvg(features);
+        final double Pe = Pe(features);
+        final double dividend = a * (c - cAvg);
+        final double divisor = (1 - a) * Lambda * Pe;
+        return dividend / divisor;
+    }
+
+    public double EDeltar(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double US = US(features);
+        final double divisor = Lambda * (1 - US);
+        return US / divisor;
+    }
+
+    public double eAvg(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double c = features.get(SystemFeature.c);
+        final double cAvg = cAvg(features);
+        final double Pe = Pe(features);
+        final double dividend = c - cAvg;
+        final double divisor = Lambda * Pe;
+        return dividend / divisor;
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
