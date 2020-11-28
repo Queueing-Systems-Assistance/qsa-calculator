@@ -21,7 +21,7 @@ public class SystemMMnKCalculatorTest {
     public void EWW0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.47983;
+        double expected = 0.4884004;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.EWW0(features);
         // THEN
@@ -32,7 +32,7 @@ public class SystemMMnKCalculatorTest {
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.38996;
+        double expected = 0.389863205;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.LambdaAvg(features);
         // THEN
@@ -65,7 +65,7 @@ public class SystemMMnKCalculatorTest {
     public void PKTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.000087688;
+        double expected = 3.50754121360926E-4;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.PK(features);
         // THEN
@@ -76,7 +76,7 @@ public class SystemMMnKCalculatorTest {
     public void PinTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.07576;
+        double expected = 0.07578947;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.Pin(features);
         // THEN
@@ -90,6 +90,17 @@ public class SystemMMnKCalculatorTest {
         double expected = 0.075762890;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.Pn(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void PeTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.985263157;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.Pe(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -120,7 +131,7 @@ public class SystemMMnKCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.2889;
+        double expected = 1.2892487;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.TAvg(features);
         // THEN
@@ -142,9 +153,31 @@ public class SystemMMnKCalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.16666667;
+        double expected = 0.1666082;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void USTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.3938968;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.US(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void cAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.4998246;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.cAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -153,9 +186,42 @@ public class SystemMMnKCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9984449;
+        double expected = 0.99810589;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.FWt(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.3007708;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.EDelta(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.666369;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void eAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 6.50659272;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.eAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
