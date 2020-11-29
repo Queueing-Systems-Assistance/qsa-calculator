@@ -25,7 +25,7 @@ public class MBetweencAndKValidator extends FeatureValidator {
         final double K = features.get(SystemFeature.K);
         if (m < c || m > K) {
             result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.parameter.m.not.between.cAndK")
+                    .withErrorMessage("error.parameter.m.between.cAndK")
                     .withInputIds(List.of(SystemFeature.c.name(), SystemFeature.m.name(), SystemFeature.K.name()))
                     .build());
         }
