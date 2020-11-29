@@ -47,20 +47,31 @@ public class SystemMMcmKCalculator {
 
     public double Pin(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double PK = PB(features);
-        Map<SystemFeature, Double> PinFeatures = copyOf(features);
-        PinFeatures.put(SystemFeature.K, K - 1);
-        final double Pn = Pn(PinFeatures);
-        return Pn / (1 - PK);
+        final double n = features.get(SystemFeature.n);
+        final double m = features.get(SystemFeature.m);
+        final double Pn = Pn(features);
+        final double dividend = (K - n) * Pn;
+        double divisor = 0.0;
+        for (double i = 0.0; i <= m - 1; i++) {
+            Map<SystemFeature, Double> PiFeatures = copyOf(features);
+            PiFeatures.put(SystemFeature.n, i);
+            double Pi = Pn(PiFeatures);
+            divisor += (K - i) * Pi;
+        }
+        return dividend / divisor;
     }
 
     public double PB(Map<SystemFeature, Double> features) {
         final double m = features.get(SystemFeature.m);
         final double K = features.get(SystemFeature.K);
-        Map<SystemFeature, Double> PBFeatures = copyOf(features);
-        PBFeatures.put(SystemFeature.K, K - 1);
-        PBFeatures.put(SystemFeature.n, m);
-        return Pn(PBFeatures);
+        double result = 0.0;
+        if (m != K) {
+            Map<SystemFeature, Double> PBFeatures = copyOf(features);
+            PBFeatures.put(SystemFeature.K, K - 1);
+            PBFeatures.put(SystemFeature.n, m);
+            result = Pn(PBFeatures);
+        }
+        return result;
     }
 
     public double PW(Map<SystemFeature, Double> features) {
