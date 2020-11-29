@@ -11,6 +11,7 @@ public enum SystemFeature {
     Beta,
     bN,
     c,
+    m,
     C1,
     C2,
     C2S,
