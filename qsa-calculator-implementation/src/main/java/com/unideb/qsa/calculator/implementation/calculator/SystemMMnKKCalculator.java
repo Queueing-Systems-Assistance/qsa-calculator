@@ -19,7 +19,13 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 @Component
 public class SystemMMnKKCalculator {
 
-    public double D(Map<SystemFeature, Double> features) {
+    public double Ro(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        return Lambda / Mu;
+    }
+
+    public double PW(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         double sum = 0;
         for (double n = 0; n <= c - 1; n++) {
@@ -44,7 +50,7 @@ public class SystemMMnKKCalculator {
 
     public double EWW0(Map<SystemFeature, Double> features) {
         final double WAvg = WAvg(features);
-        final double D = D(features);
+        final double D = PW(features);
         return WAvg / D;
     }
 
@@ -91,19 +97,12 @@ public class SystemMMnKKCalculator {
     public double P0(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
-        final double z = z(features);
-        double sumPart1 = 0;
-        for (double k = 0; k <= c; k++) {
-            final double combinatoricsOfKk = binomialCoefficientDouble((int) K, (int) k);
-            sumPart1 += combinatoricsOfKk * pow(z, -k);
+        final double Ro = Ro(features);
+        double sum = 0.0;
+        for (double i = 1.0; i <= K; i++) {
+            sum += anRecursive(c, K, i, Ro);
         }
-        double sumPart2 = 0;
-        for (double k = c + 1; k <= K; k++) {
-            final double part1 = factorial(k) / (factorial(c) * pow(c, k - c));
-            final double combinatoricsOfKk = binomialCoefficientDouble((int) K, (int) k);
-            sumPart2 += part1 * combinatoricsOfKk * pow(z, -k);
-        }
-        return pow(sumPart1 + sumPart2, -1);
+        return 1 / (1 + sum);
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -189,6 +188,22 @@ public class SystemMMnKKCalculator {
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
         return E0 / SAvg;
+    }
+
+    private double anRecursive(double c, double K, double n, double Ro) {
+        double result;
+        if (n == 0.0) {
+            result = 1.0;
+        } else {
+            final double recursive = anRecursive(c, K, n - 1, Ro);
+            result = (K - n + 1) * recursive * Ro;
+            if (n < c) {
+                result /= n;
+            } else {
+                result /= c;
+            }
+        }
+        return result;
     }
 
     private double C1(Map<SystemFeature, Double> features) {
