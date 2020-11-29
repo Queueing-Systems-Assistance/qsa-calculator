@@ -16,8 +16,8 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMGamma1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Alpha = features.get(SystemFeature.Alpha);
-        return 1 / Alpha;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        return 1 / Lambda;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -34,15 +34,15 @@ public class SystemMGamma1KKCalculator {
 
     public double P0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double Alpha = features.get(SystemFeature.Alpha);
-        final double Beta = features.get(SystemFeature.Beta);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
         double sum = 0;
         for (double i = 0; i < K; i++) {
             final double part1 = factorial(K - 1);
             final double part2 = factorial(i) * factorial((K - 1) - i);
-            final double part3 = functionBn(i, Alpha, Beta);
+            final double part3 = Bn(i, Lambda, Mu);
             sum += part1 / part2 * part3;
         }
         return pow(1 + K * SAvg / E0 * sum, -1);
@@ -55,8 +55,8 @@ public class SystemMGamma1KKCalculator {
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double Beta = features.get(SystemFeature.Beta);
-        return 1 / Beta;
+        final double Mu = features.get(SystemFeature.Mu);
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
@@ -77,19 +77,19 @@ public class SystemMGamma1KKCalculator {
         return 1 - P0;
     }
 
-    private double functionBn(double index, double alphaMGamma1KK, double betaMGamma1KK) {
+    private double Bn(double n, double lambda, double mu) {
         double result = 1;
-        if (index != 0) {
-            for (double i = 1; i <= index; i++) {
-                final double laplace = functionLaplace(betaMGamma1KK, alphaMGamma1KK, i);
+        if (n != 0) {
+            for (double i = 1; i <= n; i++) {
+                final double laplace = laplaceStieltjes(mu, lambda, i);
                 result *= (1 - laplace) / laplace;
             }
         }
         return result;
     }
 
-    private double functionLaplace(double Beta, double Alpha, double index) {
-        double divisor = Beta + index * Alpha;
-        return pow(Beta / divisor, Alpha);
+    private double laplaceStieltjes(double mu, double lambda, double index) {
+        double divisor = mu + index * lambda;
+        return pow(mu / divisor, lambda);
     }
 }

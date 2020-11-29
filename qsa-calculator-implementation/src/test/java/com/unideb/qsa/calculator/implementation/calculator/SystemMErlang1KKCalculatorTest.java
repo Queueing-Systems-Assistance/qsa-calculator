@@ -118,7 +118,7 @@ public class SystemMErlang1KKCalculatorTest {
 
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
-        features.put(SystemFeature.Alpha, 1.5);
+        features.put(SystemFeature.Lambda, 1.5);
         features.put(SystemFeature.Mu, 2.2);
         features.put(SystemFeature.K, 3.0);
         return features;

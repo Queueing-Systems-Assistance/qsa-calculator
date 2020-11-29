@@ -16,8 +16,8 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMHypo1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Alpha = features.get(SystemFeature.Alpha);
-        return 1 / Alpha;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        return 1 / Lambda;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -27,18 +27,18 @@ public class SystemMHypo1KKCalculator {
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double mu1 = features.get(SystemFeature.mu1);
-        final double mu2 = features.get(SystemFeature.mu2);
-        final double mu3 = features.get(SystemFeature.mu3);
+        final double Mu1 = features.get(SystemFeature.Mu1);
+        final double Mu2 = features.get(SystemFeature.Mu2);
+        final double Mu3 = features.get(SystemFeature.Mu3);
         double result = 0;
-        if (mu2 == 0.0) {
-            result = 1 / mu1;
+        if (Mu2 == 0.0) {
+            result = 1 / Mu1;
         } else {
-            if (mu3 == 0.0) {
-                final double divisor = (mu1 + mu2) / 2;
+            if (Mu3 == 0.0) {
+                final double divisor = (Mu1 + Mu2) / 2;
                 result = 1 / divisor;
-            } else if (mu2 != 0.0 && mu3 != 0.0) {
-                final double divisor = (mu1 + mu2 + mu3) / 3;
+            } else if (Mu2 != 0.0 && Mu3 != 0.0) {
+                final double divisor = (Mu1 + Mu2 + Mu3) / 3;
                 result = 1 / divisor;
             }
         }
@@ -99,20 +99,20 @@ public class SystemMHypo1KKCalculator {
     }
 
     private double functionLaplace(Map<SystemFeature, Double> features, double index) {
-        final double Alpha = features.get(SystemFeature.Alpha);
-        final double mu1 = features.get(SystemFeature.mu1);
-        final double mu2 = features.get(SystemFeature.mu2);
-        final double mu3 = features.get(SystemFeature.mu3);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu1 = features.get(SystemFeature.Mu1);
+        final double Mu2 = features.get(SystemFeature.Mu2);
+        final double Mu3 = features.get(SystemFeature.Mu3);
         double result = 1;
-        double calculation = mu1 / (mu1 + (index * Alpha));
-        if (mu2 == 0.0) {
+        double calculation = Mu1 / (Mu1 + (index * Lambda));
+        if (Mu2 == 0.0) {
             result *= calculation;
         } else {
-            double calculation2 = mu2 / (mu2 + (index * Alpha));
-            if (mu3 == 0.0) {
+            double calculation2 = Mu2 / (Mu2 + (index * Lambda));
+            if (Mu3 == 0.0) {
                 result *= calculation * calculation2;
             } else {
-                double calculation3 = mu3 / (mu3 + (index * Alpha));
+                double calculation3 = Mu3 / (Mu3 + (index * Lambda));
                 result *= calculation * calculation2 * calculation3;
             }
         }

@@ -206,7 +206,7 @@ public class SystemMMnKKCalculatorTest {
 
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMnKK = new HashMap<>();
-        systemMMnKK.put(SystemFeature.Alpha, 2.5);
+        systemMMnKK.put(SystemFeature.Lambda, 2.5);
         systemMMnKK.put(SystemFeature.Mu, 1.5);
         systemMMnKK.put(SystemFeature.n, 2.0);
         systemMMnKK.put(SystemFeature.c, 2.0);

@@ -16,8 +16,8 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMErlang1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Alpha = features.get(SystemFeature.Alpha);
-        return 1 / Alpha;
+        final double Lambda = features.get(SystemFeature.Lambda);
+        return 1 / Lambda;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -34,7 +34,7 @@ public class SystemMErlang1KKCalculator {
 
     public double P0(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double Alpha = features.get(SystemFeature.Alpha);
+        final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
@@ -42,8 +42,8 @@ public class SystemMErlang1KKCalculator {
         for (double i = 0; i < K; i++) {
             double dividend = factorial(K - 1);
             double divisor = factorial(i) * factorial((K - 1) - i);
-            double functionBn = functionBn(i, Alpha, Mu);
-            sum += dividend / divisor * functionBn;
+            double Bi = Bn(i, Lambda, Mu);
+            sum += dividend / divisor * Bi;
         }
         return pow(1 + K * SAvg / E0 * sum, -1);
     }
@@ -77,11 +77,11 @@ public class SystemMErlang1KKCalculator {
         return 1 - P0;
     }
 
-    private double functionBn(double index, double alphaMErlang1KK, double muMErlang1KK) {
+    private double Bn(double n, double lambda, double mu) {
         double result = 1;
-        if (index != 0) {
-            for (double i = 1; i <= index; i++) {
-                final double laplace = functionLaplace(muMErlang1KK, alphaMErlang1KK, i);
+        if (n != 0) {
+            for (double i = 1; i <= n; i++) {
+                final double laplace = laplaceStieltjes(mu, lambda, i);
                 result *= (1 - laplace) / laplace;
             }
 
@@ -89,7 +89,7 @@ public class SystemMErlang1KKCalculator {
         return result;
     }
 
-    private double functionLaplace(double muMErlang1KK, double alphaMErlang1KK, double index) {
-        return pow(muMErlang1KK / (muMErlang1KK + index * alphaMErlang1KK), index);
+    private double laplaceStieltjes(double mu, double lambda, double n) {
+        return pow(mu / (mu + n * lambda), n);
     }
 }
