@@ -19,7 +19,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 @Component
 public class SystemMMnKKCalculator {
 
-    public double D(Map<SystemFeature, Double> features) {
+    public double PW(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         double sum = 0;
         for (double n = 0; n <= c - 1; n++) {
@@ -44,8 +44,8 @@ public class SystemMMnKKCalculator {
 
     public double EWW0(Map<SystemFeature, Double> features) {
         final double WAvg = WAvg(features);
-        final double D = D(features);
-        return WAvg / D;
+        final double PW = PW(features);
+        return WAvg / PW;
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
