@@ -5,7 +5,6 @@ import static com.unideb.qsa.calculator.implementation.calculator.helper.Calcula
 import static java.lang.Math.E;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
-import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
 import java.util.Map;
 
