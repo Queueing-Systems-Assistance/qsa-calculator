@@ -135,18 +135,10 @@ public class SystemMMnKKCalculator {
         final double c = features.get(SystemFeature.c);
         final double n = features.get(SystemFeature.n);
         final double K = features.get(SystemFeature.K);
+        final double Ro = Ro(features);
         final double P0 = P0(features);
-        final double z = z(features);
-        final double combinatoricsOfKn = binomialCoefficientDouble((int) K, (int) n);
-        final double calculation = pow(z, -n) * P0;
-        double result;
-        if (n > c) {
-            final double part1 = factorial(n) / (factorial(c) * pow(c, n - c));
-            result = part1 * combinatoricsOfKn * calculation;
-        } else {
-            result = combinatoricsOfKn * calculation;
-        }
-        return result;
+        final double an = anRecursive(c, K, n, Ro);
+        return an * P0;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
