@@ -194,7 +194,7 @@ public class SystemMMcmKCalculator {
         } else {
             final double recursive = P0InverseRecursive(Ro, K, c, m - 1);
             final double dividend = binomialCoefficientDouble((int)K, (int)m) * factorial(m) * pow(Ro, m);
-            final double divisor = factorial(c) * pow(c, m - K);
+            final double divisor = factorial(c) * pow(c, m - c);
             result = recursive + dividend / divisor;
         }
         return result;

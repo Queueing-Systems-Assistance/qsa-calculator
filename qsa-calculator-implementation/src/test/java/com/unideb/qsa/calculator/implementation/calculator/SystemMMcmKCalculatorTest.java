@@ -32,7 +32,7 @@ public class SystemMMcmKCalculatorTest {
     public void P0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0909;
+        double expected = 0.1304347;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.P0(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMMcmKCalculatorTest {
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.2272727272;
+        double expected = 0.3260869;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.Pn(features);
         // THEN
@@ -65,7 +65,7 @@ public class SystemMMcmKCalculatorTest {
     public void PBTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0159;
+        double expected = 0.0163934;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.PB(features);
         // THEN
@@ -87,7 +87,7 @@ public class SystemMMcmKCalculatorTest {
     public void cAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.136363636;
+        double expected = 1.6304347;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.cAvg(features);
         // THEN
@@ -98,7 +98,7 @@ public class SystemMMcmKCalculatorTest {
     public void mAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 3.825757575;
+        double expected = 3.315217;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.mAvg(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMMcmKCalculatorTest {
     public void USTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.909;
+        double expected = 0.8695652;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.US(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMMcmKCalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.37878787878;
+        double expected = 0.5434782;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.a(features);
         // THEN
@@ -131,7 +131,7 @@ public class SystemMMcmKCalculatorTest {
     public void UtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.76515151515;
+        double expected = 0.6630434;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.Ut(features);
         // THEN
@@ -142,7 +142,7 @@ public class SystemMMcmKCalculatorTest {
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.27272727;
+        double expected = 3.2608695;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.LambdaAvg(features);
         // THEN
@@ -153,7 +153,7 @@ public class SystemMMcmKCalculatorTest {
     public void NAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.1742424242;
+        double expected = 1.684782;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.NAvg(features);
         // THEN
@@ -164,7 +164,7 @@ public class SystemMMcmKCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0379;
+        double expected = 0.05434782;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.QAvg(features);
         // THEN
@@ -197,7 +197,7 @@ public class SystemMMcmKCalculatorTest {
     public void ETauTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.68333333333;
+        double expected = 1.016666;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.ETau(features);
         // THEN
@@ -208,7 +208,7 @@ public class SystemMMcmKCalculatorTest {
     public void ENRTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.68333333;
+        double expected = 1.0166666;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.ENR(features);
         // THEN
