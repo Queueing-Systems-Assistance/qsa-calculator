@@ -2,9 +2,7 @@ package com.unideb.qsa.calculator.implementation.calculator;
 
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
-import static java.lang.Math.E;
 import static java.lang.Math.pow;
-
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
 import java.util.Map;
@@ -13,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
 
+/**
+ * System M | M | c | m | K Service.
+ */
 @Component
 public class SystemMMcmKCalculator {
 
@@ -38,7 +39,7 @@ public class SystemMMcmKCalculator {
         final double Ro = Ro(features);
         final double P0 = P0(features);
         double result = binomialCoefficientDouble((int)K, (int)n) * pow(Ro, n) * P0;
-        if(n >= c) {
+        if (n >= c) {
             final double factor = factorial(n) / (factorial(c) * pow(c, n - c));
             result *= factor;
         }
@@ -95,7 +96,7 @@ public class SystemMMcmKCalculator {
             Map<SystemFeature, Double> PiFeatures = copyOf(features);
             PiFeatures.put(SystemFeature.n, i);
             double Pi = Pn(PiFeatures);
-            if(i < c) {
+            if (i < c) {
                 sum += i * Pi;
             } else {
                 sum += c * Pi;
@@ -185,25 +186,17 @@ public class SystemMMcmKCalculator {
     }
 
     private double P0InverseRecursive(double Ro, double K, double c, double m) {
-        if(c == m) {
-            double sum = 0.0;
+        double result = 0.0;
+        if (c == m) {
             for (double i = 0.0; i <= c; i++) {
-                sum += binomialCoefficientDouble((int)K, (int)i) * pow(Ro, i);
+                result += binomialCoefficientDouble((int)K, (int)i) * pow(Ro, i);
             }
-            return sum;
         } else {
             final double recursive = P0InverseRecursive(Ro, K, c, m - 1);
             final double dividend = binomialCoefficientDouble((int)K, (int)m) * factorial(m) * pow(Ro, m);
             final double divisor = factorial(c) * pow(c, m - K);
-            return recursive + dividend / divisor;
+            result = recursive + dividend / divisor;
         }
-    }
-
-    private double Qnx(double n, double x) {
-        double result = 0;
-        for (double k = 0; k <= n; k++) {
-            result += pow(x, k) / factorial(k);
-        }
-        return pow(E, -1 * x) * result;
+        return result;
     }
 }

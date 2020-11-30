@@ -11,7 +11,7 @@ import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
- * Validates c <= m <= K
+ * Validates c <= m <= K.
  */
 @Component
 public class MBetweencAndKValidator extends FeatureValidator {
@@ -22,8 +22,8 @@ public class MBetweencAndKValidator extends FeatureValidator {
         Optional<ValidationErrorResponse> result = Optional.empty();
         final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
-        final double K = features.get(SystemFeature.K);
-        if (m < c || m > K) {
+        final double k = features.get(SystemFeature.K);
+        if (m < c || m > k) {
             result = Optional.of(new ValidationErrorResponse.Builder()
                     .withErrorMessage("error.parameter.m.between.cAndK")
                     .withInputIds(List.of(SystemFeature.c.name(), SystemFeature.m.name(), SystemFeature.K.name()))

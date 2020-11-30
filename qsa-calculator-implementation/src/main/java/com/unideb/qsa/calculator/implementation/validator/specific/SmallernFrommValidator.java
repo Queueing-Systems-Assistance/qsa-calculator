@@ -10,6 +10,9 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
+/**
+ * Validates n < m.
+ */
 @Component
 public class SmallernFrommValidator extends FeatureValidator {
 
