@@ -2,7 +2,7 @@ package com.unideb.qsa.calculator.implementation.calculator;
 
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
 import java.util.Map;
@@ -185,6 +185,35 @@ public class SystemMMcmKCalculator {
         return Lambda * ETao;
     }
 
+    public double FWt(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double c = features.get(SystemFeature.c);
+        final double m = features.get(SystemFeature.m);
+        final double t = features.get(SystemFeature.t);
+        final double z = Mu / Lambda;
+        Map<SystemFeature, Double> Pi0Features = copyOf(features);
+        Pi0Features.put(SystemFeature.n, 0.0);
+        final double Pi0 = Pin(Pi0Features);
+        final double dividend = pow(c, c) * QkLambda(m - 1 - c, c * (z + Mu * t));
+        final double divisor = factorial(c) * pkLambda(m - 1, c * z);
+        return 1 - dividend / divisor * Pi0;
+    }
+
+    public double FTt(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
+        final double m = features.get(SystemFeature.m);
+        final double t = features.get(SystemFeature.t);
+        final double z = Mu / Lambda;
+        Map<SystemFeature, Double> Pi0Features = copyOf(features);
+        Pi0Features.put(SystemFeature.n, 0.0);
+        final double Pi0 = Pin(Pi0Features);
+        final double dividend = QkLambda(m - 1, z + Mu * t);
+        final double divisor = pkLambda(m - 1, z);
+        return 1 - dividend / divisor * Pi0;
+    }
+
     private double P0InverseRecursive(double Ro, double K, double c, double m) {
         double result = 0.0;
         if (c == m) {
@@ -198,5 +227,20 @@ public class SystemMMcmKCalculator {
             result = recursive + dividend / divisor;
         }
         return result;
+    }
+
+    private double QkLambda(double k, double lambda) {
+        double sum = 0;
+        for (double n = 0; n <= k; n++) {
+            sum += pow(lambda, n) / factorial(n);
+        }
+        return pow(E, -lambda) * sum;
+    }
+
+    private double pkLambda(double k, double lambda) {
+        final double part1 = pow(lambda, k);
+        final double part2 = factorial(k);
+        final double part3 = pow(E, -lambda);
+        return part1 / part2 * part3;
     }
 }
