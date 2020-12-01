@@ -215,6 +215,29 @@ public class SystemMMcmKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void FWtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.999938;
+        // WHEN
+        double result = systemMMcmKCalculatorUnderTest.FWt(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void FTtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        features.put(SystemFeature.c, 1.0);
+        double expected = 0.7330887;
+        // WHEN
+        double result = systemMMcmKCalculatorUnderTest.FTt(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMcmK = new HashMap<>();
         systemMMcmK.put(SystemFeature.Lambda, 1.0);
@@ -223,6 +246,7 @@ public class SystemMMcmKCalculatorTest {
         systemMMcmK.put(SystemFeature.m, 4.0);
         systemMMcmK.put(SystemFeature.K, 5.0);
         systemMMcmK.put(SystemFeature.n, 1.0);
+        systemMMcmK.put(SystemFeature.t, 1.0);
         return systemMMcmK;
     }
 }
