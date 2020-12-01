@@ -18,6 +18,17 @@ public class SystemMMnKKCalculatorTest {
     private final SystemMMnKKCalculator systemMMnKKCalculatorUnderTest = new SystemMMnKKCalculator();
 
     @Test
+    public void RoTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.666666;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.Ro(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void E0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -51,23 +62,23 @@ public class SystemMMnKKCalculatorTest {
     }
 
     @Test
-    public void zTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.6;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.z(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.22145669;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.Pn(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void mAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.1309055;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.mAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -120,9 +131,31 @@ public class SystemMMnKKCalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.717275;
+        double expected = 0.94242125;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void USTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.986712598;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.US(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void UtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.282726;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.Ut(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }

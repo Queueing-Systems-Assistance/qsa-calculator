@@ -36,15 +36,49 @@ public class SystemMMnKKCalculator {
         return 1 - sum;
     }
 
+    public double cAvg(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        double sum = 0.0;
+        for(double i = 1.0; i <= K; i++) {
+            Map<SystemFeature, Double> PiFeatures = copyOf(features);
+            PiFeatures.put(SystemFeature.n, i);
+            double Pi = Pn(PiFeatures);
+            if (i <= c) {
+                sum += Pi * i;
+            } else {
+                sum += Pi * c;
+            }
+        }
+        return sum;
+    }
+
+    public double mAvg(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return K - NAvg;
+    }
+
     public double E0(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         return 1 / Lambda;
     }
 
     public double a(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double cAvg = cAvg(features);
+        return cAvg / c;
+    }
+
+    public double US(Map<SystemFeature, Double> features) {
+        final double P0 = P0(features);
+        return 1 - P0;
+    }
+
+    public double Ut(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
-        final double NAvg = NAvg(features);
-        return NAvg / K;
+        final double mAvg = mAvg(features);
+        return mAvg / K;
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
@@ -54,14 +88,15 @@ public class SystemMMnKKCalculator {
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double t = features.get(SystemFeature.t);
         final double K = features.get(SystemFeature.K);
         final double c = features.get(SystemFeature.c);
-        final double Mu = features.get(SystemFeature.Mu);
         final double C1 = C1(features);
         final double SAvg = SAvg(features);
         final double C2 = C2(features);
-        final double z = z(features);
+        final double z = Mu / Lambda;
         final double dividend = QkLambda(K - c - 1, c * (z + t * Mu));
         final double divisor = QkLambda(K - c - 1, c * z);
         double part1 = C1 * exp(-t / SAvg);
@@ -70,9 +105,11 @@ public class SystemMMnKKCalculator {
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double K = features.get(SystemFeature.K);
         final double c = features.get(SystemFeature.c);
-        final double z = z(features);
+        final double z = Mu / Lambda;
         double P0KMinus1 = P0KMinus1(features);
         final double dividend = pow(c, c) * QkLambda(K - c - 1, c * z) * P0KMinus1;
         final double divisor = factorial(c) * pkLambda(K - 1, c * z);
@@ -115,10 +152,12 @@ public class SystemMMnKKCalculator {
     }
 
     public double PinK(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
         final double n = features.get(SystemFeature.n);
-        final double z = z(features);
+        final double z = Mu / Lambda;
         final double P0KMinus1 = P0KMinus1(features);
         final double part1 = pow(c, c) / factorial(c);
         final double dividend = pkLambda(K - n - 1, c * z);
@@ -173,12 +212,6 @@ public class SystemMMnKKCalculator {
         return QAvg * (E0 + SAvg) / (K - QAvg);
     }
 
-    public double z(Map<SystemFeature, Double> features) {
-        final double SAvg = SAvg(features);
-        final double E0 = E0(features);
-        return E0 / SAvg;
-    }
-
     private double anRecursive(double c, double K, double n, double Ro) {
         double result;
         if (n == 0.0) {
@@ -201,9 +234,11 @@ public class SystemMMnKKCalculator {
     }
 
     private double C2(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
-        final double z = z(features);
+        final double z = Mu / Lambda;
         final double P0KMinus1 = P0KMinus1(features);
         final double dividend = pow(c, c) * QkLambda(K - c - 1, c * z);
         final double divisorPart1 = factorial(c) * (c - 1) * factorial(K - c - 1);

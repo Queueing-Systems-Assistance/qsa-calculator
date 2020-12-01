@@ -41,9 +41,37 @@ public class SystemMMnnKCalculator {
         return binomialCoefficientDouble((int)K, (int)n) * pow(Ro, n) * P0;
     }
 
+    public double Pin(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double n = features.get(SystemFeature.n);
+        final double c = features.get(SystemFeature.c);
+        final double Pn = Pn(features);
+        final double dividend = (K - n) * Pn;
+        double divisor = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            Map<SystemFeature, Double> PiFeatures = copyOf(features);
+            PiFeatures.put(SystemFeature.n, i);
+            double Pi = Pn(PiFeatures);
+            divisor += (K - i) * Pi;
+        }
+        return dividend / divisor;
+    }
+
     public double US(Map<SystemFeature, Double> features) {
         final double P0 = P0(features);
         return 1 - P0;
+    }
+
+    public double a(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double NAvg = NAvg(features);
+        return NAvg / c;
+    }
+
+    public double LambdaAvg(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double NAvg = NAvg(features);
+        return Mu * NAvg;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {

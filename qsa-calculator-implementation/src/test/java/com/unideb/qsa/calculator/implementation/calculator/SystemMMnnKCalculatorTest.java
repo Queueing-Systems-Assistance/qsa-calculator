@@ -51,12 +51,45 @@ public class SystemMMnnKCalculatorTest {
     }
 
     @Test
+    public void PinTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.5;
+        // WHEN
+        double result = systemMMnnKCalculatorUnderTest.Pin(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void USTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.927419;
         // WHEN
         double result = systemMMnnKCalculatorUnderTest.US(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void aTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.6451612;
+        // WHEN
+        double result = systemMMnnKCalculatorUnderTest.a(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void LambdaAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.16129032;
+        // WHEN
+        double result = systemMMnnKCalculatorUnderTest.LambdaAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
