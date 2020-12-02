@@ -109,9 +109,10 @@ public class SystemMMnKKCalculator {
         final double Mu = features.get(SystemFeature.Mu);
         final double K = features.get(SystemFeature.K);
         final double c = features.get(SystemFeature.c);
+        final double t = features.get(SystemFeature.t);
         final double z = Mu / Lambda;
         double P0KMinus1 = P0KMinus1(features);
-        final double dividend = pow(c, c) * QkLambda(K - c - 1, c * z) * P0KMinus1;
+        final double dividend = pow(c, c) * QkLambda(K - c - 1, c * (z + Mu * t)) * P0KMinus1;
         final double divisor = factorial(c) * pkLambda(K - 1, c * z);
         return 1 - dividend / divisor;
     }
@@ -152,17 +153,10 @@ public class SystemMMnKKCalculator {
     }
 
     public double PinK(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double Mu = features.get(SystemFeature.Mu);
-        final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
-        final double n = features.get(SystemFeature.n);
-        final double z = Mu / Lambda;
-        final double P0KMinus1 = P0KMinus1(features);
-        final double part1 = pow(c, c) / factorial(c);
-        final double dividend = pkLambda(K - n - 1, c * z);
-        final double divisor = pkLambda(K - 1, c * z);
-        return part1 * (dividend / divisor) * P0KMinus1;
+        Map<SystemFeature, Double> PinKFeatures = copyOf(features);
+        PinKFeatures.put(SystemFeature.K, K - 1);
+        return Pn(PinKFeatures);
     }
 
     public double PnKMin1(Map<SystemFeature, Double> features) {

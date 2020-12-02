@@ -83,8 +83,7 @@ public class SystemMMcmKCalculator {
         for (double i = c; i <= m - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
             PiiFeatures.put(SystemFeature.n, i);
-            double Pii = Pin(PiiFeatures);
-            sum += Pii;
+            sum += Pin(PiiFeatures);
         }
         return sum;
     }
@@ -191,14 +190,15 @@ public class SystemMMcmKCalculator {
         final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
+        final double K = features.get(SystemFeature.K);
         final double t = features.get(SystemFeature.t);
         final double z = Mu / Lambda;
         Map<SystemFeature, Double> Pi0Features = copyOf(features);
         Pi0Features.put(SystemFeature.n, 0.0);
         final double Pi0 = Pin(Pi0Features);
-        final double dividend = pow(c, c) * QkLambda(m - 1 - c, c * (z + Mu * t));
-        final double divisor = factorial(c) * pkLambda(m - 1, c * z);
-        return 1 - dividend / divisor * Pi0;
+        final double dividend = pow(c, c) * CumulativePoisson(K - 1 - c, c * (z + Mu * t)) * Pi0;
+        final double divisor = factorial(c) * Poisson(m - 1, c * z);
+        return 1 - dividend / divisor;
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
@@ -210,8 +210,8 @@ public class SystemMMcmKCalculator {
         Map<SystemFeature, Double> Pi0Features = copyOf(features);
         Pi0Features.put(SystemFeature.n, 0.0);
         final double Pi0 = Pin(Pi0Features);
-        final double dividend = QkLambda(m - 1, z + Mu * t);
-        final double divisor = pkLambda(m - 1, z);
+        final double dividend = CumulativePoisson(m - 1, z + Mu * t);
+        final double divisor = Poisson(m - 1, z);
         return 1 - dividend / divisor * Pi0;
     }
 
@@ -230,15 +230,15 @@ public class SystemMMcmKCalculator {
         return result;
     }
 
-    private double QkLambda(double k, double lambda) {
-        double sum = 0;
-        for (double n = 0; n <= k; n++) {
-            sum += pow(lambda, n) / factorial(n);
+    private double CumulativePoisson(double k, double lambda) {
+        double sum = 0.0;
+        for(double i = 0.0; i <= k; i++) {
+            sum += Poisson(i, lambda);
         }
-        return pow(E, -lambda) * sum;
+        return sum;
     }
 
-    private double pkLambda(double k, double lambda) {
+    private double Poisson(double k, double lambda) {
         final double part1 = pow(lambda, k);
         final double part2 = factorial(k);
         final double part3 = pow(E, -lambda);
