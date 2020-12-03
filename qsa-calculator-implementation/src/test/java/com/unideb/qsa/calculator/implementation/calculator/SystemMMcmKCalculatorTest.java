@@ -219,7 +219,7 @@ public class SystemMMcmKCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9991944;
+        double expected = 0.9997521;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.FWt(features);
         // THEN
@@ -231,7 +231,7 @@ public class SystemMMcmKCalculatorTest {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         features.put(SystemFeature.c, 1.0);
-        double expected = 0.7330887;
+        double expected = 0.3834725;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.FTt(features);
         // THEN
