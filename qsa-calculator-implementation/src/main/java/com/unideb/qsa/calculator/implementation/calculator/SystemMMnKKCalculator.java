@@ -152,17 +152,6 @@ public class SystemMMnKKCalculator {
         return dividend / divisor;
     }
 
-    public double PinK(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
-        Map<SystemFeature, Double> PinKFeatures = copyOf(features);
-        PinKFeatures.put(SystemFeature.K, K - 1);
-        return Pn(PinKFeatures);
-    }
-
-    public double PnKMin1(Map<SystemFeature, Double> features) {
-        return PinK(features);
-    }
-
     public double Pn(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double n = features.get(SystemFeature.n);
