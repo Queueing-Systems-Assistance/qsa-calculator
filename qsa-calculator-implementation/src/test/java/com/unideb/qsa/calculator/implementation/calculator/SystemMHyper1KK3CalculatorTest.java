@@ -9,13 +9,13 @@ import org.testng.annotations.Test;
 import com.unideb.qsa.calculator.domain.SystemFeature;
 
 /**
- * Unit test for {@link SystemMHyper1KKCalculator}.
+ * Unit test for {@link SystemMHyper1KK3Calculator}.
  */
-public class SystemMHyper1KKCalculatorTest {
+public class SystemMHyper1KK3CalculatorTest {
 
     private static final double DELTA = 0.00001;
 
-    private final SystemMHyper1KKCalculator systemMHyper1KKCalculatorUnderTest = new SystemMHyper1KKCalculator();
+    private final SystemMHyper1KK3Calculator systemMHyper1KK3CalculatorUnderTest = new SystemMHyper1KK3Calculator();
 
     @Test
     public void E0Test() {
@@ -23,7 +23,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.6666666666666667;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.E0(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.E0(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -34,7 +34,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 1;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.SAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.SAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -46,7 +46,7 @@ public class SystemMHyper1KKCalculatorTest {
         features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.909090909;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.SAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.SAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -59,7 +59,7 @@ public class SystemMHyper1KKCalculatorTest {
         features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.83333333333333;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.SAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.SAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -70,7 +70,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.0230857925;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.P0(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.P0(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -82,7 +82,7 @@ public class SystemMHyper1KKCalculatorTest {
         features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.0072553037;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.P0(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.P0(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -95,7 +95,7 @@ public class SystemMHyper1KKCalculatorTest {
         features.put(SystemFeature.Mu3, 0.0);
         double expected = 0.00139695289;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.P0(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.P0(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -106,7 +106,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.97691420747;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.LambdaAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.LambdaAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -117,7 +117,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.976914207;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.a(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.a(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -128,7 +128,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 3.73756068894;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.TAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.TAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -139,7 +139,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 3.6512761383;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.NAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.NAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -150,7 +150,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 2.7375606889434;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.WAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.WAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -161,7 +161,7 @@ public class SystemMHyper1KKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 2.6743619308;
         // WHEN
-        double result = systemMHyper1KKCalculatorUnderTest.QAvg(features);
+        double result = systemMHyper1KK3CalculatorUnderTest.QAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
