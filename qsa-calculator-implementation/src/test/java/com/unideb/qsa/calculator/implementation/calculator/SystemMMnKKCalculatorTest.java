@@ -183,28 +183,6 @@ public class SystemMMnKKCalculatorTest {
     }
 
     @Test
-    public void PinKTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.3916449086;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.PinK(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void PnKMin1Test() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.3916449086;
-        // WHEN
-        double result = systemMMnKKCalculatorUnderTest.PnKMin1(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
