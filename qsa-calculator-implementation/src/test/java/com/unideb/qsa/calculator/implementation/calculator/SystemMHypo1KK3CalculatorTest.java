@@ -29,35 +29,10 @@ public class SystemMHypo1KK3CalculatorTest {
     }
 
     @Test
-    public void SAvgWhenAllMuIsNotNullTest() {
+    public void SAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 1;
-        // WHEN
-        double result = systemMHypo1KK3CalculatorUnderTest.SAvg(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void SAvgWhenMu3IsNullTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.Mu3, 0.0);
-        double expected = 0.909090909;
-        // WHEN
-        double result = systemMHypo1KK3CalculatorUnderTest.SAvg(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void SAvgWhenMu3AndMu2IsNullTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.Mu2, 0.0);
-        features.put(SystemFeature.Mu3, 0.0);
-        double expected = 0.83333333333333;
         // WHEN
         double result = systemMHypo1KK3CalculatorUnderTest.SAvg(features);
         // THEN
@@ -76,26 +51,12 @@ public class SystemMHypo1KK3CalculatorTest {
     }
 
     @Test
-    public void P0WhenMu3IsNullTest() {
+    public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.Mu3, 0.0);
-        double expected = 0.00346143256;
+        double expected = 0.999783266;
         // WHEN
-        double result = systemMHypo1KK3CalculatorUnderTest.P0(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void P0WhenMu2And3IsNullTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        features.put(SystemFeature.Mu2, 0.0);
-        features.put(SystemFeature.Mu3, 0.0);
-        double expected = 0.03869407496977;
-        // WHEN
-        double result = systemMHypo1KK3CalculatorUnderTest.P0(features);
+        double result = systemMHypo1KK3CalculatorUnderTest.a(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -107,17 +68,6 @@ public class SystemMHypo1KK3CalculatorTest {
         double expected = 0.9997832662954538;
         // WHEN
         double result = systemMHypo1KK3CalculatorUnderTest.LambdaAvg(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
-    public void aTest() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.999783266;
-        // WHEN
-        double result = systemMHypo1KK3CalculatorUnderTest.a(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
