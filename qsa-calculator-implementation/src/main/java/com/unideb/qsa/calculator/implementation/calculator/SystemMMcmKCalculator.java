@@ -186,33 +186,44 @@ public class SystemMMcmKCalculator {
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
-        final double K = features.get(SystemFeature.K);
         final double t = features.get(SystemFeature.t);
-        final double z = Mu / Lambda;
-        Map<SystemFeature, Double> Pi0Features = copyOf(features);
-        Pi0Features.put(SystemFeature.n, 0.0);
-        final double Pi0 = Pin(Pi0Features);
-        final double dividend = pow(c, c) * CumulativePoisson(K - 1 - c, c * (z + Mu * t)) * Pi0;
-        final double divisor = factorial(c) * Poisson(m - 1, c * z);
-        return 1 - dividend / divisor;
+        double sum = 0.0;
+        for (double i = c; i <= m - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PiiFeatures.put(SystemFeature.n, i);
+            double Pii = Pin(PiiFeatures);
+            double innerSum = 0.0;
+            for (double j = 0.0; j <= i - c; j++) {
+                double part1 = pow(c * Mu * t, j) / factorial(j);
+                double part2 = pow(E, -1 * c * Mu * t);
+                innerSum += part1 * part2;
+            }
+            sum += Pii * innerSum;
+        }
+        return 1 - sum;
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         final double m = features.get(SystemFeature.m);
         final double t = features.get(SystemFeature.t);
-        final double z = Mu / Lambda;
-        Map<SystemFeature, Double> Pi0Features = copyOf(features);
-        Pi0Features.put(SystemFeature.n, 0.0);
-        final double Pi0 = Pin(Pi0Features);
-        final double dividend = CumulativePoisson(m - 1, z + Mu * t);
-        final double divisor = Poisson(m - 1, z);
-        return 1 - dividend / divisor * Pi0;
+        double sum = 0.0;
+        for (double i = 0; i <= m - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PiiFeatures.put(SystemFeature.n, i);
+            double Pii = Pin(PiiFeatures);
+            double innerSum = 0.0;
+            for (double j = 0.0; j <= i; j++) {
+                double part1 = pow(Mu * t, j) / factorial(j);
+                double part2 = pow(E, -1 * Mu * t);
+                innerSum += part1 * part2;
+            }
+            sum += Pii * innerSum;
+        }
+        return 1 - sum;
     }
 
     private double P0InverseRecursive(double Ro, double K, double c, double m) {
