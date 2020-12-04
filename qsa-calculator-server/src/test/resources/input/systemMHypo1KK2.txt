@@ -1,0 +1,6 @@
+| ID     |        |
+| Lambda | Lambda |
+| Mu1    | Mu1    |
+| Mu2    | Mu2    |
+| K      | K      |
+| ID_END |        |
