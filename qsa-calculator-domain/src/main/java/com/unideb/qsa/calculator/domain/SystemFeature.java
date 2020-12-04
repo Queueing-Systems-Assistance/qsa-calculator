@@ -4,7 +4,6 @@ package com.unideb.qsa.calculator.domain;
  * System features for mapping the values.
  */
 public enum SystemFeature {
-
     a,
     Alpha,
     BcRo,
@@ -64,6 +63,7 @@ public enum SystemFeature {
     Mua,
     Mub,
     n,
+    nErlang,
     NAvg,
     NAvg1,
     NAvg2,
@@ -112,5 +112,4 @@ public enum SystemFeature {
     WAvg2,
     WAvgW,
     z
-
 }

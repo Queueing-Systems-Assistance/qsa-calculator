@@ -67,6 +67,14 @@ public abstract  class SystemMG1KKCalculator {
         return LambdaAvg * WAvg;
     }
 
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = Lambda * P0;
+        return dividend / divisor;
+    }
+
     public double functionBn(Map<SystemFeature, Double> features, double index) {
         double result = 1.0;
         if (index != 0) {

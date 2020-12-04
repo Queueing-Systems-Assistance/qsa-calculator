@@ -238,6 +238,30 @@ public class SystemMMcmKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void eAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        features.put(SystemFeature.c, 1.0);
+        double expected = 0.1;
+        // WHEN
+        double result = systemMMcmKCalculatorUnderTest.eAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        features.put(SystemFeature.c, 1.0);
+        double expected = 2.25;
+        // WHEN
+        double result = systemMMcmKCalculatorUnderTest.EDelta(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMcmK = new HashMap<>();
         systemMMcmK.put(SystemFeature.Lambda, 1.0);

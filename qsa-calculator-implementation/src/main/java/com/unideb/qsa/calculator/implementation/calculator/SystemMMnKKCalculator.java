@@ -195,6 +195,49 @@ public class SystemMMnKKCalculator {
         return QAvg * (E0 + SAvg) / (K - QAvg);
     }
 
+    public double eAvg(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        double sum = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            final double ei = ej(features, i);
+            final double ai = aj(features, i);
+            sum += ei * ai;
+        }
+        return sum;
+    }
+
+    public double EDelta(Map<SystemFeature, Double> features) {
+        final double a = a(features);
+        final double eAvg = eAvg(features);
+        final double dividend = a * eAvg;
+        final double divisor = 1 - a;
+        return dividend / divisor;
+    }
+
+    private double ej(Map<SystemFeature, Double> features, double j) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final double dividend = c - j;
+        final double divisor = (K - j) * Lambda;
+        return dividend / divisor;
+    }
+
+    private double aj(Map<SystemFeature, Double> features, double j) {
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        Map<SystemFeature, Double> PijFeatures = copyOf(features);
+        PijFeatures.put(SystemFeature.n, j);
+        final double Pij = Pin(PijFeatures);
+        double sum = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PiiFeatures.put(SystemFeature.n, i);
+            sum += Pin(PiiFeatures);
+        }
+        return Pij / sum;
+    }
+
     private double anRecursive(double c, double K, double n, double Ro) {
         double result;
         if (n == 0.0) {
