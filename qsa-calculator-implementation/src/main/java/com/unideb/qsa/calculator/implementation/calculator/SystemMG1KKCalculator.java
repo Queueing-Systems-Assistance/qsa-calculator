@@ -3,10 +3,14 @@ package com.unideb.qsa.calculator.implementation.calculator;
 import static java.lang.Math.pow;
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
-import com.unideb.qsa.calculator.domain.SystemFeature;
-
 import java.util.Map;
 
+import com.unideb.qsa.calculator.domain.SystemFeature;
+
+/**
+ * System M | G | 1 | K | K Service.
+ * Abstract class providing calculations for M | G | 1 | K | K systems.
+ */
 public abstract  class SystemMG1KKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {

@@ -1,11 +1,12 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import com.unideb.qsa.calculator.domain.SystemFeature;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.unideb.qsa.calculator.domain.SystemFeature;
 
 /**
  * Unit test for {@link SystemMHypo1KK2Calculator}.

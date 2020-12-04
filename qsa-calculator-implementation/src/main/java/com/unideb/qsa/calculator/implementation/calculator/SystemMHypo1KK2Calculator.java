@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
 
+/**
+ * System M | Hypo | 1 | K | K (2 phases) Service.
+ */
 @Component
 public class SystemMHypo1KK2Calculator extends SystemMG1KKCalculator {
 
