@@ -22,9 +22,10 @@ public class SystemMErlang1KKCalculator extends SystemMG1KKCalculator {
 
     @Override
     public double laplaceTransform(Map<SystemFeature, Double> features, double index) {
+        final double nErlang = features.get(SystemFeature.nErlang);
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
         final double divisor = Mu + index * Lambda;
-        return pow(Mu / divisor, index);
+        return pow(Mu / divisor, nErlang);
     }
 }
