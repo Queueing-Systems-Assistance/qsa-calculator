@@ -116,6 +116,17 @@ public class SystemMGamma1KKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDelta1Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.390766;
+        // WHEN
+        double result = systemMGamma1KKCalculatorUnderTest.EDelta1(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMGamma1KK = new HashMap<>();
         systemMGamma1KK.put(SystemFeature.Alpha, 0.5);

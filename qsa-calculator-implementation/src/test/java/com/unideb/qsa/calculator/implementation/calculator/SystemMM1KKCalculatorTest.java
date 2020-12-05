@@ -282,12 +282,12 @@ public class SystemMM1KKCalculatorTest {
     }
 
     @Test
-    public void EDeltaTest() {
+    public void EDelta1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 1.97916;
         // WHEN
-        double result = systemMM1KKCalculatorUnderTest.EDelta(features);
+        double result = systemMM1KKCalculatorUnderTest.EDelta1(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
