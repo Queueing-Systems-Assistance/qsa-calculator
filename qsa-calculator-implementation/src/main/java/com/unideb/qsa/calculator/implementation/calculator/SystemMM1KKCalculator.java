@@ -196,7 +196,7 @@ public class SystemMM1KKCalculator {
         return EQpow2 - pow(QAvg, 2);
     }
 
-    public double EDelta(Map<SystemFeature, Double> features) {
+    public double EDelta1(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double K = features.get(SystemFeature.K);
         final double P0 = P0(features);

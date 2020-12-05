@@ -116,6 +116,17 @@ public class SystemMHyper1KK2CalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDelta1Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 91.220136;
+        // WHEN
+        double result = systemMHyper1KK2CalculatorUnderTest.EDelta1(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMHyper1KK = new HashMap<>();
         systemMHyper1KK.put(SystemFeature.Lambda, 1.5);

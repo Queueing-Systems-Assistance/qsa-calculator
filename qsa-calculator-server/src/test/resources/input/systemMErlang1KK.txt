@@ -1,6 +1,6 @@
 | ID      |         |
-| nErlang | nErlang |
 | Lambda  | Lambda  |
+| nErlang | nErlang |
 | Mu      | Mu      |
 | K       | K       |
 | ID_END  |         |
