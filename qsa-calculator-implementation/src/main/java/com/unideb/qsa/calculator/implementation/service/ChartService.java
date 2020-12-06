@@ -8,7 +8,6 @@ import com.unideb.qsa.calculator.domain.chart.ChartRepresentation;
 import com.unideb.qsa.calculator.domain.chart.ChartRequest;
 import com.unideb.qsa.calculator.implementation.assembler.XAxisAssembler;
 import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
-import com.unideb.qsa.calculator.implementation.resolver.SystemOutputResolver;
 
 /**
  * Chart service.
@@ -21,7 +20,7 @@ public class ChartService {
     @Autowired
     private XAxisAssembler xAxisAssembler;
     @Autowired
-    private SystemOutputResolver systemOutputResolver;
+    private OutputFeatureService outputFeatureService;
 
     /**
      * Creates a chart based on the input.
@@ -34,7 +33,7 @@ public class ChartService {
     public ChartRepresentation createChart(String systemId, SystemFeature xAxisId, ChartRequest chartRequest) {
         return new ChartRepresentation.Builder()
                 .withLabels(xAxisAssembler.assemble(chartRequest.getxAxis()))
-                .withSystemOutputs(systemOutputResolver.resolve(systemId, xAxisId, chartRequest))
+                .withSystemOutputs(outputFeatureService.getSystemOutputs(systemId, xAxisId, chartRequest))
                 .withSystemElement(systemElementResolver.resolve(systemId))
                 .build();
     }
