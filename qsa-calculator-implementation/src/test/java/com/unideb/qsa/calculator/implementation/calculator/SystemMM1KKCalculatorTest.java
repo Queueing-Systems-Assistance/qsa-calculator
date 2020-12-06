@@ -109,9 +109,20 @@ public class SystemMM1KKCalculatorTest {
     public void UtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.452385;
+        double expected = 0.45238095;
         // WHEN
         double result = systemMM1KKCalculatorUnderTest.Ut(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void mAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.8095238;
+        // WHEN
+        double result = systemMM1KKCalculatorUnderTest.mAvg(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }

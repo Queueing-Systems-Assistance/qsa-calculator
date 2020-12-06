@@ -73,6 +73,28 @@ public class SystemMGamma1KKCalculatorTest {
     }
 
     @Test
+    public void UtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.38228774;
+        // WHEN
+        double result = systemMGamma1KKCalculatorUnderTest.Ut(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void mAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.146863233;
+        // WHEN
+        double result = systemMGamma1KKCalculatorUnderTest.mAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();

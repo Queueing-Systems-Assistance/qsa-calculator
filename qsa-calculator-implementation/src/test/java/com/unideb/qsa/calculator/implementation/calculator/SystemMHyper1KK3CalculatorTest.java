@@ -62,6 +62,28 @@ public class SystemMHyper1KK3CalculatorTest {
     }
 
     @Test
+    public void UtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.217092;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.Ut(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void mAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.651276;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.mAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();

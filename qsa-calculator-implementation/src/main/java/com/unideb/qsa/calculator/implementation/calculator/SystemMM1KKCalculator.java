@@ -68,6 +68,12 @@ public class SystemMM1KKCalculator {
         return US / SAvg;
     }
 
+    public double mAvg(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return K - NAvg;
+    }
+
     public double NAvg(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
         final double Ro = Ro(features);

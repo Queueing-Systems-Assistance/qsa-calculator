@@ -36,6 +36,18 @@ public abstract  class SystemMG1KKCalculator {
         return 1 - P0;
     }
 
+    public double Ut(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double mAvg = mAvg(features);
+        return mAvg / K;
+    }
+
+    public double mAvg(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return K - NAvg;
+    }
+
     public double LambdaAvg(Map<SystemFeature, Double> features) {
         final double SAvg = SAvg(features);
         final double a = a(features);
