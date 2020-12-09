@@ -62,6 +62,28 @@ public class SystemMM1CalculatorTest {
     }
 
     @Test
+    public void D2TLCFSTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 287.253772;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.D2TLCFS(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void D2TSIROTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 181.82135;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.D2TSIRO(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
     public void D2WTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -300,6 +322,50 @@ public class SystemMM1CalculatorTest {
         double expected = 7.1111;
         // WHEN
         double result = systemMM1CalculatorUnderTest.WAvg(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void ENdDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.777777777;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.ENdDelta(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void D2NdDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 22.49657064;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.D2NdDelta(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void EDelta1Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 11.11111;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.EDelta1(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void VarDeltaTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 562.41426;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.VarDelta(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
