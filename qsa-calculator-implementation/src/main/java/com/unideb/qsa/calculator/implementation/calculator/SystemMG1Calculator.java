@@ -53,6 +53,26 @@ public class SystemMG1Calculator {
         return ET2 - pow(TAvg, 2);
     }
 
+    public double D2TLCFS(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double eSPow2 = features.get(SystemFeature.eSPow2);
+        final double eSPow3 = features.get(SystemFeature.eSPow3);
+        final double Ro = Ro(features);
+        final double part1 = Lambda * eSPow3 / (3 * (1 - Ro));
+        final double part2 = pow(Lambda, 2) * (1 + Ro) * pow(eSPow2, 2) / (4 * pow(1 - Ro, 3));
+        return part1 + part2;
+    }
+
+    public double D2TSIRO(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double eSPow2 = features.get(SystemFeature.eSPow2);
+        final double eSPow3 = features.get(SystemFeature.eSPow3);
+        final double Ro = Ro(features);
+        final double part1 = 2 * Lambda * eSPow3 / (3 * (1 - Ro) * (2 - Ro));
+        final double part2 = pow(Lambda, 2) * (2 + Ro) * pow(eSPow2, 2) / (4 * pow(1 - Ro, 2) * (2 - Ro));
+        return part1 + part2;
+    }
+
     public double D2W(Map<SystemFeature, Double> features) {
         final double EW2 = EW2(features);
         final double WAvg = WAvg(features);
@@ -122,4 +142,32 @@ public class SystemMG1Calculator {
         return dividend / divisor;
     }
 
+    public double ENdDelta(Map<SystemFeature, Double> features) {
+        final double Ro = Ro(features);
+        return 1 / (1 - Ro);
+    }
+
+    public double D2NdDelta(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double eSPow2 = features.get(SystemFeature.eSPow2);
+        final double Ro = Ro(features);
+        final double dividend = Ro * (1 - Ro) + pow(Lambda, 2) * eSPow2;
+        final double divisor = pow(1 - Ro, 3);
+        return dividend / divisor;
+    }
+
+    public double EDelta1(Map<SystemFeature, Double> features) {
+        final double eS = features.get(SystemFeature.eS);
+        final double Ro = Ro(features);
+        return eS / (1 - Ro);
+    }
+
+    public double VarDelta(Map<SystemFeature, Double> features) {
+        final double eS = features.get(SystemFeature.eS);
+        final double eSPow2 = features.get(SystemFeature.eSPow2);
+        final double Ro = Ro(features);
+        final double part1 = eSPow2 / pow(1 - Ro, 3);
+        final double part2 = pow(eS, 2) / pow(1 - Ro, 2);
+        return part1 - part2;
+    }
 }
