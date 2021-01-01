@@ -40,7 +40,6 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
 
     /**
      * Exception handler for {@link Throwable}.
-     *
      * @param exception the exception
      * @return A readable error
      */
@@ -53,7 +52,6 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
 
     /**
      * Exception handler for {@link Throwable}.
-     *
      * @param exception the exception
      * @return A readable error
      */
@@ -66,7 +64,6 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
 
     /**
      * Exception handler for {@link QSAValidationException}.
-     *
      * @param exception the exception
      * @return Validation response with feature ids and error messages
      */
@@ -76,6 +73,7 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
         LOG.warn(EXCEPTION_OCCURRED_VALIDATION, getValidationErrorI18nKeys(validationErrorResponses));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorService.createErrorResponse(validationErrorResponses));
     }
+
     @Override
     public ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception, HttpHeaders headers, HttpStatus status,
             WebRequest webRequest) {
@@ -87,6 +85,7 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
             WebRequest request) {
         return ResponseEntity.status(status).body(errorService.createErrorResponse(ERROR_GLOBAL_NO_URL));
     }
+
     private List<String> getValidationErrorI18nKeys(List<ValidationErrorResponse> validationErrorResponses) {
         return validationErrorResponses.stream()
                                        .map(ValidationErrorResponse::getErrorMessage)

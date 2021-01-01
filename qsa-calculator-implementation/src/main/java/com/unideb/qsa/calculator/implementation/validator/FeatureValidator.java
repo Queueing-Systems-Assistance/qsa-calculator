@@ -21,7 +21,6 @@ public abstract class FeatureValidator {
 
     /**
      * Validate system features.
-     *
      * @param features  features and values from the request
      * @param featureId feature id
      * @return Validation error if the feature(s) are not compliant, otherwise {@link Optional#empty()}
@@ -30,18 +29,17 @@ public abstract class FeatureValidator {
 
     /**
      * Validate system features that is present. If the system feature is not in the map, then an {@link ValidationErrorResponse} will create.
-     *
      * @param features       features and values from the request
      * @param systemFeatures feature id
      */
     protected void validatePresentFeatures(Map<SystemFeature, Double> features, SystemFeature... systemFeatures) {
         List.of(systemFeatures).stream()
-                .filter(systemFeature -> !features.containsKey(systemFeature))
-                .findAny()
-                .ifPresent(systemFeature -> {
-                    LOG.warn(MISSING_FEATURE_ID, systemFeature);
-                    throw new QSAMessageException("error.global.missingFeatureId");
-                });
+            .filter(systemFeature -> !features.containsKey(systemFeature))
+            .findAny()
+            .ifPresent(systemFeature -> {
+                LOG.warn(MISSING_FEATURE_ID, systemFeature);
+                throw new QSAMessageException("error.global.missingFeatureId");
+            });
     }
 
 

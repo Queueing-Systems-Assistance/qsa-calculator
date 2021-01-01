@@ -2,13 +2,11 @@ package com.unideb.qsa.calculator.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * QSA.
  */
-@SpringBootApplication
-@EnableScheduling
+@SpringBootApplication(scanBasePackages = "com.unideb.qsa")
 public class Application {
 
     /**

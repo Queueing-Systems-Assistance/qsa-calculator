@@ -1,29 +1,27 @@
-
-# POD Name
-kubernetes:
-  pod-name: dev
-
+# Spring Metrics
 management:
-  # Spring Actuator
   endpoints:
+    enabled-by-default: false
     web:
       exposure:
-        include: info, health
-  # Graphite
+        include: info,heatlh,metrics
   metrics:
     export:
-      graphite:
-        port: 2003
-        host: localhost
-        tags-as-prefix: QSA.${spring.profiles.active}.${kubernetes.pod-name}
+      # Replace the url, username and password if you want to use the metrics and enable the feature
+      elastic:
         enabled: false
-        duration-units: "seconds"
-        step: 5
-  # Geo
-  geo:
-    enabled: false
-    maxmind:
-      path: resources/maxmind.mmdb
+        step: 1m
+        index: qsa.${spring.application.name}.${spring.profiles.active}
+        host: http://localhost:9200
+        user-name:
+        password:
+  endpoint:
+    metrics:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
 
 # Spring Application
 spring:
@@ -31,28 +29,19 @@ spring:
     banner-mode: "off"
   mvc:
     throw-exception-if-no-handler-found: true
-    favicon:
-      enabled: true
     servlet:
       load-on-startup: 1
-  resources:
-    add-mappings: false
   application:
-    name: QSA
+    name: calculator
   profiles:
     active: dev
-
-# Logging
-logging:
-  config: classpath:logback-dev.xml
-  port: 9500
-  host: localhost
-  url: http://${logging.host}:${logging.port}
+  web:
+    resources:
+      add-mappings: false
+    locale-resolver: accept_header
 
 # Config Packs
 qsa:
   config:
-    uris:
-      - https://qsa.inf.unideb.hu/default/api/config/system
-      - https://qsa.inf.unideb.hu/default/api/config/feature
-
+    uris: https://qsa.inf.unideb.hu/default/api/config/system, https://qsa.inf.unideb.hu/default/api/config/feature
+    refresh-rate-in-minutes: 60

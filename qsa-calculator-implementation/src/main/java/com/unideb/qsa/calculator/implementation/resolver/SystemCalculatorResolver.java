@@ -14,8 +14,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.XAxis;
-import com.unideb.qsa.calculator.domain.chart.ChartRequest;
+import com.unideb.qsa.calculator.domain.calculator.StreamOutput;
+import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
+import com.unideb.qsa.calculator.domain.error.ErrorResponse;
 import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.service.ErrorService;
 import com.unideb.qsa.calculator.implementation.validator.DefaultFeatureValidator;
@@ -35,13 +36,12 @@ public class SystemCalculatorResolver {
     @Autowired
     private DefaultFeatureValidator featureValidator;
     @Autowired
-    private XAxisResolver xAxisResolver;
+    private StreamResolver streamResolver;
     @Autowired
     private ErrorService errorService;
 
     /**
      * Resolves a system feature value by calling the corresponding calculator.
-     *
      * @param systemId used for resolving the correct calculator
      * @param outputId used for resolving the correct feature
      * @param features features and values from the request
@@ -52,14 +52,14 @@ public class SystemCalculatorResolver {
         List<String> result = new ArrayList<>();
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
-            List<ValidationErrorResponse> validatonErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
-            if (validatonErrorResponses.isEmpty()) {
+            List<ValidationErrorResponse> validationErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
+            if (validationErrorResponses.isEmpty()) {
                 result = List.of(Double.toString((Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features)));
             } else {
-                result = validatonErrorResponses
+                result = validationErrorResponses
                         .stream()
                         .map(validationError -> errorService.createErrorResponse(validationError.getErrorMessage()))
-                        .map(errorResponse -> errorResponse.getErrorMessage())
+                        .map(ErrorResponse::getErrorMessage)
                         .collect(Collectors.toList());
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -70,25 +70,28 @@ public class SystemCalculatorResolver {
 
     /**
      * Resolves a system feature value by calling the corresponding calculator.
-     *
-     * @param systemId     used for resolving the correct calculator
-     * @param outputId     used for resolving the correct feature
-     * @param xAxisId      feature id which represents the xAxis
-     * @param chartRequest request
+     * @param systemId                   used for resolving the correct calculator
+     * @param outputId                   used for resolving the correct feature
+     * @param streamOutputFeatureRequest request
      * @return Double calculated value if it was success, {@link Double#NaN} if it wasn't
      */
-    public List<String> resolve(String systemId, String outputId, SystemFeature xAxisId, ChartRequest chartRequest) {
-        Map<XAxis, Double> xAxis = chartRequest.getxAxis();
-        Map<SystemFeature, Double> features = chartRequest.getFeatures();
+    public List<String> resolve(String systemId, String outputId, StreamOutputFeatureRequest streamOutputFeatureRequest) {
+        SystemFeature streamOutputId = getStreamOutputId(streamOutputFeatureRequest);
+        Map<StreamOutput, String> streamOutput = streamOutputFeatureRequest.getStreamOutput();
+        Map<SystemFeature, Double> features = streamOutputFeatureRequest.getFeatureConditions();
         return DoubleStream.iterate(
-                xAxis.get(XAxis.from),
-                value -> xAxisResolver.checkXAxisShouldCalculate(xAxis, value),
-                value -> xAxisResolver.calculateNextValue(xAxis, value))
-                .boxed()
-                .map(nextValue -> features.put(xAxisId, nextValue))
-                .map(nextValue -> features)
-                .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+                Double.parseDouble(streamOutput.get(StreamOutput.from)),
+                value -> streamResolver.shouldCalculateStream(streamOutput, value),
+                value -> streamResolver.calculateNextValue(streamOutput, value))
+                           .boxed()
+                           .map(nextValue -> features.put(streamOutputId, nextValue))
+                           .map(nextValue -> features)
+                           .map(updatedFeatures -> resolve(systemId, outputId, updatedFeatures))
+                           .flatMap(List::stream)
+                           .collect(Collectors.toList());
+    }
+
+    private SystemFeature getStreamOutputId(StreamOutputFeatureRequest streamOutputFeatureRequest) {
+        return SystemFeature.valueOf(streamOutputFeatureRequest.getStreamOutput().get(StreamOutput.featureId));
     }
 }

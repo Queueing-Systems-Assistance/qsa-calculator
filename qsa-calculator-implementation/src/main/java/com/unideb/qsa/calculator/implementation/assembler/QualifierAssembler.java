@@ -16,7 +16,6 @@ public class QualifierAssembler {
 
     /**
      * Assembles {@link Qualifier} with a 'name' configCondition.
-     *
      * @param name name of the configCondition
      * @return assembled qualifier
      */
@@ -27,7 +26,6 @@ public class QualifierAssembler {
 
     /**
      * Assembles a {@link Qualifier}. It's useful for resolving default config values.
-     *
      * @return assembled qualifier
      */
     public Qualifier assemble() {

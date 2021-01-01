@@ -27,8 +27,8 @@ public class SystemMMnnKCalculator {
         final double K = features.get(SystemFeature.K);
         final double Ro = Ro(features);
         double sum = 0;
-        for(int i = 0; i <= c; i++) {
-            sum += binomialCoefficientDouble((int)K, i) * pow(Ro, i);
+        for (int i = 0; i <= c; i++) {
+            sum += binomialCoefficientDouble((int) K, i) * pow(Ro, i);
         }
         return 1 / sum;
     }
@@ -38,7 +38,7 @@ public class SystemMMnnKCalculator {
         final double n = features.get(SystemFeature.n);
         final double Ro = Ro(features);
         final double P0 = P0(features);
-        return binomialCoefficientDouble((int)K, (int)n) * pow(Ro, n) * P0;
+        return binomialCoefficientDouble((int) K, (int) n) * pow(Ro, n) * P0;
     }
 
     public double Pin(Map<SystemFeature, Double> features) {
@@ -82,7 +82,7 @@ public class SystemMMnnKCalculator {
     public double NAvg(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         double sum = 0;
-        for(double i = 0; i <= c; i++) {
+        for (double i = 0; i <= c; i++) {
             Map<SystemFeature, Double> PiFeatures = copyOf(features);
             PiFeatures.put(SystemFeature.n, i);
             double Pi = Pn(PiFeatures);

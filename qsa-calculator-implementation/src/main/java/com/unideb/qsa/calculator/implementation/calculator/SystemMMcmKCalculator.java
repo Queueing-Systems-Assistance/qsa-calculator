@@ -39,7 +39,7 @@ public class SystemMMcmKCalculator {
         final double n = features.get(SystemFeature.n);
         final double Ro = Ro(features);
         final double P0 = P0(features);
-        double result = binomialCoefficientDouble((int)K, (int)n) * pow(Ro, n) * P0;
+        double result = binomialCoefficientDouble((int) K, (int) n) * pow(Ro, n) * P0;
         if (n >= c) {
             final double factor = factorial(n) / (factorial(c) * pow(c, n - c));
             result *= factor;
@@ -245,15 +245,29 @@ public class SystemMMcmKCalculator {
         return dividend / divisor;
     }
 
+    public double aj(Map<SystemFeature, Double> features, double j) {
+        final double c = features.get(SystemFeature.c);
+        Map<SystemFeature, Double> PijFeatures = copyOf(features);
+        PijFeatures.put(SystemFeature.n, j);
+        final double Pij = Pin(PijFeatures);
+        double sum = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PijFeatures.put(SystemFeature.n, i);
+            sum += Pin(PiiFeatures);
+        }
+        return Pij / sum;
+    }
+
     private double P0InverseRecursive(double Ro, double K, double c, double m) {
         double result = 0.0;
         if (c == m) {
             for (double i = 0.0; i <= c; i++) {
-                result += binomialCoefficientDouble((int)K, (int)i) * pow(Ro, i);
+                result += binomialCoefficientDouble((int) K, (int) i) * pow(Ro, i);
             }
         } else {
             final double recursive = P0InverseRecursive(Ro, K, c, m - 1);
-            final double dividend = binomialCoefficientDouble((int)K, (int)m) * factorial(m) * pow(Ro, m);
+            final double dividend = binomialCoefficientDouble((int) K, (int) m) * factorial(m) * pow(Ro, m);
             final double divisor = factorial(c) * pow(c, m - c);
             result = recursive + dividend / divisor;
         }
@@ -267,19 +281,5 @@ public class SystemMMcmKCalculator {
         final double dividend = c - j;
         final double divisor = (K - j) * Lambda;
         return dividend / divisor;
-    }
-
-    public double aj(Map<SystemFeature, Double> features, double j) {
-        final double c = features.get(SystemFeature.c);
-        Map<SystemFeature, Double> PijFeatures = copyOf(features);
-        PijFeatures.put(SystemFeature.n, j);
-        final double Pij = Pin(PijFeatures);
-        double sum = 0.0;
-        for (double i = 0.0; i <= c - 1; i++) {
-            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
-            PijFeatures.put(SystemFeature.n, i);
-            sum += Pin(PiiFeatures);
-        }
-        return Pij / sum;
     }
 }

@@ -1,0 +1,8 @@
+{
+  "featureConditions": {
+    "Lambda": 0.2,
+    "eS": 0.19,
+    "eSPow2": 0.01,
+    "eSPow3": 0.5
+  }
+}

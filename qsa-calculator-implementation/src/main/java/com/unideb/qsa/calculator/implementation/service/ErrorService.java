@@ -24,7 +24,6 @@ public class ErrorService {
 
     /**
      * Create {@link ErrorResponse} based on message.
-     *
      * @param errorKey error message key
      * @return created error response
      */
@@ -35,7 +34,6 @@ public class ErrorService {
 
     /**
      * Create {@link List} based on validation errors.
-     *
      * @param validationErrorResponses errors with i18n keys
      * @return List of resolved error messages
      */

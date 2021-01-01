@@ -1,0 +1,8 @@
+{
+  "featureConditions": {
+    "Alpha": 0.8,
+    "Lambda": 1.5,
+    "Mu": 2.2,
+    "K": 3
+  }
+}

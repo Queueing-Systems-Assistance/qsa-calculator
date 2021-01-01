@@ -32,9 +32,9 @@ public class SystemMM1KCalculator {
         final double P0 = P0(features);
         final double PK = PK(features);
         double sum = 0.0;
-        for(double k = 1; k <= K - 1; k++) {
+        for (double k = 1; k <= K - 1; k++) {
             double innerSum = 0.0;
-            for(int i = 0; i <= k - 1; i++) {
+            for (int i = 0; i <= k - 1; i++) {
                 double Mut = Mu * t;
                 innerSum += pow(Mut, i) / factorial(i) * pow(E, -1 * Mut);
             }

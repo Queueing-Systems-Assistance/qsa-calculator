@@ -17,7 +17,7 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 public class SmallercFromKValidator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(final Map<SystemFeature, Double> features, final String featureId) {
+    public Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId) {
         validatePresentFeatures(features, SystemFeature.K, SystemFeature.c);
         Optional<ValidationErrorResponse> result = Optional.empty();
         double c = features.get(SystemFeature.c);

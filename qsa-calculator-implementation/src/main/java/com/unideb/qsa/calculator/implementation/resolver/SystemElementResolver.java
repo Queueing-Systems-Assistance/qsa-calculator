@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.unideb.qsa.calculator.domain.calculator.SystemElement;
 import com.unideb.qsa.calculator.domain.exception.QSAMessageException;
-import com.unideb.qsa.calculator.domain.system.SystemElement;
 import com.unideb.qsa.calculator.implementation.assembler.QualifierAssembler;
 import com.unideb.qsa.calculator.implementation.assembler.SystemElementAssembler;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
@@ -33,7 +33,6 @@ public class SystemElementResolver {
 
     /**
      * Resolves all {@link SystemElement}s.
-     *
      * @return List with the available systems
      */
     public List<SystemElement> resolve() {
@@ -44,7 +43,6 @@ public class SystemElementResolver {
 
     /**
      * Resolves a {@link SystemElement} based on its id.
-     *
      * @param systemId system id
      * @return SystemElement resolved system element
      */
@@ -53,7 +51,7 @@ public class SystemElementResolver {
     }
 
     private String[] resolveSystems() {
-        return configResolver.resolve(CONFIG_SYSTEMS_ORDER, qualifierAssembler.assemble()).orElseThrow(getExceptionSupplier(ERROR_NO_SYSTEMS)).split(",");
+        return configResolver.resolve(CONFIG_SYSTEMS_ORDER, qualifierAssembler.assemble(), String[].class).orElseThrow(getExceptionSupplier(ERROR_NO_SYSTEMS));
     }
 
     private Supplier<RuntimeException> getExceptionSupplier(String errorMessage) {

@@ -13,12 +13,10 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public final class CalculatorHelper {
 
     private CalculatorHelper() {
-
     }
 
     /**
      * Calculate the given number factorial value.
-     *
      * @param value given number
      * @return given number factorial value
      */
@@ -28,7 +26,6 @@ public final class CalculatorHelper {
 
     /**
      * Creates a copy of the system features.
-     *
      * @param features system features
      * @return copy of the system features
      */

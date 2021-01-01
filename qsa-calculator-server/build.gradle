@@ -1,61 +1,38 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.4.RELEASE'
+  id 'org.springframework.boot' version '2.4.1'
 }
 
 dependencies {
-	/* PROJECT */
-	implementation project(':qsa-calculator-domain')
-	implementation project(':qsa-calculator-implementation')
-	/* DEPENDENCY */
-	implementation 'com.maxmind.geoip2:geoip2'
-	implementation 'com.ryantenney.metrics:metrics-spring'
-	implementation 'io.dropwizard.metrics:metrics-annotation'
-	implementation 'io.dropwizard.metrics:metrics-core'
-	implementation 'io.dropwizard.metrics:metrics-graphite'
-	implementation 'io.dropwizard.metrics:metrics-healthchecks'
-	implementation 'io.dropwizard.metrics:metrics-json'
-	implementation 'io.dropwizard.metrics:metrics-jvm'
-	implementation 'io.dropwizard.metrics:metrics-servlet'
-	implementation 'io.dropwizard.metrics:metrics-servlets'
-	implementation 'org.apache.httpcomponents:httpclient'
-	implementation 'org.apache.httpcomponents:httpasyncclient'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework:spring-aspects'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	/* TEST */
-	testImplementation 'ch.qos.logback:logback-classic'
-	testImplementation 'org.testng:testng'
-	testImplementation 'org.mockito:mockito-core'
-	/* INTEGRATION TEST */
-	testImplementation 'com.google.code.gson:gson'
-	testImplementation 'com.sun.xml.bind:jaxb-osgi'
-	testImplementation 'io.rest-assured:rest-assured'
-	testImplementation 'io.rest-assured:rest-assured-all'
-	testImplementation 'javax.xml.bind:jaxb-api'
-	testImplementation 'org.json:json'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-configurations {
-	testImplementation.exclude group: 'com.vaadin.external.google', module: 'android-json'
+  /* PROJECT */
+  implementation project(':qsa-calculator-domain')
+  implementation project(':qsa-calculator-implementation')
+  /* DEPENDENCY */
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'io.micrometer:micrometer-registry-elastic'
+  implementation 'net.logstash.logback:logstash-logback-encoder'
+  /* TEST */
+  testImplementation 'org.testng:testng'
+  testImplementation 'org.mockito:mockito-core'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  /* INTEGRATION TEST */
+  testImplementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'io.cucumber:cucumber-java'
+  testImplementation 'io.cucumber:cucumber-spring'
+  testImplementation 'io.cucumber:cucumber-testng'
 }
 
 description = 'qsa-calculator-server'
 
 bootJar {
-	archiveFileName = 'qsa-final.jar'
+  archiveFileName = 'qsa-final.jar'
 }
 
 springBoot {
-	buildInfo {
-		properties {
-			version = rootProject.projectVersion
-			group = rootProject.projectGroup
-		}
-	}
-}
-
-test {
-	useTestNG()
+  buildInfo {
+    properties {
+      version = rootProject.projectVersion
+      group = rootProject.projectGroup
+    }
+  }
 }

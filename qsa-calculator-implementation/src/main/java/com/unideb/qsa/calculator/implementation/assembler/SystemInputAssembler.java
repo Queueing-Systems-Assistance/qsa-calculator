@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.unideb.qsa.calculator.domain.system.SystemInput;
+import com.unideb.qsa.calculator.domain.calculator.InputFeature;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 
 /**
- * Creates {@link SystemInput}.
+ * Creates {@link InputFeature}.
  */
 @Component
 public class SystemInputAssembler {
@@ -25,25 +25,27 @@ public class SystemInputAssembler {
     private QualifierAssembler qualifierAssembler;
 
     /**
-     * Assembles a {@link SystemInput} based on its id.
-     *
+     * Assembles a {@link InputFeature} based on its id.
      * @param inputId              feature id
      * @param inputRequiredIds     features are required or not
      * @param inputTypeFractionIds features type are fraction or not
-     * @return Optional {@link SystemInput} if the feature exists, {@link Optional#empty()} otherwise
+     * @return Optional {@link InputFeature} if the feature exists, {@link Optional#empty()} otherwise
      */
-    public Optional<SystemInput> assemble(String inputId, String[] inputRequiredIds, String[] inputTypeFractionIds) {
-        Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(inputId));
-        Optional<SystemInput> result = Optional.empty();
-        if (optionalName.isPresent()) {
-            result = Optional.of(new SystemInput.Builder()
-                    .withId(inputId)
-                    .withRequired(Arrays.asList(inputRequiredIds).contains(inputId))
-                    .withTypeFraction(Arrays.asList(inputTypeFractionIds).contains(inputId))
-                    .withName(optionalName.get())
-                    .withDescription(configResolver.resolve(CONFIG_DESCRIPTION, qualifierAssembler.assemble(inputId)).orElse(DEFAULT_EMPTY_VALUE))
-                    .build());
-        }
-        return result;
+    public Optional<InputFeature> assemble(String inputId, String[] inputRequiredIds, String[] inputTypeFractionIds) {
+        return getSystemInputName(inputId)
+                .map(name -> new InputFeature.Builder().withName(name))
+                .map(builder -> builder.withId(inputId))
+                .map(builder -> builder.withRequired(Arrays.asList(inputRequiredIds).contains(inputId)))
+                .map(builder -> builder.withTypeFraction(Arrays.asList(inputTypeFractionIds).contains(inputId)))
+                .map(builder -> builder.withDescription(getSystemInputDescription(inputId)))
+                .map(InputFeature.Builder::build);
+    }
+
+    private String getSystemInputDescription(String inputId) {
+        return configResolver.resolve(CONFIG_DESCRIPTION, qualifierAssembler.assemble(inputId)).orElse(DEFAULT_EMPTY_VALUE);
+    }
+
+    private Optional<String> getSystemInputName(final String inputId) {
+        return configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(inputId));
     }
 }

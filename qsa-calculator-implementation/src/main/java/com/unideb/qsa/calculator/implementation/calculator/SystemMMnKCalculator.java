@@ -111,7 +111,7 @@ public class SystemMMnKCalculator {
         final double Ro = Ro(features);
         final double r = Ro / c;
         double result = 0.0;
-        if(r == 1) {
+        if (r == 1) {
             for (double i = c + 1; i <= K; i++) {
                 Map<SystemFeature, Double> PiFeatures = copyOf(features);
                 PiFeatures.put(SystemFeature.n, i);
@@ -209,12 +209,12 @@ public class SystemMMnKCalculator {
         final double K = features.get(SystemFeature.K);
         final double t = features.get(SystemFeature.t);
         double sum = 0.0;
-        for(double n = c; n <= K - 1; n++) {
+        for (double n = c; n <= K - 1; n++) {
             Map<SystemFeature, Double> PinFeatures = copyOf(features);
             PinFeatures.put(SystemFeature.n, n);
             double Pin = Pin(PinFeatures);
             double innerSum = 0.0;
-            for(double i = 0.0; i <= n - c; i++) {
+            for (double i = 0.0; i <= n - c; i++) {
                 double dividend = pow(c * Mu * t, i) * exp(-1 * c * Mu * t);
                 innerSum += dividend / factorial(i);
             }

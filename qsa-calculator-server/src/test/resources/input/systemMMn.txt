@@ -1,8 +1,0 @@
-| ID     |        |
-| Lambda | Lambda |
-| Mu     | Mu     |
-| n      | n      |
-| t      | t      |
-| r      | r      |
-| c      | c      |
-| ID_END |        |

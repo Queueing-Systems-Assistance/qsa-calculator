@@ -16,7 +16,6 @@ public class MessageResolver {
 
     /**
      * Get the i18n message.
-     *
      * @param key i18n key
      * @return localised message
      */
@@ -26,7 +25,6 @@ public class MessageResolver {
 
     /**
      * Get the i18n message.
-     *
      * @param key  i18n key
      * @param args i18n message arguments
      * @return localised message

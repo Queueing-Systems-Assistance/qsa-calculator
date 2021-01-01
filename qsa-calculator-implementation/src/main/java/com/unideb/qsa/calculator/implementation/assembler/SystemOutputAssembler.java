@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.chart.ChartRequest;
-import com.unideb.qsa.calculator.domain.system.SystemInput;
-import com.unideb.qsa.calculator.domain.system.SystemOutput;
+import com.unideb.qsa.calculator.domain.calculator.InputFeature;
+import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
+import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
 import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorResolver;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 
 /**
- * Assembles a {@link SystemOutput}.
+ * Assembles a {@link OutputFeature}.
  */
 @Component
 public class SystemOutputAssembler {
@@ -32,44 +32,36 @@ public class SystemOutputAssembler {
     private SystemCalculatorResolver systemCalculatorResolver;
 
     /**
-     * Assembles a {@link SystemInput} based on its id.
-     *
+     * Assembles a {@link InputFeature} based on its id.
      * @param systemId system id
      * @param outputId feature id
      * @param features features and values from the request
-     * @return Optional {@link SystemOutput} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
+     * @return Optional {@link OutputFeature} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
      */
-    public Optional<SystemOutput> assemble(String systemId, String outputId, Map<SystemFeature, Double> features) {
-        Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
-        Optional<SystemOutput> result = Optional.empty();
-        if (optionalName.isPresent()) {
-            List<String> values = systemCalculatorResolver.resolve(systemId, outputId, features);
-            result = Optional.of(createSystemOutput(outputId, optionalName.get(), values));
-        }
-        return result;
+    public Optional<OutputFeature> assemble(String systemId, String outputId, Map<SystemFeature, Double> features) {
+        List<String> values = systemCalculatorResolver.resolve(systemId, outputId, features);
+        return assembleOutputFeature(outputId, values);
     }
 
     /**
-     * Assembles a {@link SystemInput} based on its id.
-     *
-     * @param systemId system id
-     * @param outputId feature id
-     * @param xAxisId  feature id which represents the xAxis
-     * @param chartRequest request
-     * @return Optional {@link SystemOutput} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
+     * Assembles a {@link InputFeature} based on its id.
+     * @param systemId                   system id
+     * @param outputId                   feature id
+     * @param streamOutputFeatureRequest request
+     * @return Optional {@link OutputFeature} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
      */
-    public Optional<SystemOutput> assemble(String systemId, String outputId, SystemFeature xAxisId, ChartRequest chartRequest) {
-        Optional<String> optionalName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
-        Optional<SystemOutput> result = Optional.empty();
-        if (optionalName.isPresent()) {
-            List<String> values = systemCalculatorResolver.resolve(systemId, outputId, xAxisId, chartRequest);
-            result = Optional.of(createSystemOutput(outputId, optionalName.get(), values));
-        }
-        return result;
+    public Optional<OutputFeature> assemble(String systemId, String outputId, StreamOutputFeatureRequest streamOutputFeatureRequest) {
+        List<String> values = systemCalculatorResolver.resolve(systemId, outputId, streamOutputFeatureRequest);
+        return assembleOutputFeature(outputId, values);
     }
 
-    private SystemOutput createSystemOutput(String outputId, String name, List<String> values) {
-        return new SystemOutput.Builder()
+    private Optional<OutputFeature> assembleOutputFeature(String outputId, List<String> values) {
+        Optional<String> resolvedFeatureName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
+        return resolvedFeatureName.map(name -> createSystemOutput(outputId, name, values));
+    }
+
+    private OutputFeature createSystemOutput(String outputId, String name, List<String> values) {
+        return new OutputFeature.Builder()
                 .withId(outputId)
                 .withName(name)
                 .withDescription(configResolver.resolve(CONFIG_DESCRIPTION, qualifierAssembler.assemble(outputId)).orElse(DEFAULT_EMPTY_VALUE))

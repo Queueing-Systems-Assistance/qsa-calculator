@@ -2,7 +2,7 @@ package com.unideb.qsa.calculator.implementation.resolver;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 import static org.testng.Assert.assertEquals;
 
 import java.util.Locale;
@@ -31,7 +31,7 @@ public class MessageResolverTest {
 
     @BeforeMethod
     public void setUp() {
-        initMocks(this);
+        openMocks(this);
     }
 
     @Test
