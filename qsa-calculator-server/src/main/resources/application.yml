@@ -12,7 +12,8 @@ management:
       jvm.memory.used,
       jvm.memory.max,
       process.uptime,
-      process.cpu.usage
+      process.cpu.usage,
+      http.server.requests
   endpoint:
     prometheus:
       enabled: true
