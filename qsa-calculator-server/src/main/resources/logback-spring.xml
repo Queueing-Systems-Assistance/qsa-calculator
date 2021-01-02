@@ -12,7 +12,6 @@
 
     <logger name="org" level="WARN" />
     <logger name="com" level="WARN" />
-    <logger name="net" level="ERROR" />
     <logger name="com.unideb.qsa.calculator" level="INFO" />
     <logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
     <logger name="com.unideb.qsa.config.resolver.datasource.configpack" level="INFO" />

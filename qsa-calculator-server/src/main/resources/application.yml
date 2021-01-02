@@ -4,19 +4,17 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: info,heatlh,metrics
+        include: info,health,prometheus
   metrics:
-    export:
-      # Replace the url, username and password if you want to use the metrics and enable the feature
-      elastic:
-        enabled: false
-        step: 1m
-        index: qsa.${spring.application.name}.${spring.profiles.active}
-        host: http://localhost:9200
-        user-name:
-        password:
+    tags:
+      application: QSA.${spring.application.name}.${spring.profiles.active}
+    enabled: >
+      jvm.memory.used,
+      jvm.memory.max,
+      process.uptime,
+      process.cpu.usage
   endpoint:
-    metrics:
+    prometheus:
       enabled: true
     info:
       enabled: true
@@ -43,5 +41,7 @@ spring:
 # Config Packs
 qsa:
   config:
-    uris: https://qsa.inf.unideb.hu/default/api/config/system, https://qsa.inf.unideb.hu/default/api/config/feature
-    refresh-rate-in-minutes: 60
+    uris: >
+      https://qsa.inf.unideb.hu/default/api/config/system,
+      https://qsa.inf.unideb.hu/default/api/config/feature
+    refresh-rate-in-minutes: 1

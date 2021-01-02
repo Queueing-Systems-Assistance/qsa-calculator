@@ -9,7 +9,7 @@ dependencies {
   /* DEPENDENCY */
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'io.micrometer:micrometer-registry-elastic'
+  implementation 'io.micrometer:micrometer-registry-prometheus'
   implementation 'net.logstash.logback:logstash-logback-encoder'
   /* TEST */
   testImplementation 'org.testng:testng'
