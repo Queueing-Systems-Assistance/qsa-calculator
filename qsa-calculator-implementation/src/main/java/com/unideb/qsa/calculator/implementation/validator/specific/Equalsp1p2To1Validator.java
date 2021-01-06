@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
@@ -17,15 +16,14 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 public class Equalsp1p2To1Validator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId) {
+    public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
         validatePresentFeatures(features, SystemFeature.p1, SystemFeature.p2);
-        Optional<ValidationErrorResponse> result = Optional.empty();
+        Optional<Map<String, List<String>>> result = Optional.empty();
         double pSum = features.get(SystemFeature.p1) + features.get(SystemFeature.p2);
         if (pSum != 1.0) {
-            result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.equals.parameter.p1p2To1")
-                    .withInputIds(List.of(SystemFeature.p1.name(), SystemFeature.p2.name()))
-                    .build());
+            result = Optional.of(Map.of(
+                    SystemFeature.p1.name(), List.of("error.equals.parameter.p1p2To1"),
+                    SystemFeature.p2.name(), List.of("error.equals.parameter.p1p2To1")));
         }
         return result;
     }

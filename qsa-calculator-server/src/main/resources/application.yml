@@ -43,6 +43,6 @@ spring:
 qsa:
   config:
     uris: >
-      https://qsa.inf.unideb.hu/default/api/config/system,
-      https://qsa.inf.unideb.hu/default/api/config/feature
+      https://qsa.inf.unideb.hu/lab/api/config/system,
+      https://qsa.inf.unideb.hu/lab/api/config/feature
     refresh-rate-in-minutes: 1

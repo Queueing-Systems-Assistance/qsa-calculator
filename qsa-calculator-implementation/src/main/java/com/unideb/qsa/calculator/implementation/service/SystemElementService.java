@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.SystemElement;
+import com.unideb.qsa.calculator.domain.exception.QSAInvalidSystemException;
 import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
 
 /**
@@ -14,6 +15,8 @@ import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
  */
 @Component
 public class SystemElementService {
+
+    private static final String ERROR_NO_SYSTEMS = "error.global.noSystemsAvailable";
 
     @Autowired
     private SystemElementResolver systemElementResolver;
@@ -32,8 +35,12 @@ public class SystemElementService {
     }
 
     private List<SystemElement> filterResult(List<String> systemIds, List<SystemElement> result) {
-        return result.stream()
-                     .filter(systemElement -> systemIds.contains(systemElement.getId()))
-                     .collect(Collectors.toList());
+        List<SystemElement> filteredResult = result.stream()
+                                                   .filter(systemElement -> systemIds.contains(systemElement.getId()))
+                                                   .collect(Collectors.toList());
+        if (filteredResult.isEmpty()) {
+            throw new QSAInvalidSystemException(ERROR_NO_SYSTEMS);
+        }
+        return filteredResult;
     }
 }

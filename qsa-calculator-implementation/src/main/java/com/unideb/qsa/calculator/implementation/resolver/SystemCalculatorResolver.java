@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.calculator.StreamOutput;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
-import com.unideb.qsa.calculator.domain.error.ErrorResponse;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
-import com.unideb.qsa.calculator.implementation.service.ErrorService;
 import com.unideb.qsa.calculator.implementation.validator.DefaultFeatureValidator;
 
 /**
@@ -38,7 +35,7 @@ public class SystemCalculatorResolver {
     @Autowired
     private StreamResolver streamResolver;
     @Autowired
-    private ErrorService errorService;
+    private MessageResolver messageResolver;
 
     /**
      * Resolves a system feature value by calling the corresponding calculator.
@@ -52,14 +49,14 @@ public class SystemCalculatorResolver {
         List<String> result = new ArrayList<>();
         Object systemService = applicationContext.getBean(String.format(CALCULATOR_BEAN_NAME, systemId));
         try {
-            List<ValidationErrorResponse> validationErrorResponses = featureValidator.validateCalculationInput(features, systemId, outputId);
-            if (validationErrorResponses.isEmpty()) {
+            Map<String, List<String>> validationErrors = featureValidator.validateCalculationInput(features, systemId, outputId);
+            if (validationErrors.isEmpty()) {
                 result = List.of(Double.toString((Double) systemService.getClass().getMethod(outputId, Map.class).invoke(systemService, features)));
             } else {
-                result = validationErrorResponses
+                result = validationErrors
+                        .values()
                         .stream()
-                        .map(validationError -> errorService.createErrorResponse(validationError.getErrorMessage()))
-                        .map(ErrorResponse::getErrorMessage)
+                        .flatMap(i18nKeys -> i18nKeys.stream().map(messageResolver::getString))
                         .collect(Collectors.toList());
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

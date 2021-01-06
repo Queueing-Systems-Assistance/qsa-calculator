@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
+import com.unideb.qsa.calculator.domain.exception.QSAInvalidOutputException;
 import com.unideb.qsa.calculator.implementation.assembler.QualifierAssembler;
 import com.unideb.qsa.calculator.implementation.assembler.SystemOutputAssembler;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
@@ -24,7 +25,8 @@ import com.unideb.qsa.domain.context.Qualifier;
 @Component
 public class SystemOutputResolver {
 
-    private static final String[] DEFAULT_EMPTY_VALUE = new String[]{};
+
+    private static final String ERROR_NO_OUTPUT_FOUND = "error.global.noOutputsFound";
     private static final String CONFIG_OUTPUTS_DEFAULT = "OUTPUTS_DEFAULT";
 
     @Autowired
@@ -57,7 +59,8 @@ public class SystemOutputResolver {
 
     private List<OutputFeature> resolveOutputFeatures(String systemId, Function<String, Optional<OutputFeature>> supplier) {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
-        String[] outputIds = configResolver.resolve(CONFIG_OUTPUTS_DEFAULT, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
+        String[] outputIds = configResolver.resolve(CONFIG_OUTPUTS_DEFAULT, qualifier, String[].class)
+                                           .orElseThrow(() -> new QSAInvalidOutputException(ERROR_NO_OUTPUT_FOUND));
         return Arrays.stream(outputIds)
                      .map(supplier)
                      .flatMap(Optional::stream)

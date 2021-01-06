@@ -2,12 +2,12 @@ package com.unideb.qsa.calculator.implementation.assembler;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.SystemElement;
+import com.unideb.qsa.calculator.domain.exception.QSAServerException;
 import com.unideb.qsa.calculator.implementation.resolver.SystemInputResolver;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 import com.unideb.qsa.domain.context.Qualifier;
@@ -22,6 +22,7 @@ public class SystemElementAssembler {
     private static final String CONFIG_NAME = "NAME";
     private static final String CONFIG_STATUS_CODE = "STATUS_CODE";
     private static final String CONFIG_ADDITIONAL_INFORMATION = "ADDITIONAL_INFORMATION";
+    private static final String ERROR_SYSTEM_NAME_NOT_FOUND = "Missing system name, [config=%s, qualifier=%s]";
 
     @Autowired
     private ConfigResolver configResolver;
@@ -33,25 +34,26 @@ public class SystemElementAssembler {
     /**
      * Assembles a {@link SystemElement} based on its id.
      * @param systemId feature id
-     * @return Optional {@link SystemElement} if the system exists, {@link Optional#empty()} otherwise
+     * @return assembled {@link SystemElement}
      */
-    public Optional<SystemElement> assemble(String systemId) {
+    public SystemElement assemble(String systemId) {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
-        return getSystemName(qualifier)
-                .map(name -> new SystemElement.Builder().withName(name))
-                .map(builder -> builder.withId(systemId))
-                .map(builder -> builder.withDescription(getSystemDescription(qualifier)))
-                .map(builder -> builder.withStatus(getSystemStatusCode(qualifier)))
-                .map(builder -> builder.withInputs(systemInputResolver.resolve(systemId)))
-                .map(SystemElement.Builder::build);
+        String systemName = getSystemName(qualifier);
+        return new SystemElement.Builder()
+                .withName(systemName)
+                .withId(systemId)
+                .withDescription(getSystemDescription(qualifier))
+                .withStatus(getSystemStatusCode(qualifier))
+                .withInputs(systemInputResolver.resolve(systemId)).build();
     }
 
     private String getSystemStatusCode(Qualifier qualifier) {
         return configResolver.resolve(CONFIG_STATUS_CODE, qualifier).orElse(NO_STATUS_AVAILABLE);
     }
 
-    private Optional<String> getSystemName(Qualifier qualifier) {
-        return configResolver.resolve(CONFIG_NAME, qualifier);
+    private String getSystemName(Qualifier qualifier) {
+        return configResolver.resolve(CONFIG_NAME, qualifier)
+                             .orElseThrow(() -> new QSAServerException(String.format(ERROR_SYSTEM_NAME_NOT_FOUND, CONFIG_NAME, qualifier)));
     }
 
     private List<String> getSystemDescription(Qualifier qualifier) {

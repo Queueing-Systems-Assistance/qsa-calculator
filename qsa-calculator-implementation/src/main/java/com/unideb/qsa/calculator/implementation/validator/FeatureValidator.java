@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
+import com.unideb.qsa.calculator.domain.error.ErrorResponse;
 import com.unideb.qsa.calculator.domain.exception.QSAMessageException;
 
 /**
@@ -25,10 +25,10 @@ public abstract class FeatureValidator {
      * @param featureId feature id
      * @return Validation error if the feature(s) are not compliant, otherwise {@link Optional#empty()}
      */
-    public abstract Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId);
+    public abstract Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId);
 
     /**
-     * Validate system features that is present. If the system feature is not in the map, then an {@link ValidationErrorResponse} will create.
+     * Validate system features that is present. If the system feature is not in the map, then an {@link ErrorResponse} will create.
      * @param features       features and values from the request
      * @param systemFeatures feature id
      */

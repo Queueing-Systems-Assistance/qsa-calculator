@@ -1,6 +1,7 @@
 package com.unideb.qsa.calculator.implementation.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.error.ErrorResponse;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 
 /**
@@ -34,20 +34,18 @@ public class ErrorService {
 
     /**
      * Create {@link List} based on validation errors.
-     * @param validationErrorResponses errors with i18n keys
+     * @param validationErrors errors with i18n keys
      * @return List of resolved error messages
      */
-    public List<ValidationErrorResponse> createErrorResponse(List<ValidationErrorResponse> validationErrorResponses) {
-        return validationErrorResponses.stream()
-                                       .map(this::createValidationErrorResponse)
-                                       .collect(Collectors.toList());
+    public ErrorResponse resolveAndUpdateI18nKey(Map<String, List<String>> validationErrors) {
+        validationErrors.keySet().forEach(key -> updateI18nKeys(validationErrors, key));
+        return new ErrorResponse("Validáció során hiba történt", validationErrors);
     }
 
-    private ValidationErrorResponse createValidationErrorResponse(ValidationErrorResponse validationErrorResponse) {
-        return new ValidationErrorResponse.Builder()
-                .withInputIds(validationErrorResponse.getInputIds())
-                .withErrorMessage(messageResolver.getString(validationErrorResponse.getErrorMessage()))
-                .build();
+    private void updateI18nKeys(Map<String, List<String>> extensions, String key) {
+        extensions.put(key, extensions.get(key).stream()
+                                      .map(messageResolver::getString)
+                                      .collect(Collectors.toList()));
     }
 
     private String getReadableMessage(String errorKey) {

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.InputFeature;
-import com.unideb.qsa.calculator.domain.exception.QSAInternalException;
+import com.unideb.qsa.calculator.domain.exception.QSAServerException;
 import com.unideb.qsa.calculator.implementation.assembler.QualifierAssembler;
 import com.unideb.qsa.calculator.implementation.assembler.SystemInputAssembler;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
@@ -50,6 +50,6 @@ public class SystemInputResolver {
     }
 
     private Supplier<RuntimeException> getExceptionSupplier(String inputId) {
-        return () -> new QSAInternalException(String.format(ERROR_NO_FEATURE_ID, inputId));
+        return () -> new QSAServerException(String.format(ERROR_NO_FEATURE_ID, inputId));
     }
 }

@@ -1,9 +1,11 @@
 package com.unideb.qsa.calculator.implementation.validator;
 
-import java.util.ArrayList;
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.mergeMaps;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.calculator.StreamOutput;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.domain.exception.QSAMessageException;
 import com.unideb.qsa.calculator.domain.exception.QSAValidationException;
 import com.unideb.qsa.calculator.implementation.assembler.QualifierAssembler;
@@ -44,9 +45,12 @@ public class DefaultFeatureValidator {
      * @param systemId system id
      */
     public void validate(Map<SystemFeature, Double> features, String systemId) {
-        List<ValidationErrorResponse> errorResponses = defaultValidation(features, systemId);
-        errorResponses.addAll(specificValidation(features, systemId));
-        throwErrorIfResponsesNotEmpty(errorResponses);
+        Map<String, List<String>> defaultValidationErrors = defaultValidation(features, systemId);
+        Map<String, List<String>> specificValidationErrors = specificValidation(features, systemId);
+        Map<String, List<String>> validationErrors = Stream.of(defaultValidationErrors, specificValidationErrors)
+                                                           .flatMap(map -> map.entrySet().stream())
+                                                           .collect(mergeMaps());
+        throwErrorIfResponsesNotEmpty(validationErrors);
     }
 
     /**
@@ -56,8 +60,14 @@ public class DefaultFeatureValidator {
      * @param outputId id of the output that we want to calculate
      * @return list of input value errors.
      */
-    public List<ValidationErrorResponse> validateCalculationInput(Map<SystemFeature, Double> features, String systemId, String outputId) {
-        return calculationInputValidation(features, systemId, outputId);
+    public Map<String, List<String>> validateCalculationInput(Map<SystemFeature, Double> features, String systemId, String outputId) {
+        return features.keySet().stream().map(Enum::toString).flatMap(systemFeature ->
+                configResolver.resolve("CALCULATION_INPUT_VALIDATOR",
+                        new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).put("output", outputId).build())
+                              .flatMap(validator -> getValidateResponse(features, systemFeature, validator)).stream())
+                       .flatMap(map -> map.entrySet().stream())
+                       .collect(mergeMaps());
+
     }
 
     /**
@@ -65,49 +75,39 @@ public class DefaultFeatureValidator {
      * @param streamOutput stream input values (from, to, steps)
      */
     public void validateStreamOutput(Map<StreamOutput, String> streamOutput) {
-        List<ValidationErrorResponse> errorResponses = streamOutputValidator.validate(streamOutput);
-        throwErrorIfResponsesNotEmpty(errorResponses);
+        Map<String, List<String>> validationErrors = streamOutputValidator.validate(streamOutput);
+        throwErrorIfResponsesNotEmpty(validationErrors);
     }
 
-    private void throwErrorIfResponsesNotEmpty(List<ValidationErrorResponse> errorResponses) {
-        if (!errorResponses.isEmpty()) {
-            throw new QSAValidationException(errorResponses);
+    private void throwErrorIfResponsesNotEmpty(Map<String, List<String>> validationErrors) {
+        if (!validationErrors.isEmpty()) {
+            throw new QSAValidationException(validationErrors);
         }
     }
 
-    private List<ValidationErrorResponse> specificValidation(Map<SystemFeature, Double> features, String systemId) {
-        List<ValidationErrorResponse> errorResponses = new ArrayList<>();
-        configResolver.resolve("SPECIFIC_VALIDATOR_CONSTRAINTS", qualifierAssembler.assemble(systemId), String[].class)
-                .ifPresent(specificValidators -> List.of(specificValidators)
-                        .stream()
-                        .map(validator -> getValidateResponse(features, "", validator))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
-                        .forEach(errorResponses::add));
-        return errorResponses;
+    private Map<String, List<String>> specificValidation(Map<SystemFeature, Double> features, String systemId) {
+        return List.of(configResolver.resolve("SPECIFIC_VALIDATOR_CONSTRAINTS", qualifierAssembler.assemble(systemId), String[].class).orElse(new String[]{}))
+                   .stream()
+                   .map(validator -> getValidateResponse(features, "", validator))
+                   .filter(Optional::isPresent)
+                   .map(Optional::get)
+                   .flatMap(map -> map.entrySet().stream())
+                   .collect(mergeMaps());
     }
 
-    private List<ValidationErrorResponse> defaultValidation(Map<SystemFeature, Double> features, String systemId) {
-        List<ValidationErrorResponse> errorResponses = new ArrayList<>();
-        features.keySet().stream().map(Enum::toString).forEach(systemFeature ->
-                configResolver.resolve("VALIDATOR_CONSTRAINTS", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).build())
-                              .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
-                              .ifPresent(errorResponses::add));
-        return errorResponses;
+    private Map<String, List<String>> defaultValidation(Map<SystemFeature, Double> features, String systemId) {
+        return features.keySet().stream()
+                       .map(Enum::toString)
+                       .flatMap(systemFeature ->
+                               configResolver
+                                       .resolve("VALIDATOR_CONSTRAINTS", new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).build())
+                                       .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
+                                       .stream())
+                       .flatMap(map -> map.entrySet().stream())
+                       .collect(mergeMaps());
     }
 
-    private List<ValidationErrorResponse> calculationInputValidation(Map<SystemFeature, Double> features, String systemId, String outputId) {
-        List<ValidationErrorResponse> errorResponses = new ArrayList<>();
-        features.keySet().stream().map(Enum::toString).forEach(systemFeature ->
-                configResolver.resolve("CALCULATION_INPUT_VALIDATOR",
-                        new Qualifier.Builder().put("name", systemId).put("feature", systemFeature).put("output", outputId).build())
-                              .flatMap(validator -> getValidateResponse(features, systemFeature, validator))
-                              .ifPresent(errorResponses::add));
-
-        return errorResponses;
-    }
-
-    private Optional<ValidationErrorResponse> getValidateResponse(Map<SystemFeature, Double> features, String systemFeature, String validator) {
+    private Optional<Map<String, List<String>>> getValidateResponse(Map<SystemFeature, Double> features, String systemFeature, String validator) {
         try {
             return applicationContext.getBean(validator, FeatureValidator.class).validate(features, systemFeature);
         } catch (NoSuchBeanDefinitionException e) {

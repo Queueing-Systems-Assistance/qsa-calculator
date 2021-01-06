@@ -1,21 +1,21 @@
 package com.unideb.qsa.calculator.domain.exception;
 
 import java.util.List;
-
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
+import java.util.Map;
 
 /**
  * Exception for internal errors. Validation uses, with different response.
  */
-public final class QSAValidationException extends RuntimeException {
+public final class QSAValidationException extends QSAClientException {
 
-    private final List<ValidationErrorResponse> validationErrorResponses;
+    private final Map<String, List<String>> validationErrors;
 
-    public QSAValidationException(List<ValidationErrorResponse> validationErrorResponses) {
-        this.validationErrorResponses = validationErrorResponses;
+    public QSAValidationException(Map<String, List<String>> validationErrors) {
+        this.validationErrors = validationErrors;
     }
 
-    public List<ValidationErrorResponse> getValidationErrorResponses() {
-        return validationErrorResponses;
+
+    public Map<String, List<String>> getValidationErrors() {
+        return validationErrors;
     }
 }
