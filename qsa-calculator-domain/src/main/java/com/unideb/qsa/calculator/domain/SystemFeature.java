@@ -19,6 +19,8 @@ public enum SystemFeature {
     C6,
     CS2,
     D,
+    Da,
+    Ds,
     D2N,
     D2Q,
     D2QQ0,
