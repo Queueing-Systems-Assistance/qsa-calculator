@@ -15,15 +15,15 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemDDnKKCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        return 1 / Lambda;
+        final double Da = features.get(SystemFeature.Da);
+        return 1 / Da;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        final double Mu = features.get(SystemFeature.Mu);
+        final double Ds = features.get(SystemFeature.Ds);
         final double c = features.get(SystemFeature.c);
         final double a = a(features);
-        return c * a * Mu;
+        return c * a * Ds;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -39,8 +39,8 @@ public class SystemDDnKKCalculator {
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double Mu = features.get(SystemFeature.Mu);
-        return 1 / Mu;
+        final double Ds = features.get(SystemFeature.Ds);
+        return 1 / Ds;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {

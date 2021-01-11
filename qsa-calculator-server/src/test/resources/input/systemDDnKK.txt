@@ -1,6 +1,6 @@
 | ID     |        |
-| Lambda | Lambda |
-| Mu     | Mu     |
+| Da     | Da     |
+| Ds     | Ds     |
 | c      | c      |
 | K      | K      |
 | n      | n      |
