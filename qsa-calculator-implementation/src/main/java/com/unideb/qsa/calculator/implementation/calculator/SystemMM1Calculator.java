@@ -4,6 +4,7 @@ import static java.lang.Math.exp;
 import static java.lang.Math.log;
 import static java.lang.Math.max;
 import static java.lang.Math.pow;
+import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficientDouble;
 
 import java.util.Map;
 
@@ -186,6 +187,17 @@ public class SystemMM1Calculator {
         return NAvg * (1 / Mu);
     }
 
+    public double EWW0(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double Ro = Ro(features);
+        return 1 / (Mu * (1 - Ro));
+    }
+
+    public double D2WW0(Map<SystemFeature, Double> features) {
+        final double EWW0 = EWW0(features);
+        return pow(EWW0, 2);
+    }
+
     public double ENdDelta(Map<SystemFeature, Double> features) {
         final double Ro = Ro(features);
         return 1 / (1 - Ro);
@@ -199,6 +211,19 @@ public class SystemMM1Calculator {
         final double dividend = Ro * (1 - Ro) + pow(Lambda, 2) * eSPow2;
         final double divisor = pow(1 - Ro, 3);
         return dividend / divisor;
+    }
+
+    public double PNdDeltan(Map<SystemFeature, Double> features) {
+        final double n = features.get(SystemFeature.n);
+        double result = 0.0;
+        if (n > 0.0) {
+            final double Ro = Ro(features);
+            final double part1 = 1 / n;
+            final double part2 = binomialCoefficientDouble(2 * (int)n - 2, (int)n - 1);
+            final double part3 = pow(Ro, n - 1) / pow(1 + Ro, 2 * n - 1);
+            result = part1 * part2 * part3;
+        }
+        return result;
     }
 
     public double EDelta1(Map<SystemFeature, Double> features) {
