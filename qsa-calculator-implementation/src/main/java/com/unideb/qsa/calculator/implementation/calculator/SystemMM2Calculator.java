@@ -82,15 +82,19 @@ public class SystemMM2Calculator {
         final double Mu = features.get(SystemFeature.Mu);
         final double t = features.get(SystemFeature.t);
         final double Ro = Ro(features);
-        final double a = a(features);
         final double result;
         if (Ro == 1.0) {
-            result = 1 - (1 + Mu * t / 3) * pow(E, -Mu * t);
+            final double PN2 = PN2(features);
+            final double part1 = 1 + PN2 * Mu * t;
+            final double part2 = pow(E, -Mu * t);
+            result = 1 - part1 * part2;
         } else {
-            final double denominator = 1 - 3 * pow(a, 2);
-            final double part1 = (1 - a) / denominator * pow(E, -Mu * t);
-            final double part2 = 2 * pow(a, 2) / denominator * pow(E, -2 * Mu * t * (1 - a));
-            result = 1 - part1 + part2;
+            final double C1 = C1(features);
+            final double C2 = C2(features);
+            final double a = a(features);
+            final double part1 = C1 * pow(E, -Mu * t);
+            final double part2 = C2 * pow(E, -Mu * t * 2 * (1 - a));
+            result = 1 + part1 + part2;
         }
         return result;
     }
@@ -238,5 +242,19 @@ public class SystemMM2Calculator {
     public double US(Map<SystemFeature, Double> features) {
         final double P0 = P0(features);
         return 1 - P0;
+    }
+
+    private double C1(Map<SystemFeature, Double> features) {
+        final double PN2 = PN2(features);
+        final double a = a(features);
+        final double divisor = 1 - 2 * (1 - a);
+        return PN2 / divisor - 1;
+    }
+
+    private double C2(Map<SystemFeature, Double> features) {
+        final double PN2 = PN2(features);
+        final double a = a(features);
+        final double divisor = 2 * (1 - a) - 1;
+        return PN2 / divisor;
     }
 }
