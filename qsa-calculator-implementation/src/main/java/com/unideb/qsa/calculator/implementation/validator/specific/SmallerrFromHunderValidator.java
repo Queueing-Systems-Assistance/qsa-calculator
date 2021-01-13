@@ -24,7 +24,7 @@ public class SmallerrFromHunderValidator extends FeatureValidator {
         double r = features.get(SystemFeature.r);
         if (r >= HUNDREDTH_QUARTILE) {
             result = Optional.of(Map.of(
-                    SystemFeature.r.name(), List.of("error.smaller.parameter.rFrom100")));
+                    SystemFeature.r.name(), List.of("error.validation.feature.r.should.be.smaller.from.100")));
         }
         return result;
     }

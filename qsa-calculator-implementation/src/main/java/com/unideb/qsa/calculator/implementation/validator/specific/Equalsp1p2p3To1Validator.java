@@ -22,9 +22,9 @@ public class Equalsp1p2p3To1Validator extends FeatureValidator {
         double pSum = features.get(SystemFeature.p1) + features.get(SystemFeature.p2) + features.get(SystemFeature.p3);
         if (pSum != 1.0) {
             result = Optional.of(Map.of(
-                    SystemFeature.p1.name(), List.of("error.equals.parameter.p1p2p3To1"),
-                    SystemFeature.p2.name(), List.of("error.equals.parameter.p1p2p3To1"),
-                    SystemFeature.p3.name(), List.of("error.equals.parameter.p1p2p3To1"))
+                    SystemFeature.p1.name(), List.of("error.validation.feature.p1.p2.p3.should.be.equal.to.1"),
+                    SystemFeature.p2.name(), List.of("error.validation.feature.p1.p2.p3.should.be.equal.to.1"),
+                    SystemFeature.p3.name(), List.of("error.validation.feature.p1.p2.p3.should.be.equal.to.1"))
             );
         }
         return result;

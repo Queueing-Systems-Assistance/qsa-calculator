@@ -25,8 +25,7 @@ import com.unideb.qsa.domain.context.Qualifier;
 @Component
 public class SystemOutputResolver {
 
-
-    private static final String ERROR_NO_OUTPUT_FOUND = "error.global.noOutputsFound";
+    private static final String ERROR_NO_OUTPUT_FOUND = "error.bad.request.no.feature.available";
     private static final String CONFIG_OUTPUTS_DEFAULT = "OUTPUTS_DEFAULT";
 
     @Autowired
@@ -59,11 +58,15 @@ public class SystemOutputResolver {
 
     private List<OutputFeature> resolveOutputFeatures(String systemId, Function<String, Optional<OutputFeature>> supplier) {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
-        String[] outputIds = configResolver.resolve(CONFIG_OUTPUTS_DEFAULT, qualifier, String[].class)
-                                           .orElseThrow(() -> new QSAInvalidOutputException(ERROR_NO_OUTPUT_FOUND));
+        String[] outputIds = resolveOutputIds(qualifier);
         return Arrays.stream(outputIds)
                      .map(supplier)
                      .flatMap(Optional::stream)
                      .collect(Collectors.toList());
+    }
+
+    private String[] resolveOutputIds(Qualifier qualifier) {
+        return configResolver.resolve(CONFIG_OUTPUTS_DEFAULT, qualifier, String[].class)
+                             .orElseThrow(() -> new QSAInvalidOutputException(ERROR_NO_OUTPUT_FOUND));
     }
 }

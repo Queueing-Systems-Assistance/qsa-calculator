@@ -107,7 +107,7 @@
     <module name="AnnotationUseStyle" />
     <module name="ImportOrder">
       <property name="option" value="top" />
-      <property name="groups" value="java,javax,org,com,io,com.unideb.qsa,*" />
+      <property name="groups" value="java,javax,org,com,io,reactor,com.unideb.qsa,*" />
       <property name="separated" value="true" />
       <property name="sortStaticImportsAlphabetically" value="true" />
     </module>

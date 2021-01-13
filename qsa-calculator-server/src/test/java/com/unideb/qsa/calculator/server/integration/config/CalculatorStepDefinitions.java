@@ -38,7 +38,6 @@ public class CalculatorStepDefinitions extends SpringIntegrationTest {
     private String system;
     private String fileName;
 
-    //TODO: Create test cases for streams and error handling
     @Given("^I have a request for (.*) with a request JSON: (.*)$")
     public void iHaveARequest(String system, String fileName) {
         this.system = system;

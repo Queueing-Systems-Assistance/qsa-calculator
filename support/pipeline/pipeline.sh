@@ -25,8 +25,7 @@ echo "RELEASE_VERSION=${RELEASE_VERSION}"
 
 # Build
 echo "Build QSA Calculator"
-#TODO: Enable integration tests
-./gradlew clean build -x test -Prelease.version="${RELEASE_VERSION}" || exit
+./gradlew clean build -Prelease.version="${RELEASE_VERSION}" || exit
 
 # Docker Login
 echo "${DOCKER_PASSWORD}" | docker login docker.pkg.github.com -u "${DOCKER_USERNAME}" --password-stdin || exit

@@ -22,8 +22,8 @@ public class SmallerLambdaFromMucValidator extends FeatureValidator {
         double muc = features.get(SystemFeature.Mu) * features.get(SystemFeature.c);
         if (features.get(SystemFeature.Lambda) >= muc) {
             result = Optional.of(Map.of(
-                    SystemFeature.Mu.name(), List.of("error.smaller.parameter.LambdaFromMuc"),
-                    SystemFeature.c.name(), List.of("error.smaller.parameter.LambdaFromMuc")));
+                    SystemFeature.Mu.name(), List.of("error.validation.feature.Lambda.should.be.smaller.from.Mu.c"),
+                    SystemFeature.c.name(), List.of("error.validation.feature.Lambda.should.be.smaller.from.Mu.c")));
         }
         return result;
     }

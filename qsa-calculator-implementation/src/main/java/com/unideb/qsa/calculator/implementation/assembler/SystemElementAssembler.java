@@ -1,16 +1,17 @@
 package com.unideb.qsa.calculator.implementation.assembler;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.SystemElement;
-import com.unideb.qsa.calculator.domain.exception.QSAServerException;
+import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemInputResolver;
-import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
-import com.unideb.qsa.domain.context.Qualifier;
 
 /**
  * Assembles a {@link SystemElement}.
@@ -18,47 +19,54 @@ import com.unideb.qsa.domain.context.Qualifier;
 @Component
 public class SystemElementAssembler {
 
-    private static final String NO_STATUS_AVAILABLE = "";
-    private static final String CONFIG_NAME = "NAME";
-    private static final String CONFIG_STATUS_CODE = "STATUS_CODE";
-    private static final String CONFIG_ADDITIONAL_INFORMATION = "ADDITIONAL_INFORMATION";
-    private static final String ERROR_SYSTEM_NAME_NOT_FOUND = "Missing system name, [config=%s, qualifier=%s]";
+    private static final String SYSTEM_DESCRIPTION_KEY = "system.element.%s.description";
+    private static final String SYSTEM_NAME_KEY = "system.element.%s.name";
+    private static final String SYSTEM_STATUS_KEY = "system.element.%s.status";
 
     @Autowired
-    private ConfigResolver configResolver;
-    @Autowired
-    private QualifierAssembler qualifierAssembler;
+    private MessageResolver messageResolver;
     @Autowired
     private SystemInputResolver systemInputResolver;
 
     /**
      * Assembles a {@link SystemElement} based on its id.
-     * @param systemId feature id
+     * @param systemIds feature id
      * @return assembled {@link SystemElement}
      */
-    public SystemElement assemble(String systemId) {
-        Qualifier qualifier = qualifierAssembler.assemble(systemId);
-        String systemName = getSystemName(qualifier);
+    public List<SystemElement> assemble(List<String> systemIds) {
+        List<String> descriptionI18nKeys = getI18nKeys(systemIds, SYSTEM_DESCRIPTION_KEY);
+        List<String> nameI18nKeys = getI18nKeys(systemIds, SYSTEM_NAME_KEY);
+        List<String> statusI18nKeys = getI18nKeys(systemIds, SYSTEM_STATUS_KEY);
+        List<String> i18nKeys = mergeLists(descriptionI18nKeys, nameI18nKeys, statusI18nKeys);
+        Map<String, String> resolvedI18nKeys = messageResolver.resolveKeyValuePairs(i18nKeys);
+        return systemIds.stream()
+                        .map(systemId -> assembleSystemElement(resolvedI18nKeys, systemId))
+                        .collect(Collectors.toList());
+    }
+
+    private SystemElement assembleSystemElement(Map<String, String> resolvedI18nKeys, String systemId) {
         return new SystemElement.Builder()
-                .withName(systemName)
+                .withName(findI18nKey(systemId, resolvedI18nKeys, String.format(SYSTEM_NAME_KEY, systemId)))
                 .withId(systemId)
-                .withDescription(getSystemDescription(qualifier))
-                .withStatus(getSystemStatusCode(qualifier))
-                .withInputs(systemInputResolver.resolve(systemId)).build();
+                .withStatus(findI18nKey(systemId, resolvedI18nKeys, String.format(SYSTEM_STATUS_KEY, systemId)))
+                .withDescription(findI18nKey(systemId, resolvedI18nKeys, String.format(SYSTEM_DESCRIPTION_KEY, systemId)))
+                .withInputs(systemInputResolver.resolve(systemId))
+                .build();
     }
 
-    private String getSystemStatusCode(Qualifier qualifier) {
-        return configResolver.resolve(CONFIG_STATUS_CODE, qualifier).orElse(NO_STATUS_AVAILABLE);
+    private List<String> mergeLists(List<String> descriptionI18nKeys, List<String> nameI18nKeys, List<String> statusI18nKeys) {
+        return Stream.of(descriptionI18nKeys, nameI18nKeys, statusI18nKeys)
+                     .flatMap(Collection::stream)
+                     .collect(Collectors.toList());
     }
 
-    private String getSystemName(Qualifier qualifier) {
-        return configResolver.resolve(CONFIG_NAME, qualifier)
-                             .orElseThrow(() -> new QSAServerException(String.format(ERROR_SYSTEM_NAME_NOT_FOUND, CONFIG_NAME, qualifier)));
+    private List<String> getI18nKeys(List<String> systemIds, String i18nKey) {
+        return systemIds.stream()
+                        .map(systemId -> String.format(i18nKey, systemId))
+                        .collect(Collectors.toList());
     }
 
-    private List<String> getSystemDescription(Qualifier qualifier) {
-        return configResolver.resolve(CONFIG_ADDITIONAL_INFORMATION, qualifier, String[].class)
-                             .map(Arrays::asList)
-                             .orElse(List.of());
+    private String findI18nKey(String systemId, Map<String, String> i18nKeys, String rawI18nKey) {
+        return i18nKeys.get(String.format(rawI18nKey, systemId));
     }
 }

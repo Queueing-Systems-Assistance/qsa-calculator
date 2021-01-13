@@ -12,6 +12,7 @@ import com.unideb.qsa.calculator.domain.calculator.InputFeature;
 import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
 import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorResolver;
+import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorStreamResolver;
 import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 
 /**
@@ -30,6 +31,8 @@ public class SystemOutputAssembler {
     private QualifierAssembler qualifierAssembler;
     @Autowired
     private SystemCalculatorResolver systemCalculatorResolver;
+    @Autowired
+    private SystemCalculatorStreamResolver systemCalculatorStreamResolver;
 
     /**
      * Assembles a {@link InputFeature} based on its id.
@@ -51,7 +54,7 @@ public class SystemOutputAssembler {
      * @return Optional {@link OutputFeature} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
      */
     public Optional<OutputFeature> assemble(String systemId, String outputId, StreamOutputFeatureRequest streamOutputFeatureRequest) {
-        List<String> values = systemCalculatorResolver.resolve(systemId, outputId, streamOutputFeatureRequest);
+        List<String> values = systemCalculatorStreamResolver.resolve(systemId, outputId, streamOutputFeatureRequest);
         return assembleOutputFeature(outputId, values);
     }
 

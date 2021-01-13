@@ -23,8 +23,8 @@ public class SmallerMuFromKValidator extends FeatureValidator {
         double K = features.get(SystemFeature.K);
         if (Mu > K) {
             result = Optional.of(Map.of(
-                    SystemFeature.Mu.name(), List.of("error.bigger.parameter.muFromK"),
-                    SystemFeature.K.name(), List.of("error.bigger.parameter.muFromK")));
+                    SystemFeature.Mu.name(), List.of("error.validation.feature.Mu.should.be.smaller.equals.to.K"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.Mu.should.be.smaller.equals.to.K")));
         }
         return result;
     }

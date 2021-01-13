@@ -23,8 +23,8 @@ public class SmallerEqualsnFromcValidator extends FeatureValidator {
         double n = features.getOrDefault(SystemFeature.n, 0.0);
         if (n > c) {
             result = Optional.of(Map.of(
-                    SystemFeature.n.name(), List.of("error.smallerEquals.parameter.nFromc"),
-                    SystemFeature.c.name(), List.of("error.smallerEquals.parameter.nFromc")));
+                    SystemFeature.n.name(), List.of("error.validation.feature.n.should.be.smaller.or.equal.to.c"),
+                    SystemFeature.c.name(), List.of("error.validation.feature.n.should.be.smaller.or.equal.to.c")));
         }
         return result;
     }

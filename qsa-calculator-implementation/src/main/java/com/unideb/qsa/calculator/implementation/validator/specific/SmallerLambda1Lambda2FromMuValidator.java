@@ -22,9 +22,9 @@ public class SmallerLambda1Lambda2FromMuValidator extends FeatureValidator {
         double lambdaSum = features.get(SystemFeature.Lambda1) + features.get(SystemFeature.Lambda2);
         if (lambdaSum >= features.get(SystemFeature.Mu)) {
             result = Optional.of(Map.of(
-                    SystemFeature.Lambda1.name(), List.of("error.smaller.parameter.SumOfLambda1Lambda2FromMu"),
-                    SystemFeature.Lambda2.name(), List.of("error.smaller.parameter.SumOfLambda1Lambda2FromMu"),
-                    SystemFeature.Mu.name(), List.of("error.smaller.parameter.SumOfLambda1Lambda2FromMu")));
+                    SystemFeature.Lambda1.name(), List.of("error.validation.feature.Lambda1.Lambda2.should.be.smaller.from.Mu"),
+                    SystemFeature.Lambda2.name(), List.of("error.validation.feature.Lambda1.Lambda2.should.be.smaller.from.Mu"),
+                    SystemFeature.Mu.name(), List.of("error.validation.feature.Lambda1.Lambda2.should.be.smaller.from.Mu")));
         }
         return result;
     }

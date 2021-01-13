@@ -21,7 +21,7 @@ public class Equalsc1Validator extends FeatureValidator {
         Optional<Map<String, List<String>>> result = Optional.empty();
         double c = features.get(SystemFeature.c);
         if (c != 1.0) {
-            result = Optional.of(Map.of(SystemFeature.c.name(), List.of("error.equals.parameter.c.1")));
+            result = Optional.of(Map.of(SystemFeature.c.name(), List.of("error.validation.feature.c.should.be.equal.to.1")));
         }
         return result;
     }

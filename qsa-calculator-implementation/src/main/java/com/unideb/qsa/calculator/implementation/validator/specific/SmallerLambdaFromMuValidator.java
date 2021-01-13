@@ -21,8 +21,8 @@ public class SmallerLambdaFromMuValidator extends FeatureValidator {
         Optional<Map<String, List<String>>> result = Optional.empty();
         if (features.get(SystemFeature.Lambda) >= features.get(SystemFeature.Mu)) {
             result = Optional.of(Map.of(
-                    SystemFeature.Lambda.name(), List.of("error.smaller.parameter.LambdaFromMu"),
-                    SystemFeature.Mu.name(), List.of("error.smaller.parameter.LambdaFromMu")));
+                    SystemFeature.Lambda.name(), List.of("error.validation.feature.Lambda.should.be.smaller.from.Mu"),
+                    SystemFeature.Mu.name(), List.of("error.validation.feature.Lambda.should.be.smaller.from.Mu")));
         }
         return result;
     }

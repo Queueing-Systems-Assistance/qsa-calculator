@@ -23,8 +23,8 @@ public class SmallerLambdaEsFrom1Validator extends FeatureValidator {
         final double eS = features.get(SystemFeature.eS);
         if (lambda * eS >= 1) {
             result = Optional.of(Map.of(
-                    SystemFeature.eS.name(), List.of("error.smaller.parameter.LambdaEsFrom1"),
-                    SystemFeature.Lambda.name(), List.of("error.smaller.parameter.LambdaEsFrom1")));
+                    SystemFeature.eS.name(), List.of("error.validation.feature.Lambda.Es.should.be.smaller.from.1"),
+                    SystemFeature.Lambda.name(), List.of("error.validation.feature.Lambda.Es.should.be.smaller.from.1")));
         }
         return result;
     }

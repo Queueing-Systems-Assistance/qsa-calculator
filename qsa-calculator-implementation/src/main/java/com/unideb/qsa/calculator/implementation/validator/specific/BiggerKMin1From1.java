@@ -21,7 +21,7 @@ public class BiggerKMin1From1 extends FeatureValidator {
         Optional<Map<String, List<String>>> result = Optional.empty();
         double K = features.get(SystemFeature.K);
         if (K - 1 <= 1.0) {
-            result = Optional.of(Map.of(SystemFeature.K.name(), List.of("error.bigger.parameter.KMin1")));
+            result = Optional.of(Map.of(SystemFeature.K.name(), List.of("error.validation.feature.K.1.should.be.bigger.from.1")));
         }
         return result;
     }

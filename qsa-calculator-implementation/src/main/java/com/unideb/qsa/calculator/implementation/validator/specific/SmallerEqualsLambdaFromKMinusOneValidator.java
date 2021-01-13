@@ -23,8 +23,8 @@ public class SmallerEqualsLambdaFromKMinusOneValidator extends FeatureValidator 
         double K = features.get(SystemFeature.K);
         if (Lambda > K - 1) {
             result = Optional.of(Map.of(
-                    SystemFeature.Lambda.name(), List.of("error.bigger.parameter.lambdaFromKMinusOne"),
-                    SystemFeature.K.name(), List.of("error.bigger.parameter.lambdaFromKMinusOne")));
+                    SystemFeature.Lambda.name(), List.of("error.validation.feature.Lambda.should.be.smaller.equals.K.1"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.Lambda.should.be.smaller.equals.K.1")));
         }
         return result;
     }

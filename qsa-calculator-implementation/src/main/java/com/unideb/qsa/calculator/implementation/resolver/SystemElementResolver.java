@@ -1,8 +1,6 @@
 package com.unideb.qsa.calculator.implementation.resolver;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +17,7 @@ import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 @Component
 public class SystemElementResolver {
 
+    private static final int FIRST_ELEMENT = 0;
     private static final String CONFIG_SYSTEMS_ORDER = "SYSTEMS_ORDER";
     private static final String ERROR_NO_SYSTEMS = "Config [%s] returned empty value!";
 
@@ -34,18 +33,7 @@ public class SystemElementResolver {
      * @return List with the available systems
      */
     public List<SystemElement> resolve() {
-        return Arrays.stream(resolveSystems())
-                     .map(systemId -> systemElementAssembler.assemble(systemId))
-                     .collect(Collectors.toUnmodifiableList());
-    }
-
-    /**
-     * Resolves a {@link SystemElement} based on its id.
-     * @param systemId system id
-     * @return SystemElement resolved system element
-     */
-    public SystemElement resolve(String systemId) {
-        return systemElementAssembler.assemble(systemId);
+        return systemElementAssembler.assemble(List.of(resolveSystems()));
     }
 
     private String[] resolveSystems() {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.SystemElement;
 import com.unideb.qsa.calculator.domain.exception.QSAInvalidSystemException;
+import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
 
 /**
@@ -16,10 +17,12 @@ import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
 @Component
 public class SystemElementService {
 
-    private static final String ERROR_NO_SYSTEMS = "error.global.noSystemsAvailable";
+    private static final String ERROR_NO_SYSTEMS = "error.bad.request.no.systems.available.with.id";
 
     @Autowired
     private SystemElementResolver systemElementResolver;
+    @Autowired
+    private MessageResolver messageResolver;
 
     /**
      * Resolves the system elements based on the given system ids. If no ID was given, then all the available system elements are returned.
@@ -39,7 +42,7 @@ public class SystemElementService {
                                                    .filter(systemElement -> systemIds.contains(systemElement.getId()))
                                                    .collect(Collectors.toList());
         if (filteredResult.isEmpty()) {
-            throw new QSAInvalidSystemException(ERROR_NO_SYSTEMS);
+            throw new QSAInvalidSystemException(messageResolver.resolve(ERROR_NO_SYSTEMS));
         }
         return filteredResult;
     }

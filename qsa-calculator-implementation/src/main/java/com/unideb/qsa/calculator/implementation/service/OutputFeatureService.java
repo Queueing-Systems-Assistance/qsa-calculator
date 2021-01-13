@@ -12,6 +12,7 @@ import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 import com.unideb.qsa.calculator.domain.calculator.request.OutputFeatureRequest;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
 import com.unideb.qsa.calculator.domain.exception.QSAInvalidOutputException;
+import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemOutputResolver;
 
 /**
@@ -20,7 +21,9 @@ import com.unideb.qsa.calculator.implementation.resolver.SystemOutputResolver;
 @Component
 public class OutputFeatureService {
 
-    private static final String ERROR_NO_FEATURES_FOUND = "error.global.noFeaturesFoundWithIds";
+    private static final String ERROR_NO_FEATURES_FOUND = "error.bad.request.no.feature.available.with.id";
+    @Autowired
+    private MessageResolver messageResolver;
 
     @Autowired
     private SystemOutputResolver systemOutputResolver;
@@ -55,7 +58,7 @@ public class OutputFeatureService {
                                                    .filter(systemOutput -> featureIds.isEmpty() || featureIds.contains(systemOutput.getId()))
                                                    .collect(Collectors.toList());
         if (filteredResult.isEmpty()) {
-            throw new QSAInvalidOutputException(ERROR_NO_FEATURES_FOUND);
+            throw new QSAInvalidOutputException(messageResolver.resolve(ERROR_NO_FEATURES_FOUND));
         }
         return filteredResult;
     }

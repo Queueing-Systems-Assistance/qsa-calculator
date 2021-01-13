@@ -23,8 +23,8 @@ public class SmallernFromKValidator extends FeatureValidator {
         double K = features.get(SystemFeature.K);
         if (n >= K) {
             result = Optional.of(Map.of(
-                    SystemFeature.n.name(), List.of("error.smaller.parameter.nFromK"),
-                    SystemFeature.K.name(), List.of("error.smaller.parameter.nFromK")));
+                    SystemFeature.n.name(), List.of("error.validation.feature.n.should.be.smaller.from.K"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.n.should.be.smaller.from.K")));
         }
         return result;
     }

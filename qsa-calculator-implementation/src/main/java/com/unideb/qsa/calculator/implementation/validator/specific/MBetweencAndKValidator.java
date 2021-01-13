@@ -24,9 +24,9 @@ public class MBetweencAndKValidator extends FeatureValidator {
         final double k = features.get(SystemFeature.K);
         if (m < c || m > k) {
             result = Optional.of(Map.of(
-                    SystemFeature.c.name(), List.of("error.parameter.m.between.cAndK"),
-                    SystemFeature.m.name(), List.of("error.parameter.m.between.cAndK"),
-                    SystemFeature.K.name(), List.of("error.parameter.m.between.cAndK")));
+                    SystemFeature.c.name(), List.of("error.validation.feature.c.K.should.be.positive"),
+                    SystemFeature.m.name(), List.of("error.validation.feature.c.K.should.be.positive"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.c.K.should.be.positive")));
         }
         return result;
     }

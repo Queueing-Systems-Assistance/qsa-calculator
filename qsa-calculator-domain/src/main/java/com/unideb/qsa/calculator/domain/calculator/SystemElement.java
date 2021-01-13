@@ -10,7 +10,7 @@ public final class SystemElement {
     private final String name;
     private final String id;
     private final String status;
-    private final List<String> description;
+    private final String description;
     private final List<InputFeature> inputs;
 
     private SystemElement(SystemElement.Builder builder) {
@@ -21,7 +21,7 @@ public final class SystemElement {
         this.inputs = builder.inputs;
     }
 
-    public List<String> getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -49,7 +49,7 @@ public final class SystemElement {
         private String name;
         private String id;
         private String status;
-        private List<String> description;
+        private String description;
         private List<InputFeature> inputs;
 
         public Builder withName(String name) {
@@ -67,7 +67,7 @@ public final class SystemElement {
             return this;
         }
 
-        public Builder withDescription(List<String> description) {
+        public Builder withDescription(String description) {
             this.description = description;
             return this;
         }

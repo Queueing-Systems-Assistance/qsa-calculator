@@ -6,10 +6,12 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.domain.error.ErrorResponse;
-import com.unideb.qsa.calculator.domain.exception.QSAMessageException;
+import com.unideb.qsa.calculator.domain.exception.QSAInvalidOutputException;
+import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 
 /**
  * Validator for features.
@@ -17,7 +19,11 @@ import com.unideb.qsa.calculator.domain.exception.QSAMessageException;
 public abstract class FeatureValidator {
 
     private static final Logger LOG = LoggerFactory.getLogger(FeatureValidator.class);
-    private static final String MISSING_FEATURE_ID = "Missing feature [id={}]";
+    private static final String VALIDATION_ERROR_INVALID_FEATURE_ID = "error.bad.request.no.feature.available.with.id";
+    private static final String ERROR_MISSING_FEATURE_ID = "Missing feature from input [id={}] [input={}]";
+
+    @Autowired
+    private MessageResolver messageResolver;
 
     /**
      * Validate system features.
@@ -37,8 +43,8 @@ public abstract class FeatureValidator {
             .filter(systemFeature -> !features.containsKey(systemFeature))
             .findAny()
             .ifPresent(systemFeature -> {
-                LOG.warn(MISSING_FEATURE_ID, systemFeature);
-                throw new QSAMessageException("error.global.missingFeatureId");
+                LOG.warn(ERROR_MISSING_FEATURE_ID, systemFeature, features);
+                throw new QSAInvalidOutputException(messageResolver.resolve(VALIDATION_ERROR_INVALID_FEATURE_ID));
             });
     }
 
