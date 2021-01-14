@@ -17,7 +17,6 @@ import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 @Component
 public class SystemElementResolver {
 
-    private static final int FIRST_ELEMENT = 0;
     private static final String CONFIG_SYSTEMS_ORDER = "SYSTEMS_ORDER";
     private static final String ERROR_NO_SYSTEMS = "Config [%s] returned empty value!";
 

@@ -37,7 +37,7 @@ public class SystemElementAssembler {
         List<String> descriptionI18nKeys = getI18nKeys(systemIds, SYSTEM_DESCRIPTION_KEY);
         List<String> nameI18nKeys = getI18nKeys(systemIds, SYSTEM_NAME_KEY);
         List<String> statusI18nKeys = getI18nKeys(systemIds, SYSTEM_STATUS_KEY);
-        List<String> i18nKeys = mergeLists(descriptionI18nKeys, nameI18nKeys, statusI18nKeys);
+        List<String> i18nKeys = Stream.of(descriptionI18nKeys, nameI18nKeys, statusI18nKeys).flatMap(Collection::stream).collect(Collectors.toList());
         Map<String, String> resolvedI18nKeys = messageResolver.resolveKeyValuePairs(i18nKeys);
         return systemIds.stream()
                         .map(systemId -> assembleSystemElement(resolvedI18nKeys, systemId))
@@ -52,12 +52,6 @@ public class SystemElementAssembler {
                 .withDescription(findI18nKey(systemId, resolvedI18nKeys, String.format(SYSTEM_DESCRIPTION_KEY, systemId)))
                 .withInputs(systemInputResolver.resolve(systemId))
                 .build();
-    }
-
-    private List<String> mergeLists(List<String> descriptionI18nKeys, List<String> nameI18nKeys, List<String> statusI18nKeys) {
-        return Stream.of(descriptionI18nKeys, nameI18nKeys, statusI18nKeys)
-                     .flatMap(Collection::stream)
-                     .collect(Collectors.toList());
     }
 
     private List<String> getI18nKeys(List<String> systemIds, String i18nKey) {

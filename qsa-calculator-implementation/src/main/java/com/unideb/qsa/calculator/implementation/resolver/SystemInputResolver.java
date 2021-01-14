@@ -1,9 +1,6 @@
 package com.unideb.qsa.calculator.implementation.resolver;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +22,7 @@ public class SystemInputResolver {
     private static final String CONFIG_INPUTS_DEFAULT = "INPUTS_DEFAULT";
     private static final String CONFIG_INPUTS_REQUIRED = "INPUTS_REQUIRED";
     private static final String CONFIG_INPUTS_TYPE_FRACTION = "INPUTS_TYPE_FRACTION";
-    private static final String ERROR_NO_FEATURE_ID = "No system feature found with id [%s]";
+    private static final String ERROR_NO_FEATURE_ID = "No system input found for [%s]";
 
     @Autowired
     private SystemInputAssembler systemInputAssembler;
@@ -41,15 +38,10 @@ public class SystemInputResolver {
      */
     public List<InputFeature> resolve(String systemId) {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
-        String[] inputIds = configResolver.resolve(CONFIG_INPUTS_DEFAULT, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
+        String[] inputIds = configResolver.resolve(CONFIG_INPUTS_DEFAULT, qualifier, String[].class)
+                                          .orElseThrow(() -> new QSAServerException(String.format(ERROR_NO_FEATURE_ID, systemId)));
         String[] inputRequiredIds = configResolver.resolve(CONFIG_INPUTS_REQUIRED, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
         String[] inputTypeFractionIds = configResolver.resolve(CONFIG_INPUTS_TYPE_FRACTION, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
-        return Arrays.stream(inputIds)
-                     .map(inputId -> systemInputAssembler.assemble(inputId, inputRequiredIds, inputTypeFractionIds).orElseThrow(getExceptionSupplier(inputId)))
-                     .collect(Collectors.toList());
-    }
-
-    private Supplier<RuntimeException> getExceptionSupplier(String inputId) {
-        return () -> new QSAServerException(String.format(ERROR_NO_FEATURE_ID, inputId));
+        return systemInputAssembler.assemble(inputIds, inputRequiredIds, inputTypeFractionIds);
     }
 }

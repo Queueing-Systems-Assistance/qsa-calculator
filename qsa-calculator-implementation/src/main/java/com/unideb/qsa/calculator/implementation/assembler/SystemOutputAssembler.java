@@ -1,8 +1,12 @@
 package com.unideb.qsa.calculator.implementation.assembler;
 
+import static com.unideb.qsa.calculator.implementation.assembler.SystemFeatureAssembler.FEATURE_DESCRIPTION_KEY;
+import static com.unideb.qsa.calculator.implementation.assembler.SystemFeatureAssembler.FEATURE_NAME_KEY;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +17,6 @@ import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
 import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorStreamResolver;
-import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 
 /**
  * Assembles a {@link OutputFeature}.
@@ -21,14 +24,8 @@ import com.unideb.qsa.config.resolver.resolver.ConfigResolver;
 @Component
 public class SystemOutputAssembler {
 
-    private static final String DEFAULT_EMPTY_VALUE = "";
-    private static final String CONFIG_NAME = "NAME";
-    private static final String CONFIG_DESCRIPTION = "DESCRIPTION";
-
     @Autowired
-    private ConfigResolver configResolver;
-    @Autowired
-    private QualifierAssembler qualifierAssembler;
+    private SystemFeatureAssembler systemFeatureAssembler;
     @Autowired
     private SystemCalculatorResolver systemCalculatorResolver;
     @Autowired
@@ -36,38 +33,38 @@ public class SystemOutputAssembler {
 
     /**
      * Assembles a {@link InputFeature} based on its id.
-     * @param systemId system id
-     * @param outputId feature id
-     * @param features features and values from the request
-     * @return Optional {@link OutputFeature} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
+     * @param systemId  system id
+     * @param outputIds output feature ids of the system (based on the systemId)
+     * @param features  features and values from the request
+     * @return A list of assembled output features
      */
-    public Optional<OutputFeature> assemble(String systemId, String outputId, Map<SystemFeature, Double> features) {
-        List<String> values = systemCalculatorResolver.resolve(systemId, outputId, features);
-        return assembleOutputFeature(outputId, values);
+    public List<OutputFeature> assemble(String systemId, String[] outputIds, Map<SystemFeature, Double> features) {
+        Map<String, String> resolvedI18nKeys = systemFeatureAssembler.resolveI18nKeys(outputIds);
+        return Arrays.stream(outputIds)
+                     .map(outputId -> assembleOutputFeature(resolvedI18nKeys, outputId, systemCalculatorResolver.resolve(systemId, outputId, features)))
+                     .collect(Collectors.toList());
     }
 
     /**
      * Assembles a {@link InputFeature} based on its id.
      * @param systemId                   system id
-     * @param outputId                   feature id
-     * @param streamOutputFeatureRequest request
-     * @return Optional {@link OutputFeature} if the feature exists and the calculation was successful, {@link Optional#empty()} otherwise
+     * @param outputIds                  output feature ids of the system (based on the systemId)
+     * @param streamOutputFeatureRequest features and values from the request
+     * @return A list of assembled output features
      */
-    public Optional<OutputFeature> assemble(String systemId, String outputId, StreamOutputFeatureRequest streamOutputFeatureRequest) {
-        List<String> values = systemCalculatorStreamResolver.resolve(systemId, outputId, streamOutputFeatureRequest);
-        return assembleOutputFeature(outputId, values);
+    public List<OutputFeature> assemble(String systemId, String[] outputIds, StreamOutputFeatureRequest streamOutputFeatureRequest) {
+        Map<String, String> resolvedI18nKeys = systemFeatureAssembler.resolveI18nKeys(outputIds);
+        return Arrays.stream(outputIds)
+                     .map(outputId -> assembleOutputFeature(resolvedI18nKeys, outputId,
+                             systemCalculatorStreamResolver.resolve(systemId, outputId, streamOutputFeatureRequest)))
+                     .collect(Collectors.toList());
     }
 
-    private Optional<OutputFeature> assembleOutputFeature(String outputId, List<String> values) {
-        Optional<String> resolvedFeatureName = configResolver.resolve(CONFIG_NAME, qualifierAssembler.assemble(outputId));
-        return resolvedFeatureName.map(name -> createSystemOutput(outputId, name, values));
-    }
-
-    private OutputFeature createSystemOutput(String outputId, String name, List<String> values) {
+    private OutputFeature assembleOutputFeature(Map<String, String> resolvedI18nKeys, String outputId, List<String> values) {
         return new OutputFeature.Builder()
                 .withId(outputId)
-                .withName(name)
-                .withDescription(configResolver.resolve(CONFIG_DESCRIPTION, qualifierAssembler.assemble(outputId)).orElse(DEFAULT_EMPTY_VALUE))
+                .withName(systemFeatureAssembler.findI18nKey(outputId, resolvedI18nKeys, String.format(FEATURE_NAME_KEY, outputId)))
+                .withDescription(systemFeatureAssembler.findI18nKey(outputId, resolvedI18nKeys, String.format(FEATURE_DESCRIPTION_KEY, outputId)))
                 .withValue(values)
                 .build();
     }
