@@ -248,6 +248,28 @@ public class SystemMG1CalculatorTest {
         Assert.assertEquals(result,expected,  DELTA);
     }
 
+    @Test
+    public void PiT90Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.858838;
+        // WHEN
+        double result = systemMG1CalculatorUnderTest.PiT90(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void PiT95Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.1238544;
+        // WHEN
+        double result = systemMG1CalculatorUnderTest.PiT95(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
         features.put(SystemFeature.Lambda, 2.0);
