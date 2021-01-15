@@ -1,6 +1,7 @@
 | ID     |        |
 | Lambda | Lambda |
-| Ds     | Ds     |
-| n      | n      |
-| t      | t      |
+| Mu1    | Mu1    |
+| Mu2    | Mu2    |
+| p1     | p1     |
+| p2     | p2     |
 | ID_END |        |
