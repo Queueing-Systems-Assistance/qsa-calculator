@@ -171,6 +171,17 @@ public class SystemMMnnKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 6.388888;
+        // WHEN
+        double result = systemMMnnKCalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMnn = new HashMap<>();
         systemMMnn.put(SystemFeature.Lambda, 0.2);

@@ -122,6 +122,15 @@ public class SystemMMnnKCalculator {
         return EngsetRecursive(K, c, Ro);
     }
 
+    public double EDeltar(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double K = features.get(SystemFeature.K);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = K * Lambda * P0;
+        return dividend / divisor;
+    }
+
     private double EngsetRecursive(double K, double c, double Ro) {
         double result = 0;
         if (c == 1) {

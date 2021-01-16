@@ -20,4 +20,5 @@
 | ETau       | 1.03846             |
 | ENR        | 1.03846             |
 | PBKc       | 0.037037            |
+| EDeltar    | 1.0                 |
 | OUTPUT_END |                     |

@@ -360,6 +360,15 @@ public class SystemMMnPriorCalculator {
         return Ro / c;
     }
 
+    public double EDeltar(Map<SystemFeature, Double> features) {
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = (Lambda1 + Lambda2) * P0;
+        return dividend / divisor;
+    }
+
     private double ErlangBRecursive(double c, double Ro) {
         final double result;
         if (c == 1) {
