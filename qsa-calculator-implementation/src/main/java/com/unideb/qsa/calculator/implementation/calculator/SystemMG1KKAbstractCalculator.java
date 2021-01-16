@@ -11,7 +11,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  * System M | G | 1 | K | K Service.
  * Abstract class providing calculations for M | G | 1 | K | K systems.
  */
-public abstract  class SystemMG1KKCalculator {
+public abstract  class SystemMG1KKAbstractCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);

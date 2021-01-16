@@ -12,7 +12,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  * System M | Erlang | 1 | K | K Service.
  */
 @Component
-public class SystemMErlang1KKCalculator extends SystemMG1KKCalculator {
+public class SystemMErlang1KKCalculator extends SystemMG1KKAbstractCalculator {
 
     @Override
     public double SAvg(Map<SystemFeature, Double> features) {

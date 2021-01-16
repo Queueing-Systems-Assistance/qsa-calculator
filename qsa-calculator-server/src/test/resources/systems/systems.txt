@@ -10,6 +10,10 @@
 | systemMMn          | systemMMn          |
 | systemMMnK         | systemMMnK         |
 | systemMG1          | systemMG1          |
+| systemMHyper12     | systemMHyper12     |
+| systemMHyper13     | systemMHyper13     |
+| systemMGamma1      | systemMGamma1      |
+| systemMD1          | systemMD1          |
 | systemMM1KK        | systemMM1KK        |
 | systemMMnKK        | systemMMnKK        |
 | systemMMnnK        | systemMMnnK        |
