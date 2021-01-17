@@ -414,6 +414,17 @@ public class SystemMM1nonPreempCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void Edelta1Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 11.111111;
+        // WHEN
+        double result = systemMM1nonPreempCalculatorUnderTest.EDelta1(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMM1nonPreemp = new HashMap<>();
         systemMM1nonPreemp.put(SystemFeature.Lambda1, 0.04);

@@ -314,6 +314,17 @@ public class SystemMM2CalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.1505376;
+        // WHEN
+        double result = systemMM2CalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMM2 = new HashMap<>();
         systemMM2.put(SystemFeature.Lambda, 0.31);

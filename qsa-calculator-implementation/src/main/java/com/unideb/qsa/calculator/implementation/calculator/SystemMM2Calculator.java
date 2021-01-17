@@ -244,6 +244,14 @@ public class SystemMM2Calculator {
         return 1 - P0;
     }
 
+    public double EDeltar(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = Lambda * P0;
+        return dividend / divisor;
+    }
+
     private double C1(Map<SystemFeature, Double> features) {
         final double PN2 = PN2(features);
         final double a = a(features);

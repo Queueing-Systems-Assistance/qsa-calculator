@@ -426,6 +426,17 @@ public class SystemMMnPriorCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.4691358;
+        // WHEN
+        double result = systemMMnPriorCalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMnPrior = new HashMap<>();
         systemMMnPrior.put(SystemFeature.Lambda1, 0.17);

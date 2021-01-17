@@ -127,6 +127,17 @@ public class SystemMMInfCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.8008904;
+        // WHEN
+        double result = systemMMInfCalculatorUnderTest.EDeltar(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMInf = new HashMap<>();
         systemMMInf.put(SystemFeature.Mu, 1.62);
@@ -135,5 +146,4 @@ public class SystemMMInfCalculatorTest {
         systemMMInf.put(SystemFeature.Lambda, 0.81);
         return systemMMInf;
     }
-
 }
