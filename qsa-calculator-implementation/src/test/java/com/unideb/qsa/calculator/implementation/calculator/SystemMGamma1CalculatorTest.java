@@ -249,23 +249,23 @@ public class SystemMGamma1CalculatorTest {
     }
 
     @Test
-    public void PiT90Test() {
+    public void PiT90ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 2.702013;
         // WHEN
-        double result = systemMGamma1CalculatorUnderTest.PiT90(features);
+        double result = systemMGamma1CalculatorUnderTest.PiT90Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
 
     @Test
-    public void PiT95Test() {
+    public void PiT95ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 3.515277;
         // WHEN
-        double result = systemMGamma1CalculatorUnderTest.PiT95(features);
+        double result = systemMGamma1CalculatorUnderTest.PiT95Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
