@@ -1,18 +1,17 @@
 #!/bin/bash
 
 #### Init
-cd "${TRAVIS_BUILD_DIR}" || exit
-git config --global user.email "builds@travis-ci.com" || exit
-git config --global user.name "Travis CI" || exit
+git config --global user.email "builds@circle-ci.com" || exit
+git config --global user.name "Circle CI" || exit
 
 # Update feature branch name
-BRANCH_NAME=${TRAVIS_BRANCH}
+BRANCH_NAME=${CIRCLE_BRANCH}
 if [[ "${BRANCH_NAME}" != "master" ]]; then
   BRANCH_NAME=$(echo "${BRANCH_NAME}" | sed s#/#-#g | sed s/[.]/_/g | sed s#-#_#g | awk '{print $1""}') || exit
 fi
 
-GITHUB_ENDPOINT="https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
-RELEASE_VERSION=${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${TRAVIS_BUILD_NUMBER}
+GITHUB_ENDPOINT="https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
+RELEASE_VERSION=${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${CIRCLE_BUILD_NUM}
 
 if [[ "${BRANCH_NAME}" != "master" ]]; then
   RELEASE_VERSION="${RELEASE_VERSION}_${BRANCH_NAME}"
