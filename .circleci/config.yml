@@ -33,5 +33,7 @@ workflows:
       - build:
           filters:
             branches:
-              only: (^master\Z|^feature\/QSA-[0-9]+)
+              only:
+                - ^master
+                - ^feature\/QSA-[0-9]+
 
