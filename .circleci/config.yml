@@ -30,8 +30,8 @@ workflows:
   version: 2
   workflow:
     jobs:
-      - build
-    filters:
-      branches:
-        only: (^master\Z|^feature\/QSA-[0-9]+)
+      - build:
+          filters:
+            branches:
+              only: (^master\Z|^feature\/QSA-[0-9]+)
 
