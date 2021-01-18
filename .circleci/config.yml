@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  set_local_envs:
+  set_local_environment:
     steps:
       - run:
           name: Environment Setup
@@ -16,7 +16,7 @@ commands:
             fi
             echo 'export BRANCH_NAME="${BRANCH_NAME}"' >> $BASH_ENV
             echo 'export RELEASE_VERSION="${RELEASE_VERSION}"' >> $BASH_ENV
-
+            chmod +x gradlew
 jobs:
   build:
     environment:
@@ -29,6 +29,7 @@ jobs:
           password: $DOCKER_HUB_PASSWORD
     steps:
       - checkout
+      - set_local_environment
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
@@ -49,7 +50,6 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - set_local_envs
       - run:
           name: Build
           command: |
