@@ -1,4 +1,4 @@
-# QSA Calculator [![Build Status](https://travis-ci.com/Queueing-Systems-Assistance/qsa-calculator.svg?branch=master)](https://travis-ci.com/Queueing-Systems-Assistance/qsa-calculator)
+# QSA Calculator ![CircleCI](https://img.shields.io/circleci/build/github/Queueing-Systems-Assistance/qsa-calculator/master)
 
 ### Project description
 

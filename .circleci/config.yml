@@ -66,8 +66,10 @@ jobs:
               -t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}" .
             docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}"
       - run:
-          name: Tagging
+          name: Git Tagging
           command: |
+            git config --global user.email "builds@circle-ci.com"
+            git config --global user.name "Circle CI"
             git tag -a -f "${RELEASE_VERSION}" -m "${RELEASE_VERSION}"
             git push -f "https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" refs/tags/"${RELEASE_VERSION}"
 
