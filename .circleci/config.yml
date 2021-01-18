@@ -39,11 +39,11 @@ jobs:
       - run:
           name: Checkstyle validation
           command: |
-            ./gradlew checkstyleMain checkstyleTest
+            ./gradlew checkstyleMain checkstyleTest -Prelease.version="${RELEASE_VERSION}"
       - run:
           name: Running Tests
           command: |
-            ./gradlew test
+            ./gradlew test -Prelease.version="${RELEASE_VERSION}"
       - save_cache:
           paths:
             - ~/.gradle/wrapper
