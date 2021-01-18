@@ -1,10 +1,32 @@
-version: 2
+version: 2.1
+
+commands:
+  set_local_envs:
+    steps:
+      - run:
+          name: Environment Setup
+          command: |
+            export BRANCH_NAME=${CIRCLE_BRANCH}
+            if [[ "${BRANCH_NAME}" != "master" ]]; then
+              BRANCH_NAME=$(echo "${BRANCH_NAME}" | sed s#/#-#g | sed s/[.]/_/g | sed s#-#_#g | awk '{print $1""}') || exit
+            fi
+            RELEASE_VERSION=${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${CIRCLE_BUILD_NUM}
+            if [[ "${BRANCH_NAME}" != "master" ]]; then
+              RELEASE_VERSION="${RELEASE_VERSION}_${BRANCH_NAME}"
+            fi
+            echo 'export BRANCH_NAME="${BRANCH_NAME}"' >> $BASH_ENV
+            echo 'export RELEASE_VERSION="${RELEASE_VERSION}"' >> $BASH_ENV
+
 jobs:
   build:
-    machine: true
     environment:
       PROJECT_MAJOR_VERSION: 1
       PROJECT_MINOR_VERSION: 1
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretchn
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
     steps:
       - checkout
       - restore_cache:
@@ -12,11 +34,13 @@ jobs:
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
-          name: Default
+          name: Checkstyle validation
           command: |
-            chmod +x gradlew
-            chmod +x ./support/pipeline/pipeline.sh
-            ./support/pipeline/pipeline.sh
+            ./gradlew checkstyleMain checkstyleTest
+      - run:
+          name: Running Tests
+          command: |
+            ./gradlew test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -25,15 +49,32 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - set_local_envs
+      - run:
+          name: Build
+          command: |
+            ./gradlew -x test -x checkstyleMain -x checkstyleTest build -Prelease.version="${RELEASE_VERSION}"
+      - run:
+          name: Docker
+          command: |
+            echo "${DOCKER_GITHUB_PASSWORD}" | docker login docker.pkg.github.com -u "${DOCKER_GITHUB_USERNAME}" --password-stdin
+            docker build \
+              -f ./support/docker/Dockerfile \
+              -t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}" .
+            docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}"
+      - run:
+          name: Tagging
+          command: |
+            git tag -a -f "${RELEASE_VERSION}" -m "${RELEASE_VERSION}"
+            git push -f "https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" refs/tags/"${RELEASE_VERSION}"
 
 workflows:
   version: 2
   workflow:
     jobs:
       - build:
-          filters:
-            branches:
-              only:
-                - /^master/
-                - /^feature\/QSA-[0-9]+/
-
+        filters:
+          branches:
+            only:
+              - /^master/
+              - /^feature\/QSA-[0-9]+/
