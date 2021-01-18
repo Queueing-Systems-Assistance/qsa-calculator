@@ -73,8 +73,10 @@ workflows:
   workflow:
     jobs:
       - build:
-        filters:
-          branches:
-            only:
-              - /^master/
-              - /^feature\/QSA-[0-9]+/
+          context:
+            - Secrets
+          filters:
+            branches:
+              only:
+                - /^master/
+                - /^feature\/QSA-[0-9]+/
