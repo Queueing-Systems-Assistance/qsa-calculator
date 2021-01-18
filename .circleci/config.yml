@@ -23,7 +23,7 @@ jobs:
       PROJECT_MAJOR_VERSION: 1
       PROJECT_MINOR_VERSION: 1
     docker:
-      - image: circleci/openjdk:11.0.3-jdk-stretchn
+      - image: circleci/openjdk:11.0.3-jdk-stretch
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
