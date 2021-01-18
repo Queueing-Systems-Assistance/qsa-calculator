@@ -34,3 +34,4 @@ workflows:
     filters:
       branches:
         only: (^master\Z|^feature\/QSA-[0-9]+)
+
