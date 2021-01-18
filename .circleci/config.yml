@@ -14,8 +14,10 @@ commands:
             if [[ "${BRANCH_NAME}" != "master" ]]; then
               RELEASE_VERSION="${RELEASE_VERSION}_${BRANCH_NAME}"
             fi
-            echo 'export BRANCH_NAME="${BRANCH_NAME}"' >> $BASH_ENV
-            echo 'export RELEASE_VERSION="${RELEASE_VERSION}"' >> $BASH_ENV
+            echo "BRANCH_NAME" "${BRANCH_NAME}"
+            echo "RELEASE_VERSION" "${RELEASE_VERSION}"
+            echo "export BRANCH_NAME=${BRANCH_NAME}" >> "$BASH_ENV"
+            echo "export RELEASE_VERSION=${RELEASE_VERSION}" >> "$BASH_ENV"
             chmod +x gradlew
 jobs:
   build:
