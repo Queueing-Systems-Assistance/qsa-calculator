@@ -56,6 +56,7 @@ jobs:
           name: Build
           command: |
             ./gradlew -x test -x checkstyleMain -x checkstyleTest build -Prelease.version="${RELEASE_VERSION}"
+      - setup_remote_docker
       - run:
           name: Docker
           command: |
