@@ -146,7 +146,7 @@ This service is responsible for calculating system features and retrieve its pro
 
 - If anything goes wrong, this is the response:
   - `400` - BAD_REQUEST: See the error message
-  - `406` - NOT_ACCEPTABLE: HTTP body not valid JSON
   - `404` - NOT_FOUND: wrong endpoint
   - `405` - METHOD_NOT_ALLOWED: wrong HTTP method
+  - `406` - NOT_ACCEPTABLE: HTTP body not valid JSON
   - `500` - INTERNAL_SERVER_ERROR: any other error during the request processing (except `422`)
