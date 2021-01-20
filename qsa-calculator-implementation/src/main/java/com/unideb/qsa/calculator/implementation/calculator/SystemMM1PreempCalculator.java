@@ -1,5 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static java.lang.Math.exp;
 import static java.lang.Math.log;
 import static java.lang.Math.max;
@@ -228,5 +229,16 @@ public class SystemMM1PreempCalculator {
         final double TAvg2 = TAvg2(features);
         final double SAvg = SAvg(features);
         return TAvg2 - SAvg;
+    }
+
+    public double EDelta1(Map<SystemFeature, Double> features) {
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final Map<SystemFeature, Double> P0Features = copyOf(features);
+        P0Features.put(SystemFeature.n, 0.0);
+        final double P0 = Pn(P0Features);
+        final double dividend = 1 - P0;
+        final double divisor = (Lambda1 + Lambda2) * P0;
+        return dividend / divisor;
     }
 }

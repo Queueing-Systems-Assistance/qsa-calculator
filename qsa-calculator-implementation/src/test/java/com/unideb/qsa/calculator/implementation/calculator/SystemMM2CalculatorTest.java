@@ -252,7 +252,7 @@ public class SystemMM2CalculatorTest {
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.8657516;
+        double expected = 0.82547708;
         // WHEN
         double result = systemMM2CalculatorUnderTest.FTt(features);
         // THEN
@@ -310,6 +310,17 @@ public class SystemMM2CalculatorTest {
         double expected = 5.07967727;
         // WHEN
         double result = systemMM2CalculatorUnderTest.PiT95(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void EDeltarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.1505376;
+        // WHEN
+        double result = systemMM2CalculatorUnderTest.EDeltar(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }

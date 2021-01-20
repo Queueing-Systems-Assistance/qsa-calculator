@@ -12,7 +12,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  * System M | Gamma | 1 | K | K Service.
  */
 @Component
-public class SystemMGamma1KKCalculator extends SystemMG1KKCalculator {
+public class SystemMGamma1KKCalculator extends SystemMG1KKAbstractCalculator {
 
     public double SAvg(Map<SystemFeature, Double> features) {
         final double Mu = features.get(SystemFeature.Mu);

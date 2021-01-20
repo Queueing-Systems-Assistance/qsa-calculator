@@ -327,6 +327,28 @@ public class SystemMM1CalculatorTest {
     }
 
     @Test
+    public void EWW0Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 11.11111;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.EWW0(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
+    public void D2WW0Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 123.45679;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.D2WW0(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
+    @Test
     public void ENdDeltaTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -346,6 +368,17 @@ public class SystemMM1CalculatorTest {
         double result = systemMM1CalculatorUnderTest.D2NdDelta(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void PNdDeltanTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.609756;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.PNdDeltan(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
     }
 
     @Test

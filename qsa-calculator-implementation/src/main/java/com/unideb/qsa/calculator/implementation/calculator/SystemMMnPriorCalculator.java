@@ -33,22 +33,6 @@ public class SystemMMnPriorCalculator {
         return Lambda1 / Lambda + Lambda2 / Lambda;
     }
 
-    public double C1(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double PNc = PNc(features);
-        final double a = a(features);
-        final double divisor = 1 - c * (1 - a);
-        return PNc / divisor - 1;
-    }
-
-    public double C2(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double a = a(features);
-        final double PNc = PNc(features);
-        final double divisor = c * (1 - a) - 1;
-        return PNc / divisor;
-    }
-
     public double D2N(Map<SystemFeature, Double> features) {
         final double D2Q = D2Q(features);
         final double Ro = Ro(features);
@@ -251,30 +235,26 @@ public class SystemMMnPriorCalculator {
 
     public double QAvg1(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
-        final double Lambda = Lambda(features);
         final double WAvg1 = WAvg1(features);
-        return Lambda1 / Lambda * WAvg1;
+        return Lambda1 * WAvg1;
     }
 
     public double QAvg2(Map<SystemFeature, Double> features) {
         final double Lambda2 = features.get(SystemFeature.Lambda2);
-        final double Lambda = Lambda(features);
         final double WAvg2 = WAvg2(features);
-        return Lambda2 / Lambda * WAvg2;
+        return Lambda2 * WAvg2;
     }
 
     public double NAvg1(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
-        final double Lambda = Lambda(features);
         final double TAvg1 = TAvg1(features);
-        return Lambda1 / Lambda * TAvg1;
+        return Lambda1 * TAvg1;
     }
 
     public double NAvg2(Map<SystemFeature, Double> features) {
         final double Lambda2 = features.get(SystemFeature.Lambda2);
-        final double Lambda = Lambda(features);
         final double TAvg2 = TAvg2(features);
-        return Lambda2 / Lambda * TAvg2;
+        return Lambda2 * TAvg2;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
@@ -284,10 +264,8 @@ public class SystemMMnPriorCalculator {
     }
 
     public double SAvg(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
         final double Mu = features.get(SystemFeature.Mu);
-        final double Lambda = Lambda(features);
-        return c - Lambda / Mu;
+        return 1 / Mu;
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
@@ -309,11 +287,14 @@ public class SystemMMnPriorCalculator {
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double PNc = PNc(features);
-        final double SAvg = SAvg(features);
-        final double a = a(features);
-        return PNc * SAvg / (c * (1 - a));
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda = Lambda(features);
+        final double WAvg1 = WAvg1(features);
+        final double WAvg2 = WAvg2(features);
+        final double part1 = Lambda1 * WAvg1 / Lambda;
+        final double part2 = Lambda2 * WAvg2 / Lambda;
+        return part1 + part2;
     }
 
     public double WAvg2(Map<SystemFeature, Double> features) {
@@ -360,6 +341,15 @@ public class SystemMMnPriorCalculator {
         return Ro / c;
     }
 
+    public double EDeltar(Map<SystemFeature, Double> features) {
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double P0 = P0(features);
+        final double dividend = 1 - P0;
+        final double divisor = (Lambda1 + Lambda2) * P0;
+        return dividend / divisor;
+    }
+
     private double ErlangBRecursive(double c, double Ro) {
         final double result;
         if (c == 1) {
@@ -369,6 +359,22 @@ public class SystemMMnPriorCalculator {
             result = Ro * recursive / (c + Ro * recursive);
         }
         return result;
+    }
+
+    private double C1(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double PNc = PNc(features);
+        final double a = a(features);
+        final double divisor = 1 - c * (1 - a);
+        return PNc / divisor - 1;
+    }
+
+    private double C2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double a = a(features);
+        final double PNc = PNc(features);
+        final double divisor = c * (1 - a) - 1;
+        return PNc / divisor;
     }
 }
 

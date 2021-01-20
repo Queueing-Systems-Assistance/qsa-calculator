@@ -10,7 +10,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  * System M | Hypo | 1 | K | K (3 phases) Service.
  */
 @Component
-public class SystemMHypo1KK3Calculator extends SystemMG1KKCalculator {
+public class SystemMHypo1KK3Calculator extends SystemMG1KKAbstractCalculator {
 
     @Override
     public double SAvg(Map<SystemFeature, Double> features) {
