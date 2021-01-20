@@ -35,30 +35,26 @@ public class CalculatorStepDefinitions extends SpringIntegrationTest {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private ResponseEntity<String> httpResponse;
-    private String system;
-    private String fileName;
 
     @Given("^I have a request for (.*) with a request JSON: (.*)$")
     public void iHaveARequest(String system, String fileName) {
-        this.system = system;
-        this.fileName = fileName;
     }
 
-    @When("^I send the request to the (.*) endpoint$")
-    public void iSendTheRequest(String endpoint) {
+    @When("^I send the request to the (.*) endpoint for (.*), example (.*)")
+    public void iSendTheRequest(String endpoint, String system, String fileName) {
         String requestBody = JSON_HANDLER.buildRequestFrom(system, fileName);
         HttpHeaders headers = HEADER_BUILDER.setupHeaders();
         TestRestTemplate restTemplate = new TestRestTemplate();
         httpResponse = restTemplate.exchange("http://localhost:8080" + endpoint, HttpMethod.POST, new HttpEntity<>(requestBody, headers), String.class);
     }
 
-    @Then("^I should get back expected status as (.*)$")
-    public void iShouldGetBackExpectedStatus(int status) {
+    @Then("^I should get back expected status as (.*) for (.*), example (.*)")
+    public void iShouldGetBackExpectedStatus(int status, String system, String fileName) {
         assertEquals(httpResponse.getStatusCode().value(), status, RESPONSE_STATUS_CODE_DOES_NOT_MATCH);
     }
 
-    @Then("^I should get back the expected output features")
-    public void iShouldGetBackExpectedOutputs() throws JsonProcessingException {
+    @Then("^I should get back the expected output features for (.*), example (.*)")
+    public void iShouldGetBackExpectedOutputs(String system, String fileName) throws JsonProcessingException {
         List<OutputFeature> expected = OBJECT_MAPPER.readValue(JSON_HANDLER.buildResponseFrom(system, fileName), LIST_OUTPUT_FEATURE);
         List<OutputFeature> actual = OBJECT_MAPPER.readValue(httpResponse.getBody(), LIST_OUTPUT_FEATURE);
         expected.forEach(expectedOutputFeature ->

@@ -2,9 +2,9 @@ Feature: Test QSA Calculator - Output Feature
 
   Scenario Outline: Calculator output features are working
     Given I have a request for <system> with a request JSON: <fileName>
-    When I send the request to the system/<system>/outputs endpoint
-    Then I should get back expected status as <expectedStatusCode>
-    And I should get back the expected output features
+    When I send the request to the system/<system>/outputs endpoint for <system>, example <fileName>
+    Then I should get back expected status as <expectedStatusCode> for <system>, example <fileName>
+    And I should get back the expected output features for <system>, example <fileName>
 
     Examples:
       | system             | fileName                       | expectedStatusCode |
@@ -65,8 +65,8 @@ Feature: Test QSA Calculator - Output Feature
 
   Scenario Outline: Calculator output features are handling errors
     Given I have a request for <system> with a request JSON: <fileName>
-    When I send the request to the system/<system>/outputs endpoint
-    Then I should get back expected status as <expectedStatusCode>
+    When I send the request to the system/<system>/outputs endpoint for <system>, example <fileName>
+    Then I should get back expected status as <expectedStatusCode> for <system>, example <fileName>
 
     Examples:
       | system             | fileName                      | expectedStatusCode |
