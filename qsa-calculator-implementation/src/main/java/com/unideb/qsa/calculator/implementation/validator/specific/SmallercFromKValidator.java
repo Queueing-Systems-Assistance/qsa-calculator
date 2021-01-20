@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
@@ -17,16 +16,15 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 public class SmallercFromKValidator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(final Map<SystemFeature, Double> features, final String featureId) {
+    public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
         validatePresentFeatures(features, SystemFeature.K, SystemFeature.c);
-        Optional<ValidationErrorResponse> result = Optional.empty();
+        Optional<Map<String, List<String>>> result = Optional.empty();
         double c = features.get(SystemFeature.c);
         double K = features.get(SystemFeature.K);
         if (c >= K) {
-            result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.smaller.parameter.cFromK")
-                    .withInputIds(List.of(SystemFeature.c.name(), SystemFeature.K.name()))
-                    .build());
+            result = Optional.of(Map.of(
+                    SystemFeature.c.name(), List.of("error.validation.feature.c.should.be.smaller.from.K"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.c.should.be.smaller.from.K")));
         }
         return result;
     }

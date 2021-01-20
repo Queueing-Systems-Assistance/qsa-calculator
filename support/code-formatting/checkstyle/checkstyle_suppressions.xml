@@ -1,27 +1,31 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE suppressions PUBLIC
-		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
-		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-	<!-- Domain classes -->
-	<suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.domain" />
-	<!-- Implementation classes -->
-	<suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="MethodName" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="ParameterName" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="VariableName" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="MagicNumber" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="MethodLength" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<suppress checks="FileLength" files="com.unideb.qsa.calculator.implementation.calculator" />
-	<!-- Validator classes -->
-	<suppress checks="LocalVariableName" files="com.unideb.qsa.calculator.implementation.validator" />
-	<!-- Server classes -->
-	<suppress checks="HideUtilityClassConstructor" files="com.unideb.qsa.calculator.server.Application" />
-	<!-- Test files -->
-	<suppress checks="MagicNumber" files=".*[/\\]*Test" />
-	<suppress checks="JavadocMethod" files=".*[/\\]*Test" />
-	<suppress checks="FileLength" files=".*[/\\]*Test" />
-	<suppress checks="ParameterNumber" files=".*[/\\]*Test" />
+  <!-- Domain classes -->
+  <suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.domain" />
+  <!-- Implementation classes -->
+  <suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="MethodName" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="ParameterName" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="VariableName" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="MagicNumber" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="MethodLength" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <suppress checks="FileLength" files="com.unideb.qsa.calculator.implementation.calculator" />
+  <!-- Validator classes -->
+  <suppress checks="LocalVariableName" files="com.unideb.qsa.calculator.implementation.validator" />
+  <suppress checks="MethodLength" files="com.unideb.qsa.calculator.implementation.validator.specific" />
+  <!-- Server classes -->
+  <suppress checks="HideUtilityClassConstructor" files="com.unideb.qsa.calculator.server.Application" />
+  <!-- Config classes -->
+  <suppress checks="MissingJavadocMethod" files=".*[/\\]*Config" />
+  <!-- Test classes -->
+  <suppress checks="MagicNumber" files=".*[/\\]*Test" />
+  <suppress checks="JavadocMethod" files=".*[/\\]*Test" />
+  <suppress checks="FileLength" files=".*[/\\]*Test" />
+  <suppress checks="ParameterNumber" files=".*[/\\]*Test" />
+  <suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.server.integration.config.CalculatorStepDefinitions" />
 </suppressions>

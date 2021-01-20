@@ -1,0 +1,7 @@
+{
+  "featureConditions": {
+    "Lambda": 1.5,
+    "Ds": 2.2,
+    "K": 3
+  }
+}

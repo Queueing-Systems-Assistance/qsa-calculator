@@ -1,0 +1,8 @@
+{
+  "featureConditions": {
+    "Lambda": 1,
+    "eS": 1,
+    "eSPow2": 0,
+    "eSPow3": 1
+  }
+}

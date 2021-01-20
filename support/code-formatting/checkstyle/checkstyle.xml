@@ -1,141 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE module PUBLIC
-		"-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-		"https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-	<property name="severity" value="error" />
-	<property name="charset" value="UTF-8" />
-	<module name="TreeWalker">
-		<property name="tabWidth" value="4" />
-		<module name="SuppressWarningsHolder" />
-		<module name="ConstantName" />
-		<module name="LocalFinalVariableName" />
-		<module name="LocalVariableName" />
-		<module name="MemberName" />
-		<module name="MethodName" />
-		<module name="PackageName" />
-		<module name="ParameterName" />
-		<module name="StaticVariableName" />
-		<module name="TypeName" />
-		<module name="AvoidStarImport" />
-		<module name="IllegalImport" />
-		<module name="RedundantImport" />
-		<module name="UnusedImports" />
-		<module name="EmptyForIteratorPad" />
-		<module name="MethodParamPad" />
-		<module name="OperatorWrap" />
-		<module name="ParenPad" />
-		<module name="TypecastParenPad" />
-		<module name="ModifierOrder" />
-		<module name="RedundantModifier" />
-		<module name="EmptyCatchBlock" />
-		<module name="AvoidNestedBlocks" />
-		<module name="EmptyBlock" />
-		<module name="LeftCurly" />
-		<module name="NeedBraces" />
-		<module name="RightCurly" />
-		<module name="EmptyStatement" />
-		<module name="EqualsHashCode" />
-		<module name="IllegalInstantiation">
-			<property name="classes" value="java.lang.Boolean,java.lang.Integer,java.lang.Long" />
-		</module>
-		<module name="InnerAssignment" />
-		<module name="MagicNumber">
-			<property name="ignoreAnnotation" value="true" />
-		</module>
-		<module name="MissingSwitchDefault" />
-		<module name="SimplifyBooleanExpression" />
-		<module name="MissingJavadocType" />
-		<module name="JavadocStyle" />
-		<module name="MissingJavadocMethod" />
-		<module name="InvalidJavadocPosition" />
-		<module name="SimplifyBooleanReturn" />
-		<module name="FinalClass" />
-		<module name="HideUtilityClassConstructor" />
-		<module name="AvoidNoArgumentSuperConstructorCall" />
-		<module name="InterfaceIsType" />
-		<module name="VisibilityModifier" />
-		<module name="ArrayTypeStyle" />
-		<module name="BooleanExpressionComplexity" />
-		<module name="NPathComplexity">
-			<property name="max" value="20" />
-		</module>
-		<module name="FallThrough" />
-		<module name="DeclarationOrder" />
-		<module name="IllegalThrows" />
-		<module name="IllegalType" />
-		<module name="ModifiedControlVariable" />
-		<module name="ReturnCount">
-			<property name="max" value="1" />
-		</module>
-		<module name="StringLiteralEquality" />
-		<module name="SuperClone" />
-		<module name="SuperFinalize" />
-		<module name="UnnecessaryParentheses" />
-		<module name="Indentation">
-			<property name="lineWrappingIndentation" value="8" />
-		</module>
-		<module name="ExplicitInitialization" />
-		<module name="MissingDeprecated" />
-		<module name="MissingOverride" />
-		<module name="ClassTypeParameterName" />
-		<module name="MethodTypeParameterName" />
-		<module name="PackageAnnotation" />
-		<module name="GenericWhitespace" />
-		<module name="EmptyForInitializerPad" />
-		<module name="DefaultComesLast" />
-		<module name="EqualsAvoidNull" />
-		<module name="MultipleVariableDeclarations" />
-		<module name="NoFinalizer" />
-		<module name="PackageDeclaration" />
-		<module name="ParameterAssignment" />
-		<module name="MutableException" />
-		<module name="ThrowsCount">
-			<property name="max" value="2" />
-		</module>
-		<module name="SuppressWarnings" />
-		<module name="MethodLength">
-			<property name="max" value="20" />
-		</module>
-		<module name="ParameterNumber">
-			<property name="max" value="4" />
-		</module>
-		<module name="AnonInnerLength" />
-		<module name="ClassFanOutComplexity" />
-		<module name="AnnotationUseStyle" />
-		<module name="ImportOrder">
-			<property name="option" value="top" />
-			<property name="groups" value="java,javax,org,com,io,com.unideb.qsa,*" />
-			<property name="separated" value="true" />
-			<property name="sortStaticImportsAlphabetically" value="true" />
-		</module>
-		<module name="UpperEll" />
-	</module>
-	<module name="SuppressionFilter">
-		<property name="file" value="${config_loc}/checkstyle_suppressions.xml" />
-	</module>
-	<module name="RegexpHeader">
-		<property name="header" value="package" />
-		<property name="fileExtensions" value="java" />
-	</module>
-	<module name="NewlineAtEndOfFile" />
-	<module name="FileLength">
-		<property name="max" value="300" />
-	</module>
-	<module name="RegexpSingleline">
-		<property name="id" value="TrailingSpacesError" />
-		<property name="format" value="\s+$" />
-		<property name="message" value="Line has trailing spaces." />
-	</module>
-	<module name="RegexpSingleline">
-		<property name="id" value="InvalidLoggingMethodError" />
-		<property name="format" value="\.printStackTrace\(\)|System\.out|System\.err|org\.apache\.commons\.logging\.Log|java\.util\.logging" />
-		<property name="message" value="Use SLF4J for logging." />
-	</module>
-	<module name="RegexpSingleline">
-		<property name="id" value="ReverseOrderNullCheckError" />
-		<property name="format" value="null !=|null ==" />
-		<property name="message" value="Use Objects.ofNullable()!" />
-	</module>
+  <property name="severity" value="error" />
+  <property name="charset" value="UTF-8" />
+  <module name="TreeWalker">
+    <property name="tabWidth" value="4" />
+    <module name="SuppressWarningsHolder" />
+    <module name="ConstantName" />
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="PackageName" />
+    <module name="ParameterName" />
+    <module name="StaticVariableName" />
+    <module name="TypeName" />
+    <module name="AvoidStarImport" />
+    <module name="IllegalImport" />
+    <module name="RedundantImport" />
+    <module name="UnusedImports" />
+    <module name="EmptyForIteratorPad" />
+    <module name="MethodParamPad" />
+    <module name="OperatorWrap" />
+    <module name="ParenPad" />
+    <module name="TypecastParenPad" />
+    <module name="ModifierOrder" />
+    <module name="RedundantModifier" />
+    <module name="EmptyCatchBlock" />
+    <module name="AvoidNestedBlocks" />
+    <module name="EmptyBlock" />
+    <module name="LeftCurly" />
+    <module name="NeedBraces" />
+    <module name="RightCurly" />
+    <module name="EmptyStatement" />
+    <module name="EqualsHashCode" />
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean,java.lang.Integer,java.lang.Long" />
+    </module>
+    <module name="InnerAssignment" />
+    <module name="MagicNumber">
+      <property name="ignoreAnnotation" value="true" />
+    </module>
+    <module name="MissingSwitchDefault" />
+    <module name="SimplifyBooleanExpression" />
+    <module name="MissingJavadocType" />
+    <module name="JavadocStyle" />
+    <module name="MissingJavadocMethod">
+      <property name="tokens" value="METHOD_DEF,ANNOTATION_FIELD_DEF,COMPACT_CTOR_DEF" />
+    </module>
+    <module name="InvalidJavadocPosition" />
+    <module name="SingleLineJavadoc" />
+    <module name="SimplifyBooleanReturn" />
+    <module name="FinalClass" />
+    <module name="HideUtilityClassConstructor" />
+    <module name="AvoidNoArgumentSuperConstructorCall" />
+    <module name="InterfaceIsType" />
+    <module name="VisibilityModifier" />
+    <module name="ArrayTypeStyle" />
+    <module name="BooleanExpressionComplexity" />
+    <module name="NPathComplexity">
+      <property name="max" value="20" />
+    </module>
+    <module name="FallThrough" />
+    <module name="DeclarationOrder" />
+    <module name="IllegalThrows" />
+    <module name="IllegalType" />
+    <module name="ModifiedControlVariable" />
+    <module name="ReturnCount">
+      <property name="max" value="1" />
+    </module>
+    <module name="StringLiteralEquality" />
+    <module name="SuperClone" />
+    <module name="SuperFinalize" />
+    <module name="UnnecessaryParentheses" />
+    <module name="Indentation">
+      <property name="lineWrappingIndentation" value="4" />
+    </module>
+    <module name="ExplicitInitialization" />
+    <module name="MissingDeprecated" />
+    <module name="MissingOverride" />
+    <module name="ClassTypeParameterName" />
+    <module name="MethodTypeParameterName" />
+    <module name="PackageAnnotation" />
+    <module name="GenericWhitespace" />
+    <module name="EmptyForInitializerPad" />
+    <module name="DefaultComesLast" />
+    <module name="EqualsAvoidNull" />
+    <module name="MultipleVariableDeclarations" />
+    <module name="NoFinalizer" />
+    <module name="PackageDeclaration" />
+    <module name="ParameterAssignment" />
+    <module name="MutableException" />
+    <module name="ThrowsCount">
+      <property name="max" value="2" />
+    </module>
+    <module name="SuppressWarnings" />
+    <module name="MethodLength">
+      <property name="max" value="20" />
+    </module>
+    <module name="ParameterNumber">
+      <property name="max" value="4" />
+    </module>
+    <module name="AnonInnerLength" />
+    <module name="ClassFanOutComplexity" />
+    <module name="AnnotationUseStyle" />
+    <module name="ImportOrder">
+      <property name="option" value="top" />
+      <property name="groups" value="java,javax,org,com,io,reactor,com.unideb.qsa,*" />
+      <property name="separated" value="true" />
+      <property name="sortStaticImportsAlphabetically" value="true" />
+    </module>
+    <module name="UpperEll" />
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="${config_loc}/checkstyle_suppressions.xml" />
+  </module>
+  <module name="RegexpHeader">
+    <property name="header" value="package" />
+    <property name="fileExtensions" value="java" />
+  </module>
+  <module name="NewlineAtEndOfFile" />
+  <module name="FileLength">
+    <property name="max" value="300" />
+  </module>
+  <module name="RegexpSingleline">
+    <property name="id" value="TrailingSpacesError" />
+    <property name="format" value="\s+$" />
+    <property name="message" value="Line has trailing spaces." />
+  </module>
+  <module name="RegexpSingleline">
+    <property name="id" value="InvalidLoggingMethodError" />
+    <property name="format" value="\.printStackTrace\(\)|System\.out|System\.err|org\.apache\.commons\.logging\.Log|java\.util\.logging" />
+    <property name="message" value="Use SLF4J for logging." />
+  </module>
+  <module name="RegexpSingleline">
+    <property name="id" value="ReverseOrderNullCheckError" />
+    <property name="format" value="null !=|null ==" />
+    <property name="message" value="Use Objects.ofNullable()!" />
+  </module>
 </module>

@@ -130,7 +130,7 @@ public class SystemMM2Calculator {
         final double a = a(features);
         final double dividend = 2 * pow(a, n);
         double result = dividend / (1 + a);
-        if(n == 0) {
+        if (n == 0) {
             final double P0 = P0(features);
             result -= P0;
         }
@@ -181,7 +181,7 @@ public class SystemMM2Calculator {
         final double n = features.get(SystemFeature.n);
         final double P0 = P0(features);
         double result;
-        if(n == 0) {
+        if (n == 0) {
             result = P0;
         } else {
             final double a = a(features);

@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
@@ -17,16 +16,15 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 public class SmallerLambdaEsFrom1Validator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(Map<SystemFeature, Double> features, String featureId) {
+    public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
         validatePresentFeatures(features, SystemFeature.eS, SystemFeature.Lambda);
-        Optional<ValidationErrorResponse> result = Optional.empty();
+        Optional<Map<String, List<String>>> result = Optional.empty();
         final double lambda = features.get(SystemFeature.Lambda);
         final double eS = features.get(SystemFeature.eS);
         if (lambda * eS >= 1) {
-            result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.smaller.parameter.LambdaEsFrom1")
-                    .withInputIds(List.of(SystemFeature.eS.name(), SystemFeature.Lambda.name()))
-                    .build());
+            result = Optional.of(Map.of(
+                    SystemFeature.eS.name(), List.of("error.validation.feature.Lambda.Es.should.be.smaller.from.1"),
+                    SystemFeature.Lambda.name(), List.of("error.validation.feature.Lambda.Es.should.be.smaller.from.1")));
         }
         return result;
     }

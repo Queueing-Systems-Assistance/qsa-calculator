@@ -213,7 +213,7 @@ public class SystemMM1KKCalculator {
 
     private double ErlangBRecursive(double c, double Ro) {
         final double result;
-        if(c == 1) {
+        if (c == 1) {
             result = Ro / (1 + Ro);
         } else {
             final double recursive = ErlangBRecursive(c - 1, Ro);

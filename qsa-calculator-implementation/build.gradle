@@ -1,31 +1,17 @@
 dependencies {
-	/* PROJECT */
-	implementation project(':qsa-calculator-domain')
-	/* QSA */
-	implementation 'com.unideb.qsa:qsa-config-resolver'
-	implementation 'com.unideb.qsa:qsa-config-domain'
-	/* DEPENDENCY */
-	implementation 'ch.qos.logback.contrib:logback-jackson'
-	implementation 'ch.qos.logback.contrib:logback-json-classic'
-	implementation 'ch.qos.logback:logback-core'
-	implementation 'com.maxmind.geoip2:geoip2'
-	implementation 'net.logstash.logback:logstash-logback-encoder'
-	implementation 'org.apache.commons:commons-math3'
-	implementation 'org.slf4j:jcl-over-slf4j'
-	implementation 'org.slf4j:slf4j-api'
-	implementation 'org.springframework:spring-context'
-	/* TEST */
-	testImplementation 'ch.qos.logback:logback-classic'
-	testImplementation 'org.testng:testng'
-	testImplementation 'org.mockito:mockito-core'
-}
-
-configurations {
-	testImplementation.exclude group: 'com.vaadin.external.google', module: 'android-json'
+  /* PROJECT */
+  implementation project(':qsa-calculator-domain')
+  /* QSA */
+  implementation 'com.unideb.qsa:qsa-config-resolver'
+  implementation 'com.unideb.qsa:qsa-config-domain'
+  /* DEPENDENCY */
+  implementation 'org.apache.commons:commons-math3'
+  implementation 'org.slf4j:slf4j-api'
+  implementation 'org.springframework:spring-context'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  /* TEST */
+  testImplementation 'org.testng:testng'
+  testImplementation 'org.mockito:mockito-core'
 }
 
 description = 'qsa-calculator-implementation'
-
-test {
-	useTestNG()
-}

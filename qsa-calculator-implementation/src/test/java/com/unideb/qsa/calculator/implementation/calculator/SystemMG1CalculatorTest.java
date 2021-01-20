@@ -91,7 +91,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2TLCFS(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2TSIRO(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -212,7 +212,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.ENdDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -223,7 +223,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2NdDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -234,7 +234,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.EDelta1(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -245,7 +245,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.VarDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test

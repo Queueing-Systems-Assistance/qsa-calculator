@@ -1,0 +1,11 @@
+{
+  "featureConditions": {
+    "Lambda": 3,
+    "Mu": 4,
+    "c": 1,
+    "m": 3,
+    "K": 10,
+    "n": 2,
+    "t": 0
+  }
+}

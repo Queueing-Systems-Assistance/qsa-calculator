@@ -1,7 +1,0 @@
-| ID     |        |
-| Da     | Da     |
-| Ds     | Ds     |
-| c      | c      |
-| K      | K      |
-| n      | n      |
-| ID_END |        |

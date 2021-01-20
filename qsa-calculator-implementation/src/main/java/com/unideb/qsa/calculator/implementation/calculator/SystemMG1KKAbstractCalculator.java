@@ -11,7 +11,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
  * System M | G | 1 | K | K Service.
  * Abstract class providing calculations for M | G | 1 | K | K systems.
  */
-public abstract  class SystemMG1KKAbstractCalculator {
+public abstract class SystemMG1KKAbstractCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
@@ -24,7 +24,7 @@ public abstract  class SystemMG1KKAbstractCalculator {
         final double E0 = E0(features);
         double sum = 0.0;
         for (double i = 0.0; i <= K - 1; i++) {
-            final double binomialCoefficient = binomialCoefficientDouble((int)K - 1, (int)i);
+            final double binomialCoefficient = binomialCoefficientDouble((int) K - 1, (int) i);
             final double Bi = functionBn(features, i);
             sum += binomialCoefficient * Bi;
         }
