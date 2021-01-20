@@ -8,13 +8,22 @@ Feature: Test QSA Calculator - Output Feature
 
     Examples:
       | system             | fileName                       | expectedStatusCode |
+      | systemDDnKK        | output_features_correct_1.json | 200                |
+      | systemDDnKK        | output_features_correct_2.json | 200                |
+      | systemDDnKK        | output_features_correct_3.json | 200                |
+      | systemMD1          | output_features_correct_1.json | 200                |
+      | systemMD1KK        | output_features_correct_1.json | 200                |
+      | systemMD1KK        | output_features_correct_2.json | 200                |
       | systemMErlang1KK   | output_features_correct_1.json | 200                |
       | systemMG1          | output_features_correct_1.json | 200                |
       | systemMG1          | output_features_correct_2.json | 200                |
+      | systemMGamma1      | output_features_correct_1.json | 200                |
       | systemMGamma1KK    | output_features_correct_1.json | 200                |
       | systemMGamma1KK    | output_features_correct_2.json | 200                |
       | systemMHyper1KK2   | output_features_correct_1.json | 200                |
       | systemMHyper1KK3   | output_features_correct_1.json | 200                |
+      | systemMHyper12     | output_features_correct_1.json | 200                |
+      | systemMHyper13     | output_features_correct_1.json | 200                |
       | systemMHypo1KK2    | output_features_correct_1.json | 200                |
       | systemMHypo1KK2    | output_features_correct_2.json | 200                |
       | systemMHypo1KK3    | output_features_correct_1.json | 200                |
@@ -51,6 +60,8 @@ Feature: Test QSA Calculator - Output Feature
       | systemMMnn         | output_features_correct_2.json | 200                |
       | systemMMnn         | output_features_correct_3.json | 200                |
       | systemMMnnK        | output_features_correct_1.json | 200                |
+      | systemMMnPrior     | output_features_correct_1.json | 200                |
+      | systemMMnPrior     | output_features_correct_2.json | 200                |
 
   Scenario Outline: Calculator output features are handling errors
     Given I have a request for <system> with a request JSON: <fileName>
@@ -59,6 +70,29 @@ Feature: Test QSA Calculator - Output Feature
 
     Examples:
       | system             | fileName                      | expectedStatusCode |
+      | systemDDnKK        | output_features_error_1.json  | 400                |
+      | systemDDnKK        | output_features_error_2.json  | 400                |
+      | systemDDnKK        | output_features_error_3.json  | 400                |
+      | systemDDnKK        | output_features_error_4.json  | 400                |
+      | systemDDnKK        | output_features_error_5.json  | 400                |
+      | systemDDnKK        | output_features_error_6.json  | 400                |
+      | systemDDnKK        | output_features_error_7.json  | 400                |
+      | systemDDnKK        | output_features_error_8.json  | 400                |
+      | systemDDnKK        | output_features_error_9.json  | 400                |
+      | systemMD1          | output_features_error_1.json  | 400                |
+      | systemMD1          | output_features_error_2.json  | 400                |
+      | systemMD1          | output_features_error_3.json  | 400                |
+      | systemMD1          | output_features_error_4.json  | 400                |
+      | systemMD1          | output_features_error_5.json  | 400                |
+      | systemMD1          | output_features_error_6.json  | 400                |
+      | systemMD1          | output_features_error_7.json  | 400                |
+      | systemMD1          | output_features_error_8.json  | 400                |
+      | systemMD1KK        | output_features_error_1.json  | 400                |
+      | systemMD1KK        | output_features_error_2.json  | 400                |
+      | systemMD1KK        | output_features_error_3.json  | 400                |
+      | systemMD1KK        | output_features_error_4.json  | 400                |
+      | systemMD1KK        | output_features_error_5.json  | 400                |
+      | systemMD1KK        | output_features_error_6.json  | 400                |
       | systemMErlang1KK   | output_features_error_1.json  | 400                |
       | systemMErlang1KK   | output_features_error_2.json  | 400                |
       | systemMErlang1KK   | output_features_error_3.json  | 400                |
@@ -76,6 +110,14 @@ Feature: Test QSA Calculator - Output Feature
       | systemMG1          | output_features_error_7.json  | 400                |
       | systemMG1          | output_features_error_8.json  | 400                |
       | systemMG1          | output_features_error_9.json  | 400                |
+      | systemMGamma1      | output_features_error_1.json  | 400                |
+      | systemMGamma1      | output_features_error_2.json  | 400                |
+      | systemMGamma1      | output_features_error_3.json  | 400                |
+      | systemMGamma1      | output_features_error_4.json  | 400                |
+      | systemMGamma1      | output_features_error_5.json  | 400                |
+      | systemMGamma1      | output_features_error_6.json  | 400                |
+      | systemMGamma1      | output_features_error_7.json  | 400                |
+      | systemMGamma1      | output_features_error_8.json  | 400                |
       | systemMGamma1KK    | output_features_error_1.json  | 400                |
       | systemMGamma1KK    | output_features_error_2.json  | 400                |
       | systemMGamma1KK    | output_features_error_3.json  | 400                |
@@ -116,6 +158,36 @@ Feature: Test QSA Calculator - Output Feature
       | systemMHyper1KK3   | output_features_error_16.json | 400                |
       | systemMHyper1KK3   | output_features_error_17.json | 400                |
       | systemMHyper1KK3   | output_features_error_18.json | 400                |
+      | systemMHyper12     | output_features_error_1.json  | 400                |
+      | systemMHyper12     | output_features_error_2.json  | 400                |
+      | systemMHyper12     | output_features_error_3.json  | 400                |
+      | systemMHyper12     | output_features_error_4.json  | 400                |
+      | systemMHyper12     | output_features_error_5.json  | 400                |
+      | systemMHyper12     | output_features_error_6.json  | 400                |
+      | systemMHyper12     | output_features_error_7.json  | 400                |
+      | systemMHyper12     | output_features_error_8.json  | 400                |
+      | systemMHyper12     | output_features_error_9.json  | 400                |
+      | systemMHyper12     | output_features_error_10.json | 400                |
+      | systemMHyper12     | output_features_error_11.json | 400                |
+      | systemMHyper12     | output_features_error_12.json | 400                |
+      | systemMHyper13     | output_features_error_1.json  | 400                |
+      | systemMHyper13     | output_features_error_2.json  | 400                |
+      | systemMHyper13     | output_features_error_3.json  | 400                |
+      | systemMHyper13     | output_features_error_4.json  | 400                |
+      | systemMHyper13     | output_features_error_5.json  | 400                |
+      | systemMHyper13     | output_features_error_6.json  | 400                |
+      | systemMHyper13     | output_features_error_7.json  | 400                |
+      | systemMHyper13     | output_features_error_8.json  | 400                |
+      | systemMHyper13     | output_features_error_9.json  | 400                |
+      | systemMHyper13     | output_features_error_10.json | 400                |
+      | systemMHyper13     | output_features_error_11.json | 400                |
+      | systemMHyper13     | output_features_error_12.json | 400                |
+      | systemMHyper13     | output_features_error_13.json | 400                |
+      | systemMHyper13     | output_features_error_14.json | 400                |
+      | systemMHyper13     | output_features_error_15.json | 400                |
+      | systemMHyper13     | output_features_error_16.json | 400                |
+      | systemMHyper13     | output_features_error_17.json | 400                |
+      | systemMHyper13     | output_features_error_1.json  | 400                |
       | systemMHypo1KK2    | output_features_error_1.json  | 400                |
       | systemMHypo1KK2    | output_features_error_2.json  | 400                |
       | systemMHypo1KK2    | output_features_error_3.json  | 400                |

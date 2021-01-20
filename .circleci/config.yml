@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  jira: circleci/jira@1.3.0
 
 commands:
   set_local_environment:
@@ -85,3 +87,8 @@ workflows:
               only:
                 - /^master/
                 - /^feature\/QSA-[0-9]+/
+          post-steps:
+            - jira/notify:
+                scan_commit_body: true
+                job_type: build
+                token_name: CIRCLE_CI_ARTIFACTS
