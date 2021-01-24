@@ -1,29 +1,26 @@
-
-# POD Name
-kubernetes:
-  pod-name: dev
-
+# Spring Metrics
 management:
-  # Spring Actuator
   endpoints:
+    enabled-by-default: false
     web:
       exposure:
-        include: info, health
-  # Graphite
+        include: info,health,prometheus
   metrics:
-    export:
-      graphite:
-        port: 2003
-        host: localhost
-        tags-as-prefix: QSA.${spring.profiles.active}.${kubernetes.pod-name}
-        enabled: false
-        duration-units: "seconds"
-        step: 5
-  # Geo
-  geo:
-    enabled: false
-    maxmind:
-      path: resources/maxmind.mmdb
+    tags:
+      application: QSA.${spring.application.name}.${spring.profiles.active}
+    enabled: >
+      jvm.memory.used,
+      jvm.memory.max,
+      process.uptime,
+      process.cpu.usage,
+      http.server.requests
+  endpoint:
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
 
 # Spring Application
 spring:
@@ -31,28 +28,22 @@ spring:
     banner-mode: "off"
   mvc:
     throw-exception-if-no-handler-found: true
-    favicon:
-      enabled: true
     servlet:
       load-on-startup: 1
-  resources:
-    add-mappings: false
   application:
-    name: QSA
+    name: calculator
   profiles:
     active: dev
-
-# Logging
-logging:
-  config: classpath:logback-dev.xml
-  port: 9500
-  host: localhost
-  url: http://${logging.host}:${logging.port}
+  web:
+    resources:
+      add-mappings: false
+    locale-resolver: accept_header
 
 # Config Packs
 qsa:
   config:
-    uris:
-      - https://qsa.inf.unideb.hu/default/api/config/system
-      - https://qsa.inf.unideb.hu/default/api/config/feature
-
+    uris: >
+      https://qsa.inf.unideb.hu/lab/api/config/system
+    refresh-rate-in-minutes: 60
+  i18n-service:
+    uri: https://qsa.inf.unideb.hu/lab/api/i18n/keys

@@ -176,13 +176,13 @@ public abstract class SystemMG1AbstractCalculator {
         return part1 - part2;
     }
 
-    public double PiT90(Map<SystemFeature, Double> features) {
+    public double PiT90Appr(Map<SystemFeature, Double> features) {
         final double TAvg = TAvg(features);
         final double D2T = D2T(features);
         return TAvg + 1.3 * sqrt(D2T);
     }
 
-    public double PiT95(Map<SystemFeature, Double> features) {
+    public double PiT95Appr(Map<SystemFeature, Double> features) {
         final double TAvg = TAvg(features);
         final double D2T = D2T(features);
         return TAvg + 2.0 * sqrt(D2T);

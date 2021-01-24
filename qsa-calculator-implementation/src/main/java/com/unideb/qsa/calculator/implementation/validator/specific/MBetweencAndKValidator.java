@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.domain.error.ValidationErrorResponse;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
@@ -17,17 +16,17 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 public class MBetweencAndKValidator extends FeatureValidator {
 
     @Override
-    public Optional<ValidationErrorResponse> validate(final Map<SystemFeature, Double> features, final String featureId) {
+    public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
         validatePresentFeatures(features, SystemFeature.c, SystemFeature.m, SystemFeature.K);
-        Optional<ValidationErrorResponse> result = Optional.empty();
+        Optional<Map<String, List<String>>> result = Optional.empty();
         final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
         final double k = features.get(SystemFeature.K);
         if (m < c || m > k) {
-            result = Optional.of(new ValidationErrorResponse.Builder()
-                    .withErrorMessage("error.parameter.m.between.cAndK")
-                    .withInputIds(List.of(SystemFeature.c.name(), SystemFeature.m.name(), SystemFeature.K.name()))
-                    .build());
+            result = Optional.of(Map.of(
+                    SystemFeature.c.name(), List.of("error.validation.feature.c.K.should.be.positive"),
+                    SystemFeature.m.name(), List.of("error.validation.feature.c.K.should.be.positive"),
+                    SystemFeature.K.name(), List.of("error.validation.feature.c.K.should.be.positive")));
         }
         return result;
     }

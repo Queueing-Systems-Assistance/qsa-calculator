@@ -1,0 +1,73 @@
+<configuration>
+
+  <springProfile name="dev">
+
+    <appender name="CONSOLE_DEFAULT" class="ch.qos.logback.core.ConsoleAppender">
+      <layout class="ch.qos.logback.classic.PatternLayout">
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %green(%X{version:-NO_VERSION_SET} [requestId=%X{requestId:-NO_REQUEST}]) %cyan(%c) - %msg%n</pattern>
+      </layout>
+    </appender>
+
+    <logger name="org" level="WARN" />
+    <logger name="com" level="WARN" />
+    <logger name="com.unideb.qsa.calculator" level="INFO" />
+    <logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
+    <logger name="com.unideb.qsa.config.resolver.datasource.configpack" level="INFO" />
+
+    <root level="INFO">
+      <appender-ref ref="CONSOLE_DEFAULT" />
+    </root>
+  </springProfile>
+
+  <springProfile name="lab | prod">
+
+    <springProperty source="logging.url" name="LOGGING_URL" scope="context" />
+    <property name="JSON_PATTERN" value='
+		{
+		"timestamp": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
+		"version": "%X{version:-NO_VERSION_SET}",
+		"level": "%-5p",
+		"class": "%c",
+		"requestId": "%X{requestId:-NO_REQUEST}",
+		"message": "%m",
+		"exception": "%ex"
+		}
+		' />
+
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+        <providers>
+          <pattern>
+            <pattern>${JSON_PATTERN}</pattern>
+          </pattern>
+        </providers>
+      </encoder>
+    </appender>
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+      <destination>${LOGGING_URL}</destination>
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <providers>
+          <pattern>
+            <pattern>${JSON_PATTERN}</pattern>
+          </pattern>
+        </providers>
+      </encoder>
+    </appender>
+
+    <logger name="org" level="WARN" />
+    <logger name="com" level="WARN" />
+    <logger name="com.unideb.qsa.calculator" level="INFO" />
+    <logger name="com.unideb.qsa.config.resolver.config" level="INFO" />
+    <logger name="com.unideb.qsa.config.resolver.datasource.configpack" level="INFO" />
+
+    <root level="INFO">
+      <appender-ref ref="CONSOLE_JSON" />
+      <appender-ref ref="LOGSTASH" />
+    </root>
+  </springProfile>
+
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+
+</configuration>

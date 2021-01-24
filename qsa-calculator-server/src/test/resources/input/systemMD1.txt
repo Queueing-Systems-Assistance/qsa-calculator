@@ -1,6 +1,0 @@
-| ID     |        |
-| Lambda | Lambda |
-| Ds     | Ds     |
-| n      | n      |
-| t      | t      |
-| ID_END |        |

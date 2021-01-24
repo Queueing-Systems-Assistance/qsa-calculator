@@ -249,23 +249,23 @@ public class SystemMHyper12CalculatorTest {
     }
 
     @Test
-    public void PiT90Test() {
+    public void PiT90ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 15.588446;
         // WHEN
-        double result = systemMHyper12CalculatorUnderTest.PiT90(features);
+        double result = systemMHyper12CalculatorUnderTest.PiT90Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
 
     @Test
-    public void PiT95Test() {
+    public void PiT95ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 20.3336919;
         // WHEN
-        double result = systemMHyper12CalculatorUnderTest.PiT95(features);
+        double result = systemMHyper12CalculatorUnderTest.PiT95Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }

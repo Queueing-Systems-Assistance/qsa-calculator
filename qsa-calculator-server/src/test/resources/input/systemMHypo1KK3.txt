@@ -1,7 +1,0 @@
-| ID     |        |
-| Lambda | Lambda |
-| Mu1    | Mu1    |
-| Mu2    | Mu2    |
-| Mu3    | Mu3    |
-| K      | K      |
-| ID_END |        |

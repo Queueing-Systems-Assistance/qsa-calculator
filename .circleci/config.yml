@@ -1,0 +1,94 @@
+version: 2.1
+orbs:
+  jira: circleci/jira@1.3.0
+
+commands:
+  set_local_environment:
+    steps:
+      - run:
+          name: Environment Setup
+          command: |
+            export BRANCH_NAME=${CIRCLE_BRANCH}
+            if [[ "${BRANCH_NAME}" != "master" ]]; then
+              BRANCH_NAME=$(echo "${BRANCH_NAME}" | sed s#/#-#g | sed s/[.]/_/g | sed s#-#_#g | awk '{print $1""}') || exit
+            fi
+            RELEASE_VERSION=${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${CIRCLE_BUILD_NUM}
+            if [[ "${BRANCH_NAME}" != "master" ]]; then
+              RELEASE_VERSION="${RELEASE_VERSION}_${BRANCH_NAME}"
+            fi
+            echo "BRANCH_NAME" "${BRANCH_NAME}"
+            echo "RELEASE_VERSION" "${RELEASE_VERSION}"
+            echo "export BRANCH_NAME=${BRANCH_NAME}" >> "$BASH_ENV"
+            echo "export RELEASE_VERSION=${RELEASE_VERSION}" >> "$BASH_ENV"
+            chmod +x gradlew
+jobs:
+  build:
+    environment:
+      PROJECT_MAJOR_VERSION: 1
+      PROJECT_MINOR_VERSION: 1
+    docker:
+      - image: circleci/openjdk:11.0.3-jdk-stretch
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
+    steps:
+      - checkout
+      - set_local_environment
+      - restore_cache:
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - run:
+          name: Checkstyle validation
+          command: |
+            ./gradlew checkstyleMain checkstyleTest -Prelease.version="${RELEASE_VERSION}"
+      - run:
+          name: Running Tests
+          command: |
+            ./gradlew test -Prelease.version="${RELEASE_VERSION}"
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - run:
+          name: Build
+          command: |
+            ./gradlew -x test -x checkstyleMain -x checkstyleTest build -Prelease.version="${RELEASE_VERSION}"
+      - setup_remote_docker
+      - run:
+          name: Docker
+          command: |
+            echo "${DOCKER_GITHUB_PASSWORD}" | docker login docker.pkg.github.com -u "${DOCKER_GITHUB_USERNAME}" --password-stdin
+            docker build \
+              -f ./support/docker/Dockerfile \
+              -t docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}" .
+            docker push docker.pkg.github.com/queueing-systems-assistance/qsa-calculator/qsa-calculator:"${RELEASE_VERSION}"
+      - run:
+          name: Git Tagging
+          command: |
+            git config --global user.email "builds@circle-ci.com"
+            git config --global user.name "Circle CI"
+            git tag -a -f "${RELEASE_VERSION}" -m "${RELEASE_VERSION}"
+            git push -f "https://${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" refs/tags/"${RELEASE_VERSION}"
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build:
+          context:
+            - Secrets
+          filters:
+            branches:
+              only:
+                - /^master/
+                - /^feature\/QSA-[0-9]+/
+          post-steps:
+            - jira/notify:
+                scan_commit_body: true
+                job_type: build
+                token_name: CIRCLE_CI_ARTIFACTS

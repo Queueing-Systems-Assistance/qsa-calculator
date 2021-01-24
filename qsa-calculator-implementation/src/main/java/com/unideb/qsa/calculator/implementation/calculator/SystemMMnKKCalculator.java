@@ -40,7 +40,7 @@ public class SystemMMnKKCalculator {
         final double c = features.get(SystemFeature.c);
         final double K = features.get(SystemFeature.K);
         double sum = 0.0;
-        for(double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= K; i++) {
             Map<SystemFeature, Double> PiFeatures = copyOf(features);
             PiFeatures.put(SystemFeature.n, i);
             double Pi = Pn(PiFeatures);

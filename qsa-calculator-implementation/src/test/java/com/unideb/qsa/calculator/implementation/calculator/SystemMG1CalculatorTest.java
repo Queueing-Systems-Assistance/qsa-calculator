@@ -91,7 +91,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2TLCFS(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2TSIRO(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -212,7 +212,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.ENdDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -223,7 +223,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.D2NdDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -234,7 +234,7 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.EDelta1(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
@@ -245,27 +245,27 @@ public class SystemMG1CalculatorTest {
         // WHEN
         double result = systemMG1CalculatorUnderTest.VarDelta(features);
         // THEN
-        Assert.assertEquals(result,expected,  DELTA);
+        Assert.assertEquals(result, expected, DELTA);
     }
 
     @Test
-    public void PiT90Test() {
+    public void PiT90ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.858838;
         // WHEN
-        double result = systemMG1CalculatorUnderTest.PiT90(features);
+        double result = systemMG1CalculatorUnderTest.PiT90Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
 
     @Test
-    public void PiT95Test() {
+    public void PiT95ApprTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 1.1238544;
         // WHEN
-        double result = systemMG1CalculatorUnderTest.PiT95(features);
+        double result = systemMG1CalculatorUnderTest.PiT95Appr(features);
         // THEN
         Assert.assertEquals(result,expected,  DELTA);
     }
