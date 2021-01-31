@@ -32,7 +32,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void SAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.45454545454545;
+        double expected = 0.22727272;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.SAvg(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void P0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.21804779;
+        double expected = 0.358028307;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.P0(features);
         // THEN
@@ -54,7 +54,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.7202948;
+        double expected = 2.82467544;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.LambdaAvg(features);
         // THEN
@@ -65,7 +65,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.7819522043;
+        double expected = 0.6419716;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.a(features);
         // THEN
@@ -76,7 +76,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void UtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.38228774;
+        double expected = 0.62770565;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.Ut(features);
         // THEN
@@ -87,7 +87,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void mAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.146863233;
+        double expected = 1.8831169;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.mAvg(features);
         // THEN
@@ -98,7 +98,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.0772204;
+        double expected = 0.39540225;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.TAvg(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void NAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.85313676;
+        double expected = 1.116883;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.NAvg(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.62267498;
+        double expected = 0.1681295;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.WAvg(features);
         // THEN
@@ -131,7 +131,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.0711845626;
+        double expected = 0.474911344;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.QAvg(features);
         // THEN
@@ -142,7 +142,7 @@ public class SystemMGamma1KKCalculatorTest {
     public void EDelta1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.390766;
+        double expected = 1.1953834891;
         // WHEN
         double result = systemMGamma1KKCalculatorUnderTest.EDelta1(features);
         // THEN

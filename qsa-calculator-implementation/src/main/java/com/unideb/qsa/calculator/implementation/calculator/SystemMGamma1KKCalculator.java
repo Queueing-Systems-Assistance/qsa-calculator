@@ -15,8 +15,9 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMGamma1KKCalculator extends SystemMG1KKAbstractCalculator {
 
     public double SAvg(Map<SystemFeature, Double> features) {
+        final double Alpha = features.get(SystemFeature.Alpha);
         final double Mu = features.get(SystemFeature.Mu);
-        return 1 / Mu;
+        return Alpha / Mu;
     }
 
     @Override

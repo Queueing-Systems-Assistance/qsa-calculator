@@ -32,7 +32,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void SAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9090909;
+        double expected = 1.8333333;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.SAvg(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void P0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0034614325;
+        double expected = 0.00171941;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.P0(features);
         // THEN
@@ -54,7 +54,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.99653856;
+        double expected = 0.9982805;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.a(features);
         // THEN
@@ -65,7 +65,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void UtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.2435983;
+        double expected = 0.1210037;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.Ut(features);
         // THEN
@@ -76,7 +76,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void mAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.73079494;
+        double expected = 0.3630111;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.mAvg(features);
         // THEN
@@ -87,7 +87,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void LambdaAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.0961924;
+        double expected = 0.5445166;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.LambdaAvg(features);
         // THEN
@@ -98,7 +98,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.07007912;
+        double expected = 4.84280639;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.TAvg(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void NAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.269205;
+        double expected = 2.63698887;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.NAvg(features);
         // THEN
@@ -120,7 +120,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.160988212;
+        double expected = 3.00947306;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.WAvg(features);
         // THEN
@@ -131,7 +131,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.2726664;
+        double expected = 1.63870829;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.QAvg(features);
         // THEN
@@ -142,7 +142,7 @@ public class SystemMHypo1KK2CalculatorTest {
     public void EDelta1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 191.9318181;
+        double expected = 387.0625;
         // WHEN
         double result = systemMHypo1KK2CalculatorUnderTest.EDelta1(features);
         // THEN
