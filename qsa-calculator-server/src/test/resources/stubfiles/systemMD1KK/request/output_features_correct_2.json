@@ -2,6 +2,7 @@
   "featureConditions": {
     "Lambda": 0.16,
     "Ds": 1,
-    "K": 1
+    "K": 1,
+    "n": 0
   }
 }

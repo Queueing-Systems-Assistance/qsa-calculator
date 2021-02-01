@@ -144,6 +144,12 @@ public abstract class SystemMG1KKAbstractCalculator {
         return dividend / divisor;
     }
 
+    public double KStar(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double SAvg = SAvg(features);
+        return 1 + 1 / (SAvg * Lambda);
+    }
+
     public double functionBn(Map<SystemFeature, Double> features, double index) {
         double result = 1.0;
         if (index != 0) {

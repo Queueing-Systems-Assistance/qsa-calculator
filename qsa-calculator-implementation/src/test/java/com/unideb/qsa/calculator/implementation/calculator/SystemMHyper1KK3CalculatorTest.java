@@ -51,6 +51,28 @@ public class SystemMHyper1KK3CalculatorTest {
     }
 
     @Test
+    public void PnTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.3299991;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.Pn(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void PinTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.341587943;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.Pin(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -117,6 +139,28 @@ public class SystemMHyper1KK3CalculatorTest {
     }
 
     @Test
+    public void EN2Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 6.34257573;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.EN2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void D2NTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.57175896;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.D2N(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -139,12 +183,45 @@ public class SystemMHyper1KK3CalculatorTest {
     }
 
     @Test
+    public void EQ2Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.516882492;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.EQ2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void D2QTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.490698779;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.D2Q(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void EDelta1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 30.797142;
         // WHEN
         double result = systemMHyper1KK3CalculatorUnderTest.EDelta1(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void KStarTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.610687022;
+        // WHEN
+        double result = systemMHyper1KK3CalculatorUnderTest.KStar(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -159,6 +236,7 @@ public class SystemMHyper1KK3CalculatorTest {
         systemMHyper1KK.put(SystemFeature.p2, 0.3);
         systemMHyper1KK.put(SystemFeature.p3, 0.5);
         systemMHyper1KK.put(SystemFeature.K, 3.0);
+        systemMHyper1KK.put(SystemFeature.n, 2.0);
         return systemMHyper1KK;
     }
 }
