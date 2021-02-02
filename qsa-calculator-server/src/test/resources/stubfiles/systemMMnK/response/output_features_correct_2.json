@@ -140,7 +140,7 @@
     "name": "Eδ",
     "description": "Egy tetszőleges csatorna átlagos foglaltsági ideje",
     "values": [
-      "0.8620689655172411"
+      "0.9999999999999997"
     ]
   },
   {
@@ -148,7 +148,7 @@
     "name": "<span class=\"overline\">e</span>",
     "description": "Egy tetszőleges csatorna átlagos tétlenségi ideje",
     "values": [
-      "5.387931034482757"
+      "6.250000000000001"
     ]
   }
 ]
