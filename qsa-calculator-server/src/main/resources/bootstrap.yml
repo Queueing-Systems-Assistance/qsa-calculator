@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      uri:
+      profile: dev
+      name: calculator

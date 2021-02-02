@@ -31,9 +31,9 @@ spring:
     servlet:
       load-on-startup: 1
   application:
-    name: calculator
+    name: ${spring.cloud.config.name}
   profiles:
-    active: dev
+    active: ${spring.cloud.config.profile}
   web:
     resources:
       add-mappings: false
