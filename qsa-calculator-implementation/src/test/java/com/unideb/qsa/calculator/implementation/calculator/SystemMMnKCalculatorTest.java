@@ -197,7 +197,7 @@ public class SystemMMnKCalculatorTest {
     public void EDeltaTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.3007708;
+        double expected = 4.2300158;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.EDelta(features);
         // THEN
@@ -219,7 +219,7 @@ public class SystemMMnKCalculatorTest {
     public void eAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 6.50659272;
+        double expected = 6.508875;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.eAvg(features);
         // THEN

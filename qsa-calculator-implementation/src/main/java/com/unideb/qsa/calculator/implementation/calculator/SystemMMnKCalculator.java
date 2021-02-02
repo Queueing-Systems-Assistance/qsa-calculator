@@ -176,14 +176,9 @@ public class SystemMMnKCalculator {
     }
 
     public double EDelta(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double c = features.get(SystemFeature.c);
-        final double a = a(features);
-        final double cAvg = cAvg(features);
-        final double Pe = Pe(features);
-        final double dividend = a * (c - cAvg);
-        final double divisor = (1 - a) * Lambda * Pe;
-        return dividend / divisor;
+        final double US = US(features);
+        final double eAvg = eAvg(features);
+        return US * eAvg / (1 - US);
     }
 
     public double EDeltar(Map<SystemFeature, Double> features) {
@@ -196,11 +191,16 @@ public class SystemMMnKCalculator {
     public double eAvg(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double c = features.get(SystemFeature.c);
-        final double cAvg = cAvg(features);
         final double Pe = Pe(features);
-        final double dividend = c - cAvg;
-        final double divisor = Lambda * Pe;
-        return dividend / divisor;
+        final Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+        double part1 = 0.0;
+        for (double i = 0.0; i <= c - 1; i++) {
+            PiiFeatures.put(SystemFeature.n, i);
+            final double Pii = Pin(PiiFeatures);
+            part1 += (c - i) * Pii;
+        }
+        final double part2 = 1 / (Lambda * Pe);
+        return part1 * part2;
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
