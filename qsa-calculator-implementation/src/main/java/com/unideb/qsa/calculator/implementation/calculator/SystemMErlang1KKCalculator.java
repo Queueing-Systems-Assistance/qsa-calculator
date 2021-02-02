@@ -16,8 +16,9 @@ public class SystemMErlang1KKCalculator extends SystemMG1KKAbstractCalculator {
 
     @Override
     public double SAvg(Map<SystemFeature, Double> features) {
+        final double nErlang = features.get(SystemFeature.nErlang);
         final double Mu = features.get(SystemFeature.Mu);
-        return 1 / Mu;
+        return nErlang / Mu;
     }
 
     @Override

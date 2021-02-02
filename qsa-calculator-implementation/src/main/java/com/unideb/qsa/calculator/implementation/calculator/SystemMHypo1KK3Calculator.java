@@ -17,7 +17,7 @@ public class SystemMHypo1KK3Calculator extends SystemMG1KKAbstractCalculator {
         final double Mu1 = features.get(SystemFeature.Mu1);
         final double Mu2 = features.get(SystemFeature.Mu2);
         final double Mu3 = features.get(SystemFeature.Mu3);
-        return 3 / (Mu1 + Mu2 + Mu3);
+        return 1 / Mu1 + 1 / Mu2 + 1 / Mu3;
     }
 
     @Override

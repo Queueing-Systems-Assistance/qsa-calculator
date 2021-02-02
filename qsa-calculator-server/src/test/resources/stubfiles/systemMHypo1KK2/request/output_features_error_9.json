@@ -1,9 +1,9 @@
 {
   "featureConditions": {
-    "Lambda": -1,
+    "Lambda": 1,
     "K": 1,
     "Mu1": 1,
     "Mu2": 1,
-    "n": 1
+    "n": -1
   }
 }
