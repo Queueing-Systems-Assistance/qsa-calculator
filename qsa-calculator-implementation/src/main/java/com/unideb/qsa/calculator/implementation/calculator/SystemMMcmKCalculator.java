@@ -245,6 +245,15 @@ public class SystemMMcmKCalculator {
         return dividend / divisor;
     }
 
+    private double ej(Map<SystemFeature, Double> features, double j) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final double dividend = c - j;
+        final double divisor = (K - j) * Lambda;
+        return dividend / divisor;
+    }
+
     public double aj(Map<SystemFeature, Double> features, double j) {
         final double c = features.get(SystemFeature.c);
         Map<SystemFeature, Double> PijFeatures = copyOf(features);
@@ -253,7 +262,7 @@ public class SystemMMcmKCalculator {
         double sum = 0.0;
         for (double i = 0.0; i <= c - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
-            PijFeatures.put(SystemFeature.n, i);
+            PiiFeatures.put(SystemFeature.n, i);
             sum += Pin(PiiFeatures);
         }
         return Pij / sum;
@@ -272,14 +281,5 @@ public class SystemMMcmKCalculator {
             result = recursive + dividend / divisor;
         }
         return result;
-    }
-
-    private double ej(Map<SystemFeature, Double> features, double j) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
-        final double dividend = c - j;
-        final double divisor = (K - j) * Lambda;
-        return dividend / divisor;
     }
 }
