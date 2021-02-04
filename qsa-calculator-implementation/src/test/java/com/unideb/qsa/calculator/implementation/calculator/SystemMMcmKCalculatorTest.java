@@ -243,7 +243,7 @@ public class SystemMMcmKCalculatorTest {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         features.put(SystemFeature.c, 1.0);
-        double expected = 0.1;
+        double expected = 0.2;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.eAvg(features);
         // THEN
@@ -255,7 +255,7 @@ public class SystemMMcmKCalculatorTest {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         features.put(SystemFeature.c, 1.0);
-        double expected = 2.25;
+        double expected = 4.5;
         // WHEN
         double result = systemMMcmKCalculatorUnderTest.EDelta(features);
         // THEN

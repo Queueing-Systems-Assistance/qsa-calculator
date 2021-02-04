@@ -225,7 +225,6 @@ public class SystemMMnKKCalculator {
 
     private double aj(Map<SystemFeature, Double> features, double j) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
         Map<SystemFeature, Double> PijFeatures = copyOf(features);
         PijFeatures.put(SystemFeature.n, j);
         final double Pij = Pin(PijFeatures);
