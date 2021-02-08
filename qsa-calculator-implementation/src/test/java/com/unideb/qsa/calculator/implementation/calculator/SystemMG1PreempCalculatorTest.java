@@ -98,7 +98,7 @@ public class SystemMG1PreempCalculatorTest {
     public void Ro2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4;
+        double expected = 0.2;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.Ro2(features);
         // THEN

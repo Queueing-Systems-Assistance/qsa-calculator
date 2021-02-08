@@ -72,11 +72,9 @@ public class SystemMG1PreempCalculator {
     }
 
     public double Ro2(Map<SystemFeature, Double> features) {
-        final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double Lambda2 = features.get(SystemFeature.Lambda2);
-        final double eSc1 = features.get(SystemFeature.eSc1);
         final double eSc2 = features.get(SystemFeature.eSc2);
-        return Lambda1 * eSc1 + Lambda2 * eSc2;
+        return Lambda2 * eSc2;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
@@ -184,9 +182,10 @@ public class SystemMG1PreempCalculator {
         final double eSPow2c2 = features.get(SystemFeature.eSPow2c2);
         final double Ro1 = Ro1(features);
         final double Ro2 = Ro2(features);
+        final double RoSum2 = Ro1 + Ro2;
         final double part1 = 1 / (1 - Ro1);
         final double part2Dividend = Lambda1 * eSPow2c1 + Lambda2 * eSPow2c2;
-        final double part2Divisor = 2 * (1 - Ro2);
+        final double part2Divisor = 2 * (1 - RoSum2);
         return part1 * (eSc2 + part2Dividend / part2Divisor);
     }
 
@@ -226,14 +225,15 @@ public class SystemMG1PreempCalculator {
         final double D2S2 = D2S2(features);
         final double Ro1 = Ro1(features);
         final double Ro2 = Ro2(features);
+        final double RoSum2 = Ro1 + Ro2;
         final double part1 = D2S2 / pow(1 - Ro1, 2);
         final double part2 = eSc2 * Lambda1 * eSPow2c1 / pow(1 - Ro1, 3);
         final double part3Dividend = Lambda1 * eSPow3c1 + Lambda2 * eSPow3c2;
-        final double part3Divisor = 3 * pow(1 - Ro1, 2) * (1 - Ro2);
+        final double part3Divisor = 3 * pow(1 - Ro1, 2) * (1 - RoSum2);
         final double part4Dividend = pow(Lambda1 * eSPow2c1 + Lambda2 * eSPow2c2, 2);
-        final double part4Divisor = 4 * pow(1 - Ro1, 2) * pow(1 - Ro2, 2);
+        final double part4Divisor = 4 * pow(1 - Ro1, 2) * pow(1 - RoSum2, 2);
         final double part5Dividend = (Lambda1 * eSPow2c1 + Lambda2 * eSPow2c2) * Lambda1 * eSPow2c1;
-        final double part5Divisor = 2 * pow(1 - Ro1, 3) * (1 - Ro2);
+        final double part5Divisor = 2 * pow(1 - Ro1, 3) * (1 - RoSum2);
         return part1 + part2 + part3Dividend / part3Divisor + part4Dividend / part4Divisor + part5Dividend / part5Divisor;
     }
 
