@@ -21,7 +21,7 @@ public class SystemMG1PreempCalculatorTest {
     public void LambdaTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 3.0;
+        double expected = 4.1;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.Lambda(features);
         // THEN
@@ -32,7 +32,7 @@ public class SystemMG1PreempCalculatorTest {
     public void SAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.13333333;
+        double expected = 0.151219;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.SAvg(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMG1PreempCalculatorTest {
     public void eSPow2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.2333333333;
+        double expected = 0.27804878;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.eSPow2(features);
         // THEN
@@ -54,7 +54,7 @@ public class SystemMG1PreempCalculatorTest {
     public void eSPow3Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4166666666;
+        double expected = 0.349146;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.eSPow3(features);
         // THEN
@@ -84,6 +84,17 @@ public class SystemMG1PreempCalculatorTest {
     }
 
     @Test
+    public void D2S3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.36;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.D2S3(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void Ro1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -98,9 +109,20 @@ public class SystemMG1PreempCalculatorTest {
     public void Ro2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4;
+        double expected = 0.2;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.Ro2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void Ro3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.22;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.Ro3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -109,7 +131,7 @@ public class SystemMG1PreempCalculatorTest {
     public void RoTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4;
+        double expected = 0.62;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.Ro(features);
         // THEN
@@ -131,9 +153,20 @@ public class SystemMG1PreempCalculatorTest {
     public void WAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.7541666666;
+        double expected = 0.754166666;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.WAvg2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void WAvg3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.6333333;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.WAvg3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -142,7 +175,7 @@ public class SystemMG1PreempCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.5236111111;
+        double expected = 1.089634;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.WAvg(features);
         // THEN
@@ -153,7 +186,7 @@ public class SystemMG1PreempCalculatorTest {
     public void D2W1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.224739583;
+        double expected = 0.2247395;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.D2W1(features);
         // THEN
@@ -164,7 +197,7 @@ public class SystemMG1PreempCalculatorTest {
     public void D2W2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.913342013;
+        double expected = 1.913342;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.D2W2(features);
         // THEN
@@ -175,7 +208,7 @@ public class SystemMG1PreempCalculatorTest {
     public void D2WTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.45678626;
+        double expected = 6.20216209;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.D2W(features);
         // THEN
@@ -186,7 +219,7 @@ public class SystemMG1PreempCalculatorTest {
     public void EW2c1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.228645833;
+        double expected = 0.22864583;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.EW2c1(features);
         // THEN
@@ -205,10 +238,21 @@ public class SystemMG1PreempCalculatorTest {
     }
 
     @Test
+    public void EW2c3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 22.8217641;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.EW2c3(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void EW2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.73095486;
+        double expected = 7.389464;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.EW2(features);
         // THEN
@@ -230,9 +274,20 @@ public class SystemMG1PreempCalculatorTest {
     public void QAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.50833333;
+        double expected = 1.5083333;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.QAvg2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void QAvg3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.896666;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.QAvg3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -241,7 +296,7 @@ public class SystemMG1PreempCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.5708333;
+        double expected = 4.4675;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.QAvg(features);
         // THEN
@@ -263,9 +318,20 @@ public class SystemMG1PreempCalculatorTest {
     public void TAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.854166666666;
+        double expected = 0.8541666;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.TAvg2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void TAvg3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.8333333;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.TAvg3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -274,7 +340,7 @@ public class SystemMG1PreempCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.6569444444;
+        double expected = 1.2408536;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.TAvg(features);
         // THEN
@@ -285,7 +351,7 @@ public class SystemMG1PreempCalculatorTest {
     public void D2T1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.28473958;
+        double expected = 0.284739;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.D2T1(features);
         // THEN
@@ -304,10 +370,21 @@ public class SystemMG1PreempCalculatorTest {
     }
 
     @Test
+    public void D2T3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 16.247319;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.D2T3(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void D2TTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.64160108;
+        double expected = 6.49007206;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.D2T(features);
         // THEN
@@ -329,9 +406,20 @@ public class SystemMG1PreempCalculatorTest {
     public void NAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.708333333;
+        double expected = 1.70833333;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.NAvg2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void NAvg3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 3.11666666;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.NAvg3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -340,7 +428,7 @@ public class SystemMG1PreempCalculatorTest {
     public void NAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.970833333;
+        double expected = 5.0875;
         // WHEN
         double result = systemMG1PreempCalculatorUnderTest.NAvg(features);
         // THEN
@@ -357,6 +445,10 @@ public class SystemMG1PreempCalculatorTest {
         features.put(SystemFeature.eSc2, 0.1);
         features.put(SystemFeature.eSPow2c2, 0.3);
         features.put(SystemFeature.eSPow3c2, 0.6);
+        features.put(SystemFeature.Lambda3, 1.1);
+        features.put(SystemFeature.eSc3, 0.2);
+        features.put(SystemFeature.eSPow2c3, 0.4);
+        features.put(SystemFeature.eSPow3c3, 0.165);
         return features;
     }
 }

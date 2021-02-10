@@ -2,15 +2,15 @@
   "featureConditions": {
     "Lambda1": 1,
     "Lambda2": 0.3,
-    "Lambda3": 0,
+    "Lambda3": 0.4,
     "eSc1": 0.4,
     "eSc2": 0.1,
-    "eSc3": 0,
+    "eSc3": 0.1,
     "eSPow2c1": 3,
     "eSPow2c2": 2,
-    "eSPow2c3": 0,
+    "eSPow2c3": 0.3,
     "eSPow3c1": 4,
     "eSPow3c2": 2,
-    "eSPow3c3": 0
+    "eSPow3c3": 0.4
   }
 }

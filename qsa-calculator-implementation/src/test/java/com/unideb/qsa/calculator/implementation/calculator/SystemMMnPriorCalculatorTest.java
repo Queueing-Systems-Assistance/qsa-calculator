@@ -240,17 +240,6 @@ public class SystemMMnPriorCalculatorTest {
     }
 
     @Test
-    public void WAvg0Test() {
-        // GIVEN
-        Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9;
-        // WHEN
-        double result = systemMMnPriorCalculatorUnderTest.WAvg0(features);
-        // THEN
-        Assert.assertEquals(result, expected, DELTA);
-    }
-
-    @Test
     public void D2WTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();

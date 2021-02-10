@@ -2,25 +2,25 @@
   {
     "id": "Lambda",
     "values": [
-      "4.0"
+      "1.3"
     ]
   },
   {
     "id": "SAvg",
     "values": [
-      "0.17500000000000002"
+      "0.33076923076923076"
     ]
   },
   {
     "id": "eSPow2",
     "values": [
-      "2.25"
+      "2.769230769230769"
     ]
   },
   {
     "id": "eSPow3",
     "values": [
-      "1.45"
+      "3.5384615384615383"
     ]
   },
   {
@@ -36,6 +36,15 @@
     ]
   },
   {
+    "id": "D2S3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
+    ]
+  },
+  {
     "id": "Ro1",
     "values": [
       "0.4"
@@ -44,139 +53,211 @@
   {
     "id": "Ro2",
     "values": [
-      "0.7000000000000001"
+      "0.03"
+    ]
+  },
+  {
+    "id": "Ro3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "Ro",
     "values": [
-      "0.7000000000000001"
+      "0.43"
     ]
   },
   {
     "id": "WAvg1",
     "values": [
-      "7.5"
+      "3.0"
     ]
   },
   {
     "id": "WAvg2",
     "values": [
-      "25.000000000000004"
+      "5.2631578947368425"
+    ]
+  },
+  {
+    "id": "WAvg3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "WAvg",
     "values": [
-      "20.625000000000004"
+      "3.5222672064777325"
     ]
   },
   {
     "id": "D2W1",
     "values": [
-      "-8.027777777777779"
+      "8.555555555555557"
     ]
   },
   {
     "id": "D2W2",
     "values": [
-      "851.234567901235"
+      "79.03286481310492"
+    ]
+  },
+  {
+    "id": "D2W3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "D2W",
     "values": [
-      "693.8408564814818"
+      "25.728760116145597"
     ]
   },
   {
     "id": "EW2c1",
     "values": [
-      "48.22222222222222"
+      "17.555555555555557"
     ]
   },
   {
     "id": "EW2c2",
     "values": [
-      "1476.234567901235"
+      "106.73369583803567"
+    ]
+  },
+  {
+    "id": "EW2c3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "EW2",
     "values": [
-      "1119.231481481482"
+      "38.13512638997405"
     ]
   },
   {
     "id": "QAvg1",
     "values": [
-      "7.5"
+      "3.0"
     ]
   },
   {
     "id": "QAvg2",
     "values": [
-      "75.00000000000001"
+      "1.5789473684210527"
+    ]
+  },
+  {
+    "id": "QAvg3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "QAvg",
     "values": [
-      "82.50000000000001"
+      "4.578947368421052"
     ]
   },
   {
     "id": "TAvg1",
     "values": [
-      "7.9"
+      "3.4"
     ]
   },
   {
     "id": "TAvg2",
     "values": [
-      "25.100000000000005"
+      "5.363157894736842"
+    ]
+  },
+  {
+    "id": "TAvg3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "TAvg",
     "values": [
-      "20.800000000000004"
+      "3.8530364372469634"
     ]
   },
   {
     "id": "D2T1",
     "values": [
-      "-5.187777777777779"
+      "11.395555555555557"
     ]
   },
   {
     "id": "D2T2",
     "values": [
-      "853.224567901235"
+      "81.02286481310492"
+    ]
+  },
+  {
+    "id": "D2T3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "D2T",
     "values": [
-      "694.0914814814819"
+      "28.14753619836297"
     ]
   },
   {
     "id": "NAvg1",
     "values": [
-      "7.9"
+      "3.4"
     ]
   },
   {
     "id": "NAvg2",
     "values": [
-      "75.30000000000001"
+      "1.6089473684210527"
+    ]
+  },
+  {
+    "id": "NAvg3",
+    "values": [
+      "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
+      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
+      "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
   },
   {
     "id": "NAvg",
     "values": [
-      "83.20000000000002"
+      "5.008947368421053"
     ]
   }
 ]

@@ -10,7 +10,7 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
- * Validates Lambda1 + Lambda2 > Mu.
+ * Validates Lambda1 + Lambda2 < Mu.
  */
 @Component
 public class SmallerLambda1Lambda2FromMuValidator extends FeatureValidator {

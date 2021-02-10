@@ -309,11 +309,6 @@ public class SystemMMnPriorCalculator {
         return PNc * SAvg / divisor;
     }
 
-    public double WAvg0(Map<SystemFeature, Double> features) {
-        final double PNc = PNc(features);
-        return 1 - PNc;
-    }
-
     public double WAvgW(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double t = features.get(SystemFeature.t);
