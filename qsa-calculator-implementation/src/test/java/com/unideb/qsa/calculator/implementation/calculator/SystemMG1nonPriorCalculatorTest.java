@@ -21,7 +21,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void LambdaTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 3.0;
+        double expected = 3.4;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.Lambda(features);
         // THEN
@@ -32,7 +32,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void SAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.13333333;
+        double expected = 0.1294117;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.SAvg(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void eSPow2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.2333333333;
+        double expected = 0.2411764;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.eSPow2(features);
         // THEN
@@ -54,7 +54,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void eSPow3Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4166666666;
+        double expected = 0.4617647;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.eSPow3(features);
         // THEN
@@ -84,10 +84,21 @@ public class SystemMG1nonPriorCalculatorTest {
     }
 
     @Test
+    public void D2S3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.29;
+        // WHEN
+        double result = systemMG1nonPriorCalculatorUnderTest.D2S3(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void RoTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.4;
+        double expected = 0.44;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.Ro(features);
         // THEN
@@ -98,7 +109,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.583333;
+        double expected = 0.7321428;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.WAvg(features);
         // THEN
@@ -109,7 +120,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void D2WTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.03472222;
+        double expected = 1.4705569;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.D2W(features);
         // THEN
@@ -120,7 +131,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void EW2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.375;
+        double expected = 2.00659013;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.EW2(features);
         // THEN
@@ -131,7 +142,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.75;
+        double expected = 2.4892857;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.QAvg(features);
         // THEN
@@ -142,7 +153,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void TAvg1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.783333;
+        double expected = 0.9321428;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.TAvg1(features);
         // THEN
@@ -153,9 +164,20 @@ public class SystemMG1nonPriorCalculatorTest {
     public void TAvg2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.78333333;
+        double expected = 0.8321428;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.TAvg2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void TAvg3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.8321428;
+        // WHEN
+        double result = systemMG1nonPriorCalculatorUnderTest.TAvg3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -164,7 +186,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.78333333;
+        double expected = 0.8615546;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.TAvg(features);
         // THEN
@@ -175,7 +197,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void ET2c1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.70833333;
+        double expected = 2.3994472;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.ET2c1(features);
         // THEN
@@ -186,9 +208,20 @@ public class SystemMG1nonPriorCalculatorTest {
     public void ET2c2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.938333333;
+        double expected = 2.453018;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.ET2c2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void ET2c3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.453018;
+        // WHEN
+        double result = systemMG1nonPriorCalculatorUnderTest.ET2c3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -197,7 +230,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void D2T1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.0947222;
+        double expected = 1.530556;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.D2T1(features);
         // THEN
@@ -208,9 +241,20 @@ public class SystemMG1nonPriorCalculatorTest {
     public void D2T2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.3247222;
+        double expected = 1.760556;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.D2T2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void D2T3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 1.7605569;
+        // WHEN
+        double result = systemMG1nonPriorCalculatorUnderTest.D2T3(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -219,7 +263,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void D2TTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.24805555;
+        double expected = 1.69498603;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.D2T(features);
         // THEN
@@ -230,7 +274,7 @@ public class SystemMG1nonPriorCalculatorTest {
     public void NAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.35;
+        double expected = 2.929285;
         // WHEN
         double result = systemMG1nonPriorCalculatorUnderTest.NAvg(features);
         // THEN
@@ -247,6 +291,10 @@ public class SystemMG1nonPriorCalculatorTest {
         features.put(SystemFeature.eSc2, 0.1);
         features.put(SystemFeature.eSPow2c2, 0.3);
         features.put(SystemFeature.eSPow3c2, 0.6);
+        features.put(SystemFeature.Lambda3, 0.4);
+        features.put(SystemFeature.eSc3, 0.1);
+        features.put(SystemFeature.eSPow2c3, 0.3);
+        features.put(SystemFeature.eSPow3c3, 0.8);
         return features;
     }
 }
