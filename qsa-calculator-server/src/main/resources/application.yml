@@ -43,7 +43,7 @@ spring:
 qsa:
   config:
     uris: >
-      C:/Users/csanad.kolcsei/Dev/QSA/qsa-system-config-pack
+      https://qsa.inf.unideb.hu/lab/api/config/system
     refresh-rate-in-minutes: 60
   i18n-service:
     uri: https://qsa.inf.unideb.hu/lab/api/i18n/keys
