@@ -279,7 +279,6 @@ public class SystemMHyper13CalculatorTest {
         features.put(SystemFeature.p1, 0.3);
         features.put(SystemFeature.p2, 0.3);
         features.put(SystemFeature.p3, 0.4);
-
         return features;
     }
 }

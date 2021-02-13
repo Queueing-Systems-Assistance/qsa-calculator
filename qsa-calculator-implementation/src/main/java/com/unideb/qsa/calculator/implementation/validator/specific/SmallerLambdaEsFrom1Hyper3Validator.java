@@ -13,7 +13,9 @@ import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
  * Validates Lambda * (p1 / Mu1 + p2 / Mu2 + p3 / Mu3) < 1.
  */
 @Component
-public class SmallerLambdaEsFrom1H3Validator extends FeatureValidator {
+public class SmallerLambdaEsFrom1Hyper3Validator extends FeatureValidator {
+
+    private static final String VALIDATION_ERROR_MESSAGE = "error.validation.feature.Lambda.Es.should.be.smaller.from.1";
 
     @Override
     public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
@@ -30,13 +32,13 @@ public class SmallerLambdaEsFrom1H3Validator extends FeatureValidator {
         final double eS = p1 / mu1 + p2 / mu2 + p3 / mu3;
         if (lambda * eS >= 1) {
             result = Optional.of(Map.of(
-                    SystemFeature.Lambda.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.p1.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.Mu1.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.p2.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.Mu2.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.p3.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1"),
-                    SystemFeature.Mu3.name(), List.of("error.validation.feature.Lambda.p1.Mu1.p2.Mu2.p3.Mu3.should.be.smaller.from.1")
+                    SystemFeature.Lambda.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.p1.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.Mu1.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.p2.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.Mu2.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.p3.name(), List.of(VALIDATION_ERROR_MESSAGE),
+                    SystemFeature.Mu3.name(), List.of(VALIDATION_ERROR_MESSAGE)
             ));
         }
         return result;
