@@ -29,6 +29,39 @@ public class SystemMMnnCalculatorTest {
     }
 
     @Test
+    public void BcRoAppr1Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 4.062092209260257E-4;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.BcRoAppr1(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void BcRoAppr2Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.207508008100767E-5;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.BcRoAppr2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void BcRoAppr3Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 2.2075080081061517E-5;
+        // WHEN
+        double result = systemMMnnCalculatorUnderTest.BcRoAppr3(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();

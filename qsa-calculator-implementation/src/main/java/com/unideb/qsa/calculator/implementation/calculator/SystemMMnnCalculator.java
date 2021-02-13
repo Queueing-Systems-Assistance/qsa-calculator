@@ -2,8 +2,10 @@ package com.unideb.qsa.calculator.implementation.calculator;
 
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
+import static org.apache.commons.math3.special.Erf.erf;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 import java.util.Map;
 
@@ -21,6 +23,31 @@ public class SystemMMnnCalculator {
         final double c = features.get(SystemFeature.c);
         final double Ro = Ro(features);
         return ErlangBRecursive(c, Ro);
+    }
+
+    public double BcRoAppr1(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double part1 = Fix((c - Ro) / sqrt(Ro));
+        final double part2 = Fix((c - 1 - Ro) / sqrt(Ro));
+        return (part1 - part2) / part1;
+    }
+
+    public double BcRoAppr2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double part1 = Fix((c - 0.5 - Ro) / sqrt(Ro));
+        final double part2 = Fix((c + 0.5 - Ro) / sqrt(Ro));
+        return 1 - part1 / part2;
+    }
+
+    public double BcRoAppr3(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Ro = Ro(features);
+        final double part1 = Fix((c + 0.5 - Ro) / sqrt(Ro));
+        final double part2 = Fix((c - 0.5 - Ro) / sqrt(Ro));
+        final double part3 = Fix((-0.5 - Ro) / sqrt(Ro));
+        return (part1 - part2) / (part1 - part3);
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
@@ -129,4 +156,7 @@ public class SystemMMnnCalculator {
         return result;
     }
 
+    private double Fix(double x) {
+        return 0.5 * erf(x / sqrt(2) + 1);
+    }
 }
