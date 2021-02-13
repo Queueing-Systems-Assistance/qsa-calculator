@@ -1,12 +1,13 @@
 package com.unideb.qsa.calculator.implementation.validator.specific;
 
-import com.unideb.qsa.calculator.domain.SystemFeature;
-import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.stereotype.Component;
+
+import com.unideb.qsa.calculator.domain.SystemFeature;
+import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
  * Validates Lambda * (1 / Mu1 + 1 / Mu2) < 1.

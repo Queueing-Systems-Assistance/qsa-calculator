@@ -1,11 +1,12 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
-import com.unideb.qsa.calculator.domain.SystemFeature;
-import org.springframework.stereotype.Component;
+import static java.lang.Math.pow;
 
 import java.util.Map;
 
-import static java.lang.Math.pow;
+import org.springframework.stereotype.Component;
+
+import com.unideb.qsa.calculator.domain.SystemFeature;
 
 /**
  * System M | Hypo | 1 (2 phases) Service.
