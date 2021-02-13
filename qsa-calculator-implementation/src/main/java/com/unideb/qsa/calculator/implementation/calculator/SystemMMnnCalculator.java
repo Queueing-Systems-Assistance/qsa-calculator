@@ -2,10 +2,10 @@ package com.unideb.qsa.calculator.implementation.calculator;
 
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.factorial;
-import static org.apache.commons.math3.special.Erf.erf;
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
+import static org.apache.commons.math3.special.Erf.erf;
 
 import java.util.Map;
 
@@ -157,6 +157,6 @@ public class SystemMMnnCalculator {
     }
 
     private double Fix(double x) {
-        return 0.5 * erf(x / sqrt(2) + 1);
+        return 0.5 * (erf(x / sqrt(2)) + 1);
     }
 }

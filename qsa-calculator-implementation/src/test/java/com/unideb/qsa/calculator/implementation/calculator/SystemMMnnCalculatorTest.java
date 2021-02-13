@@ -32,7 +32,7 @@ public class SystemMMnnCalculatorTest {
     public void BcRoAppr1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 4.062092209260257E-4;
+        double expected = 0.01674735;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.BcRoAppr1(features);
         // THEN
@@ -43,7 +43,7 @@ public class SystemMMnnCalculatorTest {
     public void BcRoAppr2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.207508008100767E-5;
+        double expected = 0.00232784;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.BcRoAppr2(features);
         // THEN
@@ -54,7 +54,7 @@ public class SystemMMnnCalculatorTest {
     public void BcRoAppr3Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.2075080081061517E-5;
+        double expected = 0.00252656;
         // WHEN
         double result = systemMMnnCalculatorUnderTest.BcRoAppr3(features);
         // THEN
