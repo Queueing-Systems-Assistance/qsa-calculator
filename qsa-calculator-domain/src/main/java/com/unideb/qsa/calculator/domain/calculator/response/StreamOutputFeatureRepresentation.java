@@ -2,11 +2,16 @@ package com.unideb.qsa.calculator.domain.calculator.response;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 
 /**
  * Represents a chart response.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public final class StreamOutputFeatureRepresentation {
 
     private final List<OutputFeature> outputFeatures;

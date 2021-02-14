@@ -47,4 +47,15 @@ public class OutputFeatureController {
             @RequestBody StreamOutputFeatureRequest streamOutputFeatureRequest) {
         return outputFeatureStreamService.createOutputFeatureStream(systemId, streamOutputFeatureRequest);
     }
+
+    /**
+     * Resolves available system outputs.
+     * @return the requested system outputs
+     */
+    @PostMapping("system/{systemId}/outputs/available")
+    public List<OutputFeature> getAvailableOutputs(
+            @PathVariable String systemId,
+            @RequestBody List<String> outputFeatureIds) {
+        return outputFeatureService.getAvailableSystemOutputs(systemId, outputFeatureIds);
+    }
 }

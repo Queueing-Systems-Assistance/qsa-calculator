@@ -22,9 +22,9 @@ import com.unideb.qsa.calculator.implementation.resolver.SystemOutputResolver;
 public class OutputFeatureService {
 
     private static final String ERROR_NO_FEATURES_FOUND = "error.bad.request.no.feature.available.with.id";
+
     @Autowired
     private MessageResolver messageResolver;
-
     @Autowired
     private SystemOutputResolver systemOutputResolver;
 
@@ -51,6 +51,17 @@ public class OutputFeatureService {
         List<OutputFeature> result = systemOutputResolver.resolve(systemId, streamOutputFeatureRequest);
         List<String> featureIds = streamOutputFeatureRequest.getOutputFeatureIds();
         return filterResult(featureIds, result);
+    }
+
+    /**
+     * Calculates system outputs with streaming.
+     * @param systemId                   system id
+     * @param outputFeatureIds requested outputIds
+     * @return calculated system outputs
+     */
+    public List<OutputFeature> getAvailableSystemOutputs(String systemId, List<String> outputFeatureIds) {
+        List<OutputFeature> result = systemOutputResolver.resolve(systemId);
+        return filterResult(outputFeatureIds, result);
     }
 
     private List<OutputFeature> filterResult(List<String> featureIds, List<OutputFeature> result) {
