@@ -52,6 +52,15 @@ public class SystemOutputResolver {
         return resolveOutputFeatures(systemId, outputIds -> systemOutputAssembler.assemble(systemId, outputIds, streamOutputFeatureRequest));
     }
 
+    /**
+     * Resolves system outputs for a system.
+     * @param systemId                   system id
+     * @return List system outputs for the given system
+     */
+    public List<OutputFeature> resolve(String systemId) {
+        return resolveOutputFeatures(systemId, outputIds -> systemOutputAssembler.assemble(outputIds));
+    }
+
     private List<OutputFeature> resolveOutputFeatures(String systemId, Function<String[], List<OutputFeature>> supplier) {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
         String[] outputIds = configResolver.resolve(CONFIG_OUTPUTS_DEFAULT, qualifier, String[].class)

@@ -1,8 +1,13 @@
 package com.unideb.qsa.calculator.domain.calculator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Represents a system input feature.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public final class InputFeature {
 
     private final String id;

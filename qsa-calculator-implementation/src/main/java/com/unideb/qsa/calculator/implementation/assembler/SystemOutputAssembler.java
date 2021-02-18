@@ -24,6 +24,8 @@ import com.unideb.qsa.calculator.implementation.resolver.SystemCalculatorStreamR
 @Component
 public class SystemOutputAssembler {
 
+    private static final List<String> NO_VALUE = null;
+
     @Autowired
     private SystemFeatureAssembler systemFeatureAssembler;
     @Autowired
@@ -57,6 +59,18 @@ public class SystemOutputAssembler {
         return Arrays.stream(outputIds)
                      .map(outputId -> assembleOutputFeature(resolvedI18nKeys, outputId,
                              systemCalculatorStreamResolver.resolve(systemId, outputId, streamOutputFeatureRequest)))
+                     .collect(Collectors.toList());
+    }
+
+    /**
+     * Assembles a {@link InputFeature} based on its id.
+     * @param outputIds output feature ids of the system (based on the systemId)
+     * @return A list of assembled output features
+     */
+    public List<OutputFeature> assemble(String[] outputIds) {
+        Map<String, String> resolvedI18nKeys = systemFeatureAssembler.resolveI18nKeys(outputIds);
+        return Arrays.stream(outputIds)
+                     .map(outputId -> assembleOutputFeature(resolvedI18nKeys, outputId, NO_VALUE))
                      .collect(Collectors.toList());
     }
 
