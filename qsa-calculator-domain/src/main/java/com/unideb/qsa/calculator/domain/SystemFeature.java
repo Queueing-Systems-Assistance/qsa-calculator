@@ -36,5 +36,6 @@ public enum SystemFeature {
     p2,
     p3,
     r,
-    t
+    t,
+    Theta
 }
