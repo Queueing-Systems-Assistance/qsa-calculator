@@ -29,12 +29,12 @@ public class SystemMM1BalkingCalculatorTest {
     }
 
     @Test
-    public void bNTest() {
+    public void bnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.33333333;
         // WHEN
-        double result = systemMM1BalkingCalculatorUnderTest.bN(features);
+        double result = systemMM1BalkingCalculatorUnderTest.bn(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
