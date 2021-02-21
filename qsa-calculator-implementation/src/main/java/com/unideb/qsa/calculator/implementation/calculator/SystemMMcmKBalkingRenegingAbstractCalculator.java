@@ -8,22 +8,24 @@ import java.util.Map;
 import com.unideb.qsa.calculator.domain.SystemFeature;
 
 /**
- * System M | M | c | K Balking/Reneging Service.
- * Abstract class providing calculations for M | M | c | K Balking/Reneging systems.
+ * System M | M | c | m | K Balking/Reneging Service.
+ * Abstract class providing calculations for M | M | c | m | K Balking/Reneging systems.
  */
-public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
+public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
 
     public double LambdaN(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
+        final double K = features.get(SystemFeature.K);
+        final double n = features.get(SystemFeature.n);
         final double bn = bn(features);
-        return Lambda * bn;
+        return (K - n) * Lambda * bn;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> iFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 0.0; i <= K - 1.0; i++) {
+        for (double i = 0.0; i <= m - 1.0; i++) {
             iFeatures.put(SystemFeature.n, i);
             final double Pi = Pn(iFeatures);
             final double Lambdai = LambdaN(iFeatures);
@@ -47,10 +49,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double MuAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> iFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             iFeatures.put(SystemFeature.n, i);
             final double Pi = Pn(iFeatures);
             final double Mui = Mun(iFeatures);
@@ -60,9 +62,9 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         double sum = 0.0;
-        for (double j = 1.0; j <= K; j++) {
+        for (double j = 1.0; j <= m; j++) {
             final Map<SystemFeature, Double> LambdaFeatures = copyOf(features);
             final Map<SystemFeature, Double> MuFeatures = copyOf(features);
             double LambdaProduct = 1.0;
@@ -103,10 +105,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
 
     public double PW(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = c; i <= K - 1.0; i++) {
+        for (double i = c; i <= m - 1.0; i++) {
             PiiFeatures.put(SystemFeature.n, i);
             sum += Pin(PiiFeatures);
         }
@@ -114,25 +116,34 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double PB(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
-        final Map<SystemFeature, Double> KFeatures = copyOf(features);
-        KFeatures.put(SystemFeature.n, K);
-        final double LambdaK = LambdaN(KFeatures);
-        final double PK = Pn(KFeatures);
+        final double m = features.get(SystemFeature.m);
+        final Map<SystemFeature, Double> mFeatures = copyOf(features);
+        mFeatures.put(SystemFeature.n, m);
+        final double Lambdam = LambdaN(mFeatures);
+        final double Pm = Pn(mFeatures);
         double sum = 0.0;
-        for (double i = 0.0; i <= K; i++) {
-            KFeatures.put(SystemFeature.n, i);
-            final double Lambdai = LambdaN(KFeatures);
-            final double Pi = Pn(KFeatures);
+        for (double i = 0.0; i <= m; i++) {
+            mFeatures.put(SystemFeature.n, i);
+            final double Lambdai = LambdaN(mFeatures);
+            final double Pi = Pn(mFeatures);
             sum += Lambdai * Pi;
         }
-        return LambdaK * PK / sum;
+        return Lambdam * Pm / sum;
     }
 
     public double PJ(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
+        final double m = features.get(SystemFeature.m);
+        final double K = features.get(SystemFeature.K);
         final double LambdaAvg = LambdaAvg(features);
-        return LambdaAvg / Lambda;
+        final Map<SystemFeature, Double> PiFeatures = copyOf(features);
+        double sum = 0.0;
+        for (double i = 0.0; i <= m - 1.0; i++) {
+            PiFeatures.put(SystemFeature.n, i);
+            final double Pi = Pn(PiFeatures);
+            sum += (K - i) * Lambda * Pi;
+        }
+        return LambdaAvg / sum;
     }
 
     public double PR(Map<SystemFeature, Double> features) {
@@ -152,11 +163,17 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
         return cAvg / c;
     }
 
-    public double NAvg(Map<SystemFeature, Double> features) {
+    public double Ut(Map<SystemFeature, Double> features) {
         final double K = features.get(SystemFeature.K);
+        final double mAvg = mAvg(features);
+        return mAvg / K;
+    }
+
+    public double NAvg(Map<SystemFeature, Double> features) {
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += i * Pn(PiFeatures);
         }
@@ -164,10 +181,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double EN2(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += pow(i, 2) * Pn(PiFeatures);
         }
@@ -181,10 +198,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += (i - 1) * Pn(PiFeatures);
         }
@@ -192,10 +209,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
     }
 
     public double EQ2(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += pow(i - 1, 2) * Pn(PiFeatures);
         }
@@ -222,10 +239,10 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
 
     public double cAvg(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
             final double Pi = Pn(PiFeatures);
             if (i < c) {
@@ -237,12 +254,18 @@ public abstract class SystemMMcKBalkingRenegingAbstractCalculator {
         return sum;
     }
 
+    public double mAvg(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final double NAvg = NAvg(features);
+        return K - NAvg;
+    }
+
     public double rAvg(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> iFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = c; i <= K; i++) {
+        for (double i = c; i <= m; i++) {
             iFeatures.put(SystemFeature.n, i);
             sum += rn(iFeatures) * Pn(iFeatures);
         }
