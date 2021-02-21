@@ -219,7 +219,7 @@ public class SystemMMcmKRenegingCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.21251819;
+        double expected = 0.61863173;
         // WHEN
         double result = systemMMcmKRenegingCalculatorUnderTest.QAvg(features);
         // THEN
@@ -230,7 +230,7 @@ public class SystemMMcmKRenegingCalculatorTest {
     public void EQ2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 6.44832605;
+        double expected = 0.98253275;
         // WHEN
         double result = systemMMcmKRenegingCalculatorUnderTest.EQ2(features);
         // THEN
@@ -241,7 +241,7 @@ public class SystemMMcmKRenegingCalculatorTest {
     public void D2QTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.5530892;
+        double expected = 0.5998275;
         // WHEN
         double result = systemMMcmKRenegingCalculatorUnderTest.D2Q(features);
         // THEN
@@ -252,7 +252,7 @@ public class SystemMMcmKRenegingCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.37530864;
+        double expected = 0.1049382716;
         // WHEN
         double result = systemMMcmKRenegingCalculatorUnderTest.WAvg(features);
         // THEN
