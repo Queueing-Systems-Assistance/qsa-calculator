@@ -219,7 +219,7 @@ public class SystemMMcKBalkingRenegingCalculatorTest {
     public void QAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.04458068;
+        double expected = 8.064921148899338E-5;
         // WHEN
         double result = systemMMcKBalkingRenegingCalculatorUnderTest.QAvg(features);
         // THEN
@@ -230,7 +230,7 @@ public class SystemMMcKBalkingRenegingCalculatorTest {
     public void EQ2Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.04949882;
+        double expected = 8.431508473849309E-5;
         // WHEN
         double result = systemMMcKBalkingRenegingCalculatorUnderTest.EQ2(features);
         // THEN
@@ -241,7 +241,7 @@ public class SystemMMcKBalkingRenegingCalculatorTest {
     public void D2QTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0475113;
+        double expected = 8.430858044317929E-5;
         // WHEN
         double result = systemMMcKBalkingRenegingCalculatorUnderTest.D2Q(features);
         // THEN
@@ -252,7 +252,7 @@ public class SystemMMcKBalkingRenegingCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.0549627236;
+        double expected = 9.931732879724006E-5;
         // WHEN
         double result = systemMMcKBalkingRenegingCalculatorUnderTest.WAvg(features);
         // THEN

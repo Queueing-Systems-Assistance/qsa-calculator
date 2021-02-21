@@ -198,23 +198,25 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= m; i++) {
+        for (double i = c; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
-            sum += (i - 1) * Pn(PiFeatures);
+            sum += (i - c) * Pn(PiFeatures);
         }
         return sum;
     }
 
     public double EQ2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= m; i++) {
+        for (double i = c; i <= m; i++) {
             PiFeatures.put(SystemFeature.n, i);
-            sum += pow(i - 1, 2) * Pn(PiFeatures);
+            sum += pow(i - c, 2) * Pn(PiFeatures);
         }
         return sum;
     }
