@@ -1,11 +1,11 @@
 {
   "featureConditions": {
-    "Lambda": 1.5,
+    "LambdaFin": 1.5,
     "Mu1": 3.2,
     "Mu2": 2.2,
     "p1": 0.6,
     "p2": 0.4,
-    "K": 3,
+    "KFin": 3,
     "n": 1
   }
 }

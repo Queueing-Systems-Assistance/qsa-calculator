@@ -177,7 +177,7 @@ public class SystemMMnKKCalculatorTest {
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.3916449086;
         // WHEN
-        double result = systemMMnKKCalculatorUnderTest.Pin(features);
+        double result = systemMMnKKCalculatorUnderTest.PinFin(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -186,7 +186,7 @@ public class SystemMMnKKCalculatorTest {
     public void FTtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.981365676;
+        double expected = 0.98676339495;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.FTt(features);
         // THEN
@@ -197,7 +197,7 @@ public class SystemMMnKKCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.9995488;
+        double expected = 0.99987246;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.FWt(features);
         // THEN
@@ -241,11 +241,11 @@ public class SystemMMnKKCalculatorTest {
 
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMMnKK = new HashMap<>();
-        systemMMnKK.put(SystemFeature.Lambda, 2.5);
+        systemMMnKK.put(SystemFeature.LambdaFin, 2.5);
         systemMMnKK.put(SystemFeature.Mu, 1.5);
         systemMMnKK.put(SystemFeature.n, 2.0);
         systemMMnKK.put(SystemFeature.c, 2.0);
-        systemMMnKK.put(SystemFeature.K, 4.0);
+        systemMMnKK.put(SystemFeature.KFin, 4.0);
         systemMMnKK.put(SystemFeature.t, 3.0);
         return systemMMnKK;
     }

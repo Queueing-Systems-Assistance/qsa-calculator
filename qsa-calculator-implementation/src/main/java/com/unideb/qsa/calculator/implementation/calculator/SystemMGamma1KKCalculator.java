@@ -23,9 +23,9 @@ public class SystemMGamma1KKCalculator extends SystemMG1KKAbstractCalculator {
     @Override
     public double laplaceTransform(Map<SystemFeature, Double> features, double index) {
         final double Alpha = features.get(SystemFeature.Alpha);
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        final double divisor = Mu + index * Lambda;
+        final double divisor = Mu + index * LambdaFin;
         return pow(Mu / divisor, Alpha);
     }
 }

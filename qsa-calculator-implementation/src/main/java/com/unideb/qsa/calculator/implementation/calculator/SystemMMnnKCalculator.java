@@ -17,42 +17,42 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMMnnKCalculator {
 
     public double Ro(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        return LambdaFin / Mu;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Ro = Ro(features);
         double sum = 0;
         for (int i = 0; i <= c; i++) {
-            sum += binomialCoefficientDouble((int) K, i) * pow(Ro, i);
+            sum += binomialCoefficientDouble((int) KFin, i) * pow(Ro, i);
         }
         return 1 / sum;
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double Ro = Ro(features);
         final double P0 = P0(features);
-        return binomialCoefficientDouble((int) K, (int) n) * pow(Ro, n) * P0;
+        return binomialCoefficientDouble((int) KFin, (int) n) * pow(Ro, n) * P0;
     }
 
-    public double Pin(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+    public double PinFin(Map<SystemFeature, Double> features) {
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double c = features.get(SystemFeature.c);
         final double Pn = Pn(features);
-        final double dividend = (K - n) * Pn;
+        final double dividend = (KFin - n) * Pn;
         double divisor = 0.0;
         for (double i = 0.0; i <= c - 1; i++) {
             Map<SystemFeature, Double> PiFeatures = copyOf(features);
             PiFeatures.put(SystemFeature.n, i);
             double Pi = Pn(PiFeatures);
-            divisor += (K - i) * Pi;
+            divisor += (KFin - i) * Pi;
         }
         return dividend / divisor;
     }
@@ -92,15 +92,15 @@ public class SystemMMnnKCalculator {
     }
 
     public double mAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return K - NAvg;
+        return KFin - NAvg;
     }
 
     public double Ut(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double mAvg = mAvg(features);
-        return mAvg / K;
+        return mAvg / KFin;
     }
 
     public double ETau(Map<SystemFeature, Double> features) {
@@ -110,29 +110,29 @@ public class SystemMMnnKCalculator {
     }
 
     public double ENR(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double ETau = ETau(features);
-        return Lambda * ETau;
+        return LambdaFin * ETau;
     }
 
     public double PBKc(Map<SystemFeature, Double> features) {
         final double Ro = Ro(features);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double c = features.get(SystemFeature.c);
-        return EngsetRecursive(K, c, Ro);
+        return EngsetRecursive(KFin, c, Ro);
     }
 
     public double EDeltar(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double K = features.get(SystemFeature.K);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        final double KFin = features.get(SystemFeature.KFin);
         final double P0 = P0(features);
         final double dividend = 1 - P0;
-        final double divisor = K * Lambda * P0;
+        final double divisor = KFin * LambdaFin * P0;
         return dividend / divisor;
     }
 
     private double EngsetRecursive(double K, double c, double Ro) {
-        double result = 0;
+        double result;
         if (c == 1) {
             final double base = (K - 1) * Ro;
             result = base / (1 + base);

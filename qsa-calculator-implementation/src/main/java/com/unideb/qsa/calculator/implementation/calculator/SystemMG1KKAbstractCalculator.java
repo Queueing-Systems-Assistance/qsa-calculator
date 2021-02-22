@@ -15,40 +15,40 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public abstract class SystemMG1KKAbstractCalculator {
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        return 1 / Lambda;
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        return 1 / LambdaFin;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double SAvg = SAvg(features);
         final double E0 = E0(features);
         double sum = 0.0;
-        for (double i = 0.0; i <= K - 1; i++) {
-            final double binomialCoefficient = binomialCoefficientDouble((int) K - 1, (int) i);
+        for (double i = 0.0; i <= KFin - 1; i++) {
+            final double binomialCoefficient = binomialCoefficientDouble((int) KFin - 1, (int) i);
             final double Bi = functionBn(features, i);
             sum += binomialCoefficient * Bi;
         }
-        return pow(1 + K * SAvg / E0 * sum, -1);
+        return pow(1 + KFin * SAvg / E0 * sum, -1);
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
-        final double k = K - n;
+        final double k = KFin - n;
         double sum = 0.0;
-        for (double i = k; i <= K; i++) {
+        for (double i = k; i <= KFin; i++) {
             sum += pow(-1, i - k) * binomialCoefficientDouble((int)i, (int)k) * binomialMomentPi(features, i);
         }
         return sum;
     }
 
-    public double Pin(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+    public double PinFin(Map<SystemFeature, Double> features) {
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
-        final double k = K - n;
+        final double k = KFin - n;
         double sum = 0.0;
-        for (double i = k; i <= K - 1; i++) {
+        for (double i = k; i <= KFin - 1; i++) {
             sum += pow(-1, i - k) * binomialCoefficientDouble((int)i, (int)k) * binomialMomentPii(features, i);
         }
         return sum;
@@ -60,15 +60,15 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double Ut(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double mAvg = mAvg(features);
-        return mAvg / K;
+        return mAvg / KFin;
     }
 
     public double mAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return K - NAvg;
+        return KFin - NAvg;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -78,10 +78,10 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double LambdaAvg = LambdaAvg(features);
         final double E0 = E0(features);
-        return K / LambdaAvg - E0;
+        return KFin / LambdaAvg - E0;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -91,10 +91,10 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double EN2(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 1.0; i <= K; i++) {
+        for (double i = 1.0; i <= KFin; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += pow(i, 2) * Pn(PiFeatures);
         }
@@ -120,10 +120,10 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double EQ2(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
-        for (double i = 2.0; i <= K; i++) {
+        for (double i = 2.0; i <= KFin; i++) {
             PiFeatures.put(SystemFeature.n, i);
             sum += pow(i - 1, 2) * Pn(PiFeatures);
         }
@@ -137,17 +137,17 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double EDelta1(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double P0 = P0(features);
         final double dividend = 1 - P0;
-        final double divisor = Lambda * P0;
+        final double divisor = LambdaFin * P0;
         return dividend / divisor;
     }
 
     public double KStar(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double SAvg = SAvg(features);
-        return 1 + 1 / (SAvg * Lambda);
+        return 1 + 1 / (SAvg * LambdaFin);
     }
 
     public double functionBn(Map<SystemFeature, Double> features, double index) {
@@ -162,15 +162,15 @@ public abstract class SystemMG1KKAbstractCalculator {
     }
 
     public double binomialMomentPii(Map<SystemFeature, Double> features, double index) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Cindex = pow(functionBn(features, index), -1);
         double dividend = 0.0;
-        for (double i = index; i <= K - 1; i++) {
-            dividend += binomialCoefficientDouble((int)K - 1, (int)i) * functionBn(features, i);
+        for (double i = index; i <= KFin - 1; i++) {
+            dividend += binomialCoefficientDouble((int)KFin - 1, (int)i) * functionBn(features, i);
         }
         double divisor = 0.0;
-        for (double i = 0.0; i <= K - 1; i++) {
-            divisor += binomialCoefficientDouble((int)K - 1, (int)i) * functionBn(features, i);
+        for (double i = 0.0; i <= KFin - 1; i++) {
+            divisor += binomialCoefficientDouble((int)KFin - 1, (int)i) * functionBn(features, i);
         }
         return Cindex * dividend / divisor;
     }
@@ -180,19 +180,19 @@ public abstract class SystemMG1KKAbstractCalculator {
         if (index == 0.0) {
             result = 1.0;
         } else {
-            final double Lambda = features.get(SystemFeature.Lambda);
-            final double K = features.get(SystemFeature.K);
+            final double LambdaFin = features.get(SystemFeature.LambdaFin);
+            final double KFin = features.get(SystemFeature.KFin);
             final double SAvg = SAvg(features);
-            final double part1 = K * pow(functionBn(features, index - 1), -1) / index;
+            final double part1 = KFin * pow(functionBn(features, index - 1), -1) / index;
             double dividend = 0.0;
-            for (double i = index - 1; i <= K - 1; i++) {
-                dividend += binomialCoefficientDouble((int)K - 1, (int)i) * functionBn(features, i);
+            for (double i = index - 1; i <= KFin - 1; i++) {
+                dividend += binomialCoefficientDouble((int)KFin - 1, (int)i) * functionBn(features, i);
             }
             double divisorSum = 0.0;
-            for (double i = 0.0; i <= K - 1; i++) {
-                divisorSum += binomialCoefficientDouble((int)K - 1, (int)i) * functionBn(features, i);
+            for (double i = 0.0; i <= KFin - 1; i++) {
+                divisorSum += binomialCoefficientDouble((int)KFin - 1, (int)i) * functionBn(features, i);
             }
-            final double divisor = 1 + K * Lambda * SAvg * divisorSum;
+            final double divisor = 1 + KFin * LambdaFin * SAvg * divisorSum;
             result = part1 * dividend / divisor;
         }
         return result;

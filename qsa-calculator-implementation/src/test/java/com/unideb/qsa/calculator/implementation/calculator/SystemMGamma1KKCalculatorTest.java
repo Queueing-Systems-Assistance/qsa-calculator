@@ -62,12 +62,12 @@ public class SystemMGamma1KKCalculatorTest {
     }
 
     @Test
-    public void PinTest() {
+    public void PinFinTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.30652709;
         // WHEN
-        double result = systemMGamma1KKCalculatorUnderTest.Pin(features);
+        double result = systemMGamma1KKCalculatorUnderTest.PinFin(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -229,9 +229,9 @@ public class SystemMGamma1KKCalculatorTest {
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMGamma1KK = new HashMap<>();
         systemMGamma1KK.put(SystemFeature.Alpha, 0.5);
-        systemMGamma1KK.put(SystemFeature.Lambda, 1.5);
+        systemMGamma1KK.put(SystemFeature.LambdaFin, 1.5);
         systemMGamma1KK.put(SystemFeature.Mu, 2.2);
-        systemMGamma1KK.put(SystemFeature.K, 3.0);
+        systemMGamma1KK.put(SystemFeature.KFin, 3.0);
         systemMGamma1KK.put(SystemFeature.n, 2.0);
         return systemMGamma1KK;
     }

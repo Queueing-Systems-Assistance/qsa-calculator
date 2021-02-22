@@ -44,10 +44,10 @@ public class SystemDDnKKCalculator {
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double LambdaAvg = LambdaAvg(features);
         final double E0 = E0(features);
-        return K / LambdaAvg - E0;
+        return KFin / LambdaAvg - E0;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
@@ -57,10 +57,10 @@ public class SystemDDnKKCalculator {
     }
 
     public double a(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double c = features.get(SystemFeature.c);
         final double z = z(features);
-        final double calculation = K / (c * (1 + z));
+        final double calculation = KFin / (c * (1 + z));
         return min(1, calculation);
     }
 

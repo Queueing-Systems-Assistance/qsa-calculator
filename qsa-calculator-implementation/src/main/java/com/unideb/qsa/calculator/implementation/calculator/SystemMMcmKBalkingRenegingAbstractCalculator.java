@@ -14,11 +14,11 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
 
     public double LambdaN(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double K = features.get(SystemFeature.K);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double bn = bn(features);
-        return (K - n) * Lambda * bn;
+        return (KFin - n) * LambdaFin * bn;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -96,7 +96,7 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
         return LambdaProduct * P0 / MuProduct;
     }
 
-    public double Pin(Map<SystemFeature, Double> features) {
+    public double PinFin(Map<SystemFeature, Double> features) {
         final double LambdaN = LambdaN(features);
         final double Pn = Pn(features);
         final double LambdaAvg = LambdaAvg(features);
@@ -110,7 +110,7 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
         double sum = 0.0;
         for (double i = c; i <= m - 1.0; i++) {
             PiiFeatures.put(SystemFeature.n, i);
-            sum += Pin(PiiFeatures);
+            sum += PinFin(PiiFeatures);
         }
         return sum;
     }
@@ -132,16 +132,16 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
     }
 
     public double PJ(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double m = features.get(SystemFeature.m);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double LambdaAvg = LambdaAvg(features);
         final Map<SystemFeature, Double> PiFeatures = copyOf(features);
         double sum = 0.0;
         for (double i = 0.0; i <= m - 1.0; i++) {
             PiFeatures.put(SystemFeature.n, i);
             final double Pi = Pn(PiFeatures);
-            sum += (K - i) * Lambda * Pi;
+            sum += (KFin - i) * LambdaFin * Pi;
         }
         return LambdaAvg / sum;
     }
@@ -164,9 +164,9 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
     }
 
     public double Ut(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double mAvg = mAvg(features);
-        return mAvg / K;
+        return mAvg / KFin;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
@@ -257,9 +257,9 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
     }
 
     public double mAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return K - NAvg;
+        return KFin - NAvg;
     }
 
     public double rAvg(Map<SystemFeature, Double> features) {
@@ -275,9 +275,9 @@ public abstract class SystemMMcmKBalkingRenegingAbstractCalculator {
     }
 
     public double EDeltar(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double US = US(features);
-        return US / (Lambda * (1 - US));
+        return US / (LambdaFin * (1 - US));
     }
 
     public abstract double bn(Map<SystemFeature, Double> features);
