@@ -24,9 +24,9 @@ public class SystemMErlang1KKCalculator extends SystemMG1KKAbstractCalculator {
     @Override
     public double laplaceTransform(Map<SystemFeature, Double> features, double index) {
         final double nErlang = features.get(SystemFeature.nErlang);
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        final double divisor = Mu + index * Lambda;
+        final double divisor = Mu + index * LambdaFin;
         return pow(Mu / divisor, nErlang);
     }
 }

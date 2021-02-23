@@ -19,27 +19,27 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMMcmKCalculator {
 
     public double Ro(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        return LambdaFin / Mu;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double m = features.get(SystemFeature.m);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Ro = Ro(features);
-        final double P0Inverse = P0InverseRecursive(Ro, K, c, m);
+        final double P0Inverse = P0InverseRecursive(Ro, KFin, c, m);
         return pow(P0Inverse, -1);
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double Ro = Ro(features);
         final double P0 = P0(features);
-        double result = binomialCoefficientDouble((int) K, (int) n) * pow(Ro, n) * P0;
+        double result = binomialCoefficientDouble((int) KFin, (int) n) * pow(Ro, n) * P0;
         if (n >= c) {
             final double factor = factorial(n) / (factorial(c) * pow(c, n - c));
             result *= factor;
@@ -47,29 +47,29 @@ public class SystemMMcmKCalculator {
         return result;
     }
 
-    public double Pin(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+    public double PinFin(Map<SystemFeature, Double> features) {
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double m = features.get(SystemFeature.m);
         final double Pn = Pn(features);
-        final double dividend = (K - n) * Pn;
+        final double dividend = (KFin - n) * Pn;
         double divisor = 0.0;
         for (double i = 0.0; i <= m - 1; i++) {
             Map<SystemFeature, Double> PiFeatures = copyOf(features);
             PiFeatures.put(SystemFeature.n, i);
             double Pi = Pn(PiFeatures);
-            divisor += (K - i) * Pi;
+            divisor += (KFin - i) * Pi;
         }
         return dividend / divisor;
     }
 
     public double PB(Map<SystemFeature, Double> features) {
         final double m = features.get(SystemFeature.m);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         double result = 0.0;
-        if (m != K) {
+        if (m != KFin) {
             Map<SystemFeature, Double> PBFeatures = copyOf(features);
-            PBFeatures.put(SystemFeature.K, K - 1);
+            PBFeatures.put(SystemFeature.KFin, KFin - 1);
             PBFeatures.put(SystemFeature.n, m);
             result = Pn(PBFeatures);
         }
@@ -83,7 +83,7 @@ public class SystemMMcmKCalculator {
         for (double i = c; i <= m - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
             PiiFeatures.put(SystemFeature.n, i);
-            sum += Pin(PiiFeatures);
+            sum += PinFin(PiiFeatures);
         }
         return sum;
     }
@@ -106,9 +106,9 @@ public class SystemMMcmKCalculator {
     }
 
     public double mAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return K - NAvg;
+        return KFin - NAvg;
     }
 
     public double US(Map<SystemFeature, Double> features) {
@@ -123,9 +123,9 @@ public class SystemMMcmKCalculator {
     }
 
     public double Ut(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return (K - NAvg) / K;
+        return (KFin - NAvg) / KFin;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
@@ -172,17 +172,17 @@ public class SystemMMcmKCalculator {
     }
 
     public double ETau(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
         final double TAvg = TAvg(features);
-        final double dividend = (K - NAvg) * TAvg;
+        final double dividend = (KFin - NAvg) * TAvg;
         return dividend / NAvg;
     }
 
     public double ENR(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double ETao = ETau(features);
-        return Lambda * ETao;
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        final double ETau = ETau(features);
+        return LambdaFin * ETau;
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
@@ -194,7 +194,7 @@ public class SystemMMcmKCalculator {
         for (double i = c; i <= m - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
             PiiFeatures.put(SystemFeature.n, i);
-            double Pii = Pin(PiiFeatures);
+            double Pii = PinFin(PiiFeatures);
             double innerSum = 0.0;
             for (double j = 0.0; j <= i - c; j++) {
                 double part1 = pow(c * Mu * t, j) / factorial(j);
@@ -214,7 +214,7 @@ public class SystemMMcmKCalculator {
         for (double i = 0; i <= m - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
             PiiFeatures.put(SystemFeature.n, i);
-            double Pii = Pin(PiiFeatures);
+            double Pii = PinFin(PiiFeatures);
             double innerSum = 0.0;
             for (double j = 0.0; j <= i; j++) {
                 double part1 = pow(Mu * t, j) / factorial(j);
@@ -246,11 +246,11 @@ public class SystemMMcmKCalculator {
     }
 
     private double ej(Map<SystemFeature, Double> features, double j) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double c = features.get(SystemFeature.c);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double dividend = c - j;
-        final double divisor = (K - j) * Lambda;
+        final double divisor = (KFin - j) * LambdaFin;
         return dividend / divisor;
     }
 
@@ -258,12 +258,12 @@ public class SystemMMcmKCalculator {
         final double c = features.get(SystemFeature.c);
         Map<SystemFeature, Double> PijFeatures = copyOf(features);
         PijFeatures.put(SystemFeature.n, j);
-        final double Pij = Pin(PijFeatures);
+        final double Pij = PinFin(PijFeatures);
         double sum = 0.0;
         for (double i = 0.0; i <= c - 1; i++) {
             Map<SystemFeature, Double> PiiFeatures = copyOf(features);
             PiiFeatures.put(SystemFeature.n, i);
-            sum += Pin(PiiFeatures);
+            sum += PinFin(PiiFeatures);
         }
         return Pij / sum;
     }

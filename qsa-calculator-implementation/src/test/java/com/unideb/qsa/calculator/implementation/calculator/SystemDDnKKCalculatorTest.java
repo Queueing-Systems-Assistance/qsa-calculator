@@ -122,7 +122,7 @@ public class SystemDDnKKCalculatorTest {
         features.put(SystemFeature.Ds, 2.26);
         features.put(SystemFeature.n, 3.0);
         features.put(SystemFeature.c, 2.0);
-        features.put(SystemFeature.K, 4.0);
+        features.put(SystemFeature.KFin, 4.0);
         return features;
     }
 }

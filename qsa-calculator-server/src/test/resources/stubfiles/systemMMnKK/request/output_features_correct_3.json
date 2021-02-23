@@ -1,8 +1,8 @@
 {
   "featureConditions": {
-    "Lambda": 0.16,
+    "LambdaFin": 0.16,
     "Mu": 3,
-    "K": 3,
+    "KFin": 3,
     "c": 2,
     "n": 2,
     "t": 5

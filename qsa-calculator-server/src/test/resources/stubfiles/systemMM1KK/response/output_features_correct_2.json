@@ -1,200 +1,150 @@
 [
   {
     "id": "Ro",
-    "name": "ρ",
-    "description": "Forgalmi intenzitás, mértékegysége az erlang",
     "values": [
       "0.2"
     ]
   },
   {
     "id": "E0",
-    "name": "E[0]",
-    "description": "A gépek átlagos működési ideje",
     "values": [
       "5.0"
     ]
   },
   {
     "id": "z",
-    "name": "z",
-    "description": "E[0]/<span class=\"overline\">S</span>",
     "values": [
       "5.0"
     ]
   },
   {
     "id": "US",
-    "name": "U<sub>s</sub>",
-    "description": "Rendszer kihasználtság",
     "values": [
       "0.8081527411136349"
     ]
   },
   {
     "id": "Ut",
-    "name": "U<sub>t</sub>",
-    "description": "Forrás kihasználtság",
     "values": [
       "0.6734606175946956"
     ]
   },
   {
     "id": "a",
-    "name": "a",
-    "description": "Kiszolgáló egység kihasználtsága",
     "values": [
       "0.8081527411136349"
     ]
   },
   {
     "id": "LambdaAvg",
-    "name": "<span class=\"overline\">λ</span>",
-    "description": "Átlagos érkezési intenzitás",
     "values": [
       "0.8081527411136349"
     ]
   },
   {
     "id": "P0",
-    "name": "P<sub>0</sub>",
-    "description": "Annak valószínűsége, hogy 0 igény tartózkodik a rendszerben",
     "values": [
       "0.19184725888636506"
     ]
   },
   {
     "id": "Pn",
-    "name": "P<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy <i>n</i> igény tartózkodik a rendszerben",
     "values": [
       "0.22014894117389763"
     ]
   },
   {
     "id": "Pi0",
-    "name": "π<sub>0</sub>",
-    "description": "Annak a valószínüsége, hogy <i>0</i> igény van a rendszerben, amikor egy igény beérkezik",
     "values": [
       "0.28486782133090255"
     ]
   },
   {
-    "id": "Pin",
-    "name": "π<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy a beérkező igény a rendszert az <i>n.</i> állapotban találja",
+    "id": "PinFin",
     "values": [
       "0.2914787701288615"
     ]
   },
   {
     "id": "mAvg",
-    "name": "<span class=\"overline\">m</span>",
-    "description": "A forrásban tartózkodó igények átlagos száma",
     "values": [
       "4.040763705568174"
     ]
   },
   {
     "id": "NAvg",
-    "name": "<span class=\"overline\">N</span>",
-    "description": "Rendszerben tartózkodó igények átlagos száma",
     "values": [
       "1.9592362944318262"
     ]
   },
   {
     "id": "D2N",
-    "name": "D<sup>2</sup>(N)",
-    "description": "Rendszerben tartózkodó igények számának szórásnégyzete",
     "values": [
       "2.1613931425810478"
     ]
   },
   {
     "id": "WAvg",
-    "name": "<span class=\"overline\">W</span>",
-    "description": "Átlagos várakozási idő",
     "values": [
       "1.4243391066545135"
     ]
   },
   {
     "id": "EWW0",
-    "name": "E[W|W>0]",
-    "description": "Feltéve, hogy várakozni kell, a várakozási idő várható értéke",
     "values": [
       "1.7624627551120762"
     ]
   },
   {
     "id": "D2W",
-    "name": "D<sup>2</sup>(W)",
-    "description": "Várakozási idő szórásnégyzete",
     "values": [
       "2.9712581092546255"
     ]
   },
   {
     "id": "QAvg",
-    "name": "<span class=\"overline\">Q</span>",
-    "description": "Sorban álló igények átlagos száma",
     "values": [
       "1.1510835533181913"
     ]
   },
   {
     "id": "EQpow2",
-    "name": "E[Q<sup>2</sup>]",
-    "description": "Sorban álló igények számának második momentuma",
     "values": [
       "2.8896801522499844"
     ]
   },
   {
     "id": "D2Q",
-    "name": "D<sup>2</sup>(Q)",
-    "description": "Sorhossz szórásnégyzete",
     "values": [
       "1.5646868055303509"
     ]
   },
   {
     "id": "FWt",
-    "name": "F<sub>W</sub>(t)",
-    "description": "Várakozási idő eloszlásfüggvénye",
     "values": [
       "0.9525088366481961"
     ]
   },
   {
     "id": "TAvg",
-    "name": "<span class=\"overline\">T</span>",
-    "description": "Átlagos tartózkodási idő",
     "values": [
       "2.4243391066545135"
     ]
   },
   {
     "id": "D2T",
-    "name": "D<sup>2</sup>(T)",
-    "description": "Tartózkodási idő szórásnégyzete",
     "values": [
       "3.9712581092546255"
     ]
   },
   {
     "id": "FTt",
-    "name": "F<sub>T</sub>(t)",
-    "description": "Tartózkodási idő eloszlásfüggvénye",
     "values": [
       "0.891087259628274"
     ]
   },
   {
     "id": "EDelta1",
-    "name": "Eδ",
-    "description": "Szerver átlagos foglaltsági ideje",
     "values": [
       "3.5103999999999984"
     ]

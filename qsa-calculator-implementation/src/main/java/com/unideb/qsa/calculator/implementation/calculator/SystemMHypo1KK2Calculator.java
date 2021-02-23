@@ -21,11 +21,11 @@ public class SystemMHypo1KK2Calculator extends SystemMG1KKAbstractCalculator {
 
     @Override
     public double laplaceTransform(Map<SystemFeature, Double> features, double index) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu1 = features.get(SystemFeature.Mu1);
         final double Mu2 = features.get(SystemFeature.Mu2);
-        final double phase1 = Mu1 / (Mu1 + (index * Lambda));
-        final double phase2 = Mu2 / (Mu2 + (index * Lambda));
+        final double phase1 = Mu1 / (Mu1 + (index * LambdaFin));
+        final double phase2 = Mu2 / (Mu2 + (index * LambdaFin));
         return phase1 * phase2;
     }
 }

@@ -1,7 +1,7 @@
 {
   "featureConditions": {
-    "Lambda": 1,
-    "K": 1,
+    "LambdaFin": 1,
+    "KFin": 1,
     "Mu1": 1,
     "Mu2": 0,
     "Mu3": 1,

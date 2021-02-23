@@ -1,9 +1,9 @@
 {
   "featureConditions": {
     "nErlang": 2,
-    "Lambda": 1.5,
+    "LambdaFin": 1.5,
     "Mu": 2.2,
-    "K": 3,
+    "KFin": 3,
     "n": 0
   }
 }

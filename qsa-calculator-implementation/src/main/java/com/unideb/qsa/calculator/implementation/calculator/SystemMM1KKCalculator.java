@@ -18,14 +18,14 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 public class SystemMM1KKCalculator {
 
     public double Ro(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        return Lambda / Mu;
+        return LambdaFin / Mu;
     }
 
     public double E0(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        return 1 / Lambda;
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        return 1 / LambdaFin;
     }
 
     public double EWW0(Map<SystemFeature, Double> features) {
@@ -39,12 +39,12 @@ public class SystemMM1KKCalculator {
     }
 
     public double FTt(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double t = features.get(SystemFeature.t);
         final double Mu = features.get(SystemFeature.Mu);
         final double z = z(features);
-        final double dividend = Qnx(K - 1, z + t * Mu);
-        final double divisor = Qnx(K - 1, z);
+        final double dividend = Qnx(KFin - 1, z + t * Mu);
+        final double divisor = Qnx(KFin - 1, z);
         return 1 - dividend / divisor;
     }
 
@@ -53,12 +53,12 @@ public class SystemMM1KKCalculator {
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double t = features.get(SystemFeature.t);
         final double Mu = features.get(SystemFeature.Mu);
         final double z = z(features);
-        final double dividend = Qnx(K - 2, z + t * Mu);
-        final double divisor = Qnx(K - 1, z);
+        final double dividend = Qnx(KFin - 2, z + t * Mu);
+        final double divisor = Qnx(KFin - 1, z);
         return 1 - dividend / divisor;
     }
 
@@ -69,59 +69,59 @@ public class SystemMM1KKCalculator {
     }
 
     public double mAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return K - NAvg;
+        return KFin - NAvg;
     }
 
     public double NAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Ro = Ro(features);
         final double US = US(features);
-        return K - US / Ro;
+        return KFin - US / Ro;
     }
 
     public double D2N(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Ro = Ro(features);
         final double US = US(features);
         final double part1 = US / Ro;
         final double part2 = (1 - US) / Ro;
-        final double part3 = K - part1;
+        final double part3 = KFin - part1;
         return part1 - part2 * part3;
     }
 
     public double P0(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double Ro = Ro(features);
-        return ErlangBRecursive(K, 1 / Ro);
+        return ErlangBRecursive(KFin, 1 / Ro);
     }
 
     public double Pi0(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
         final double P0 = P0(features);
-        final double dividend = K * P0;
-        final double divisor = K - NAvg;
+        final double dividend = KFin * P0;
+        final double divisor = KFin - NAvg;
         return dividend / divisor;
     }
 
-    public double Pin(Map<SystemFeature, Double> features) {
+    public double PinFin(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
         final double Pn = Pn(features);
-        final double dividend = (K - n) * Pn;
-        final double divisor = K - NAvg;
+        final double dividend = (KFin - n) * Pn;
+        final double divisor = KFin - NAvg;
         return dividend / divisor;
     }
 
     public double Pn(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double n = features.get(SystemFeature.n);
         final double z = z(features);
         final double P0 = P0(features);
-        final double fraction = factorial(K) / factorial(K - n);
+        final double fraction = factorial(KFin) / factorial(KFin - n);
         return fraction * pow(z, -1 * n) * P0;
     }
 
@@ -131,10 +131,10 @@ public class SystemMM1KKCalculator {
     }
 
     public double TAvg(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double E0 = E0(features);
         final double LambdaAvg = LambdaAvg(features);
-        return K / LambdaAvg - E0;
+        return KFin / LambdaAvg - E0;
     }
 
     public double WAvg(Map<SystemFeature, Double> features) {
@@ -145,9 +145,9 @@ public class SystemMM1KKCalculator {
 
     public double D2W(Map<SystemFeature, Double> features) {
         final double Mu = features.get(SystemFeature.Mu);
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         Map<SystemFeature, Double> Kmin1Features = copyOf(features);
-        Kmin1Features.put(SystemFeature.K, K - 1);
+        Kmin1Features.put(SystemFeature.KFin, KFin - 1);
         final double NAvgKmin1 = NAvg(Kmin1Features);
         final double D2NKmin1 = D2N(Kmin1Features);
         final double part1 = 1 / pow(Mu, 2);
@@ -172,9 +172,9 @@ public class SystemMM1KKCalculator {
     }
 
     public double Ut(Map<SystemFeature, Double> features) {
-        final double K = features.get(SystemFeature.K);
+        final double KFin = features.get(SystemFeature.KFin);
         final double NAvg = NAvg(features);
-        return 1 - NAvg / K;
+        return 1 - NAvg / KFin;
     }
 
     public double z(Map<SystemFeature, Double> features) {
@@ -203,11 +203,11 @@ public class SystemMM1KKCalculator {
     }
 
     public double EDelta1(Map<SystemFeature, Double> features) {
-        final double Lambda = features.get(SystemFeature.Lambda);
-        final double K = features.get(SystemFeature.K);
+        final double LambdaFin = features.get(SystemFeature.LambdaFin);
+        final double KFin = features.get(SystemFeature.KFin);
         final double P0 = P0(features);
         final double dividend = 1 - P0;
-        final double divisor = K * Lambda * P0;
+        final double divisor = KFin * LambdaFin * P0;
         return dividend / divisor;
     }
 

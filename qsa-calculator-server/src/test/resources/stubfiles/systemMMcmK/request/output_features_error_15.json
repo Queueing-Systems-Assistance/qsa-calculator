@@ -1,10 +1,10 @@
 {
   "featureConditions": {
-    "Lambda": 1,
+    "LambdaFin": 1,
     "Mu": 2,
     "c": 3,
     "m": 5,
-    "K": 4,
+    "KFin": 4,
     "n": 1,
     "t": 1
   }
