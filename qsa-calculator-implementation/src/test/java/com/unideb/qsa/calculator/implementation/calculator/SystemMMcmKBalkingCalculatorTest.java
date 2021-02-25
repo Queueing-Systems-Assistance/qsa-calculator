@@ -249,12 +249,56 @@ public class SystemMMcmKBalkingCalculatorTest {
     }
 
     @Test
+    public void EW2Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.0073723;
+        // WHEN
+        double result = systemMMcmKBalkingCalculatorUnderTest.EW2(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void D2WTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.00699779;
+        // WHEN
+        double result = systemMMcmKBalkingCalculatorUnderTest.D2W(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void FWtTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.99999999;
+        // WHEN
+        double result = systemMMcmKBalkingCalculatorUnderTest.FWt(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
         double expected = 0.51935229;
         // WHEN
         double result = systemMMcmKBalkingCalculatorUnderTest.TAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
+    public void D2TTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.25699779;
+        // WHEN
+        double result = systemMMcmKBalkingCalculatorUnderTest.D2T(features);
         // THEN
         Assert.assertEquals(result, expected, DELTA);
     }
@@ -293,13 +337,14 @@ public class SystemMMcmKBalkingCalculatorTest {
     }
 
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMMcmK = new HashMap<>();
-        systemMMcmK.put(SystemFeature.LambdaFin, 1.0);
-        systemMMcmK.put(SystemFeature.Mu, 2.0);
-        systemMMcmK.put(SystemFeature.c, 3.0);
-        systemMMcmK.put(SystemFeature.m, 5.0);
-        systemMMcmK.put(SystemFeature.KFin, 10.0);
-        systemMMcmK.put(SystemFeature.n, 1.0);
-        return systemMMcmK;
+        Map<SystemFeature, Double> systemMMcmKBalking = new HashMap<>();
+        systemMMcmKBalking.put(SystemFeature.LambdaFin, 1.0);
+        systemMMcmKBalking.put(SystemFeature.Mu, 2.0);
+        systemMMcmKBalking.put(SystemFeature.c, 3.0);
+        systemMMcmKBalking.put(SystemFeature.m, 5.0);
+        systemMMcmKBalking.put(SystemFeature.KFin, 10.0);
+        systemMMcmKBalking.put(SystemFeature.n, 1.0);
+        systemMMcmKBalking.put(SystemFeature.t, 4.0);
+        return systemMMcmKBalking;
     }
 }
