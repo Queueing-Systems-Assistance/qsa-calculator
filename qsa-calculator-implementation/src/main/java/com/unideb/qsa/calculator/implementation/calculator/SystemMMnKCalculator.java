@@ -51,6 +51,23 @@ public class SystemMMnKCalculator {
         return QAvg + sum1 + c * (1 - sum2);
     }
 
+    public double EN2(Map<SystemFeature, Double> features) {
+        final double K = features.get(SystemFeature.K);
+        final Map<SystemFeature, Double> PiFeatures = copyOf(features);
+        double sum = 0.0;
+        for (double i = 1.0; i <= K; i++) {
+            PiFeatures.put(SystemFeature.n, i);
+            sum += pow(i, 2) * Pn(PiFeatures);
+        }
+        return sum;
+    }
+
+    public double D2N(Map<SystemFeature, Double> features) {
+        final double NAvg = NAvg(features);
+        final double EN2 = EN2(features);
+        return EN2 - pow(NAvg, 2);
+    }
+
     public double a(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double cAvg = cAvg(features);
@@ -128,6 +145,24 @@ public class SystemMMnKCalculator {
         return result;
     }
 
+    public double EQ2(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final Map<SystemFeature, Double> PiFeatures = copyOf(features);
+        double sum = 0.0;
+        for (double i = c; i <= K; i++) {
+            PiFeatures.put(SystemFeature.n, i);
+            sum += pow(i - c, 2) * Pn(PiFeatures);
+        }
+        return sum;
+    }
+
+    public double D2Q(Map<SystemFeature, Double> features) {
+        final double QAvg = QAvg(features);
+        final double EQ2 = EQ2(features);
+        return EQ2 - pow(QAvg, 2);
+    }
+
     public double Ro(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
@@ -147,10 +182,36 @@ public class SystemMMnKCalculator {
         return NAvg / LambdaAvg;
     }
 
+    public double D2T(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double D2W = D2W(features);
+        return D2W + 1 / pow(Mu, 2);
+    }
+
     public double WAvg(Map<SystemFeature, Double> features) {
         final double QAvg = QAvg(features);
         final double LambdaAvg = LambdaAvg(features);
         return QAvg / LambdaAvg;
+    }
+
+    public double EW2(Map<SystemFeature, Double> features) {
+        final double Mu = features.get(SystemFeature.Mu);
+        final double c = features.get(SystemFeature.c);
+        final double K = features.get(SystemFeature.K);
+        final Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+        double sum = 0.0;
+        for (double i = c; i <= K - 1.0; i++) {
+            PiiFeatures.put(SystemFeature.n, i);
+            final double fraction = (i - c + 1.0 + pow(i - c + 1.0, 2)) / pow(c * Mu, 2);
+            sum += fraction * Pin(PiiFeatures);
+        }
+        return sum;
+    }
+
+    public double D2W(Map<SystemFeature, Double> features) {
+        final double WAvg = WAvg(features);
+        final double EW2 = EW2(features);
+        return EW2 - pow(WAvg, 2);
     }
 
     public double US(Map<SystemFeature, Double> features) {

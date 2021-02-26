@@ -1,152 +1,156 @@
 [
   {
     "id": "Ro",
-    "name": "ρ",
-    "description": "Forgalmi intenzitás, mértékegysége az erlang",
     "values": [
       "0.05333333333333334"
     ]
   },
   {
     "id": "US",
-    "name": "U<sub>s</sub>",
-    "description": "Rendszer kihasználtság",
     "values": [
       "0.05194711803160057"
     ]
   },
   {
     "id": "a",
-    "name": "a",
-    "description": "Kiszolgáló egység kihasználtsága",
     "values": [
       "0.026665707845776657"
     ]
   },
   {
     "id": "P0",
-    "name": "P<sub>0</sub>",
-    "description": "Annak valószínűsége, hogy 0 igény tartózkodik a rendszerben",
     "values": [
       "0.9480528819683994"
     ]
   },
   {
     "id": "Pn",
-    "name": "P<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy <i>n</i> igény tartózkodik a rendszerben",
     "values": [
       "3.595578337539412E-5"
     ]
   },
   {
     "id": "PK",
-    "name": "P<sub>K</sub>",
-    "description": "Annak valószínűsége, hogy <i>K</i> igény tartózkodik a rendszerben",
     "values": [
       "3.595578337539412E-5"
     ]
   },
   {
     "id": "Pe",
-    "name": "P(e)",
-    "description": "Annak valószínűsége, hogy egy érkező igénynek nem kell várakoznia",
     "values": [
       "0.9986516096409911"
     ]
   },
   {
     "id": "cAvg",
-    "name": "<span class=\"overline\">c</span>",
-    "description": "Foglalt kiszolgálók átlagos száma",
     "values": [
       "0.053331415691553315"
     ]
   },
   {
     "id": "LambdaAvg",
-    "name": "<span class=\"overline\">λ</span>",
-    "description": "Átlagos érkezési intenzitás",
     "values": [
       "0.15999424707465995"
     ]
   },
   {
     "id": "NAvg",
-    "name": "<span class=\"overline\">N</span>",
-    "description": "Rendszerben tartózkodó igények átlagos száma",
     "values": [
       "0.05336737147492862"
     ]
   },
   {
+    "id": "EN2",
+    "values": [
+      "0.056279789928335634"
+    ]
+  },
+  {
+    "id": "D2N",
+    "values": [
+      "0.05343171359019261"
+    ]
+  },
+  {
     "id": "QAvg",
-    "name": "<span class=\"overline\">Q</span>",
-    "description": "Sorban álló igények átlagos száma",
     "values": [
       "3.595578337539412E-5"
     ]
   },
   {
+    "id": "EQ2",
+    "values": [
+      "3.595578337539412E-5"
+    ]
+  },
+  {
+    "id": "D2Q",
+    "values": [
+      "3.595449055703598E-5"
+    ]
+  },
+  {
     "id": "Pin",
-    "name": "π<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy a beérkező igény a rendszert az <i>n.</i> állapotban találja",
     "values": [
       "3.5957076240238225E-5"
     ]
   },
   {
     "id": "TAvg",
-    "name": "<span class=\"overline\">T</span>",
-    "description": "Átlagos tartózkodási idő",
     "values": [
       "0.33355806505983426"
     ]
   },
   {
+    "id": "D2T",
+    "values": [
+      "0.1111859711822627"
+    ]
+  },
+  {
     "id": "WAvg",
-    "name": "<span class=\"overline\">W</span>",
-    "description": "Átlagos várakozási idő",
     "values": [
       "2.247317265014889E-4"
     ]
   },
   {
+    "id": "EW2",
+    "values": [
+      "7.49105755004963E-5"
+    ]
+  },
+  {
     "id": "EWW0",
-    "name": "E[W|W>0]",
-    "description": "Feltéve, hogy várakozni kell, a várakozási idő várható értéke",
     "values": [
       "0.16666666666666946"
     ]
   },
   {
+    "id": "D2W",
+    "values": [
+      "7.486007115159996E-5"
+    ]
+  },
+  {
     "id": "FWt",
-    "name": "F<sub>W</sub>(t)",
-    "description": "Várakozási idő eloszlásfüggvénye",
     "values": [
       "0.9999999917152033"
     ]
   },
   {
     "id": "EDeltar",
-    "name": "Eδ<sub>r</sub>",
-    "description": "A rendszer átlagos foglaltsági ideje",
     "values": [
       "0.3424592592592588"
     ]
   },
   {
     "id": "EDelta",
-    "name": "Eδ",
-    "description": "Egy tetszőleges csatorna átlagos foglaltsági ideje",
     "values": [
       "0.667578809188935"
     ]
   },
   {
     "id": "eAvg",
-    "name": "<span class=\"overline\">e</span>",
-    "description": "Egy tetszőleges csatorna átlagos tétlenségi ideje",
     "values": [
       "12.18354430379747"
     ]

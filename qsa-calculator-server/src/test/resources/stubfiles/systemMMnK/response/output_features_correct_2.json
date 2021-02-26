@@ -1,152 +1,156 @@
 [
   {
     "id": "Ro",
-    "name": "ρ",
-    "description": "Forgalmi intenzitás, mértékegysége az erlang",
     "values": [
       "0.16"
     ]
   },
   {
     "id": "US",
-    "name": "U<sub>s</sub>",
-    "description": "Rendszer kihasználtság",
     "values": [
       "0.13793103448275856"
     ]
   },
   {
     "id": "a",
-    "name": "a",
-    "description": "Kiszolgáló egység kihasználtsága",
     "values": [
       "0.13793103448275862"
     ]
   },
   {
     "id": "P0",
-    "name": "P<sub>0</sub>",
-    "description": "Annak valószínűsége, hogy 0 igény tartózkodik a rendszerben",
     "values": [
       "0.8620689655172414"
     ]
   },
   {
     "id": "Pn",
-    "name": "P<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy <i>n</i> igény tartózkodik a rendszerben",
     "values": [
       "0.13793103448275865"
     ]
   },
   {
     "id": "PK",
-    "name": "P<sub>K</sub>",
-    "description": "Annak valószínűsége, hogy <i>K</i> igény tartózkodik a rendszerben",
     "values": [
       "0.13793103448275865"
     ]
   },
   {
     "id": "Pe",
-    "name": "P(e)",
-    "description": "Annak valószínűsége, hogy egy érkező igénynek nem kell várakoznia",
     "values": [
       "1.0000000000000002"
     ]
   },
   {
     "id": "cAvg",
-    "name": "<span class=\"overline\">c</span>",
-    "description": "Foglalt kiszolgálók átlagos száma",
     "values": [
       "0.13793103448275862"
     ]
   },
   {
     "id": "LambdaAvg",
-    "name": "<span class=\"overline\">λ</span>",
-    "description": "Átlagos érkezési intenzitás",
     "values": [
       "0.13793103448275862"
     ]
   },
   {
     "id": "NAvg",
-    "name": "<span class=\"overline\">N</span>",
-    "description": "Rendszerben tartózkodó igények átlagos száma",
     "values": [
       "0.13793103448275856"
     ]
   },
   {
+    "id": "EN2",
+    "values": [
+      "0.13793103448275865"
+    ]
+  },
+  {
+    "id": "D2N",
+    "values": [
+      "0.11890606420927471"
+    ]
+  },
+  {
     "id": "QAvg",
-    "name": "<span class=\"overline\">Q</span>",
-    "description": "Sorban álló igények átlagos száma",
+    "values": [
+      "0.0"
+    ]
+  },
+  {
+    "id": "EQ2",
+    "values": [
+      "0.0"
+    ]
+  },
+  {
+    "id": "D2Q",
     "values": [
       "0.0"
     ]
   },
   {
     "id": "Pin",
-    "name": "π<sub>n</sub>",
-    "description": "Annak valószínűsége, hogy a beérkező igény a rendszert az <i>n.</i> állapotban találja",
     "values": [
       "0.16000000000000003"
     ]
   },
   {
     "id": "TAvg",
-    "name": "<span class=\"overline\">T</span>",
-    "description": "Átlagos tartózkodási idő",
     "values": [
       "0.9999999999999996"
     ]
   },
   {
+    "id": "D2T",
+    "values": [
+      "1.0"
+    ]
+  },
+  {
     "id": "WAvg",
-    "name": "<span class=\"overline\">W</span>",
-    "description": "Átlagos várakozási idő",
+    "values": [
+      "0.0"
+    ]
+  },
+  {
+    "id": "EW2",
     "values": [
       "0.0"
     ]
   },
   {
     "id": "EWW0",
-    "name": "E[W|W>0]",
-    "description": "Feltéve, hogy várakozni kell, a várakozási idő várható értéke",
     "values": [
       "-0.0"
     ]
   },
   {
+    "id": "D2W",
+    "values": [
+      "0.0"
+    ]
+  },
+  {
     "id": "FWt",
-    "name": "F<sub>W</sub>(t)",
-    "description": "Várakozási idő eloszlásfüggvénye",
     "values": [
       "1.0"
     ]
   },
   {
     "id": "EDeltar",
-    "name": "Eδ<sub>r</sub>",
-    "description": "A rendszer átlagos foglaltsági ideje",
     "values": [
       "0.9999999999999994"
     ]
   },
   {
     "id": "EDelta",
-    "name": "Eδ",
-    "description": "Egy tetszőleges csatorna átlagos foglaltsági ideje",
     "values": [
       "0.9999999999999997"
     ]
   },
   {
     "id": "eAvg",
-    "name": "<span class=\"overline\">e</span>",
-    "description": "Egy tetszőleges csatorna átlagos tétlenségi ideje",
     "values": [
       "6.250000000000001"
     ]
