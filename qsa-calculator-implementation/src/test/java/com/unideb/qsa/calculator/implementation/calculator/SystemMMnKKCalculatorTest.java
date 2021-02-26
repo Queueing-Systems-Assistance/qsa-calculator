@@ -73,6 +73,17 @@ public class SystemMMnKKCalculatorTest {
     }
 
     @Test
+    public void PWTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.71801566;
+        // WHEN
+        double result = systemMMnKKCalculatorUnderTest.PW(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void mAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -197,7 +208,7 @@ public class SystemMMnKKCalculatorTest {
     public void FWtTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.99987246;
+        double expected = 0.99954889;
         // WHEN
         double result = systemMMnKKCalculatorUnderTest.FWt(features);
         // THEN

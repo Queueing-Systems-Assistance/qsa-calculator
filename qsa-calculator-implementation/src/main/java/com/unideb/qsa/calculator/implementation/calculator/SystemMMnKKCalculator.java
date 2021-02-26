@@ -105,16 +105,24 @@ public class SystemMMnKKCalculator {
     }
 
     public double FWt(Map<SystemFeature, Double> features) {
-        final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double Mu = features.get(SystemFeature.Mu);
-        final double KFin = features.get(SystemFeature.KFin);
         final double c = features.get(SystemFeature.c);
+        final double KFin = features.get(SystemFeature.KFin);
         final double t = features.get(SystemFeature.t);
-        final double z = Mu / LambdaFin;
-        double P0KMinus1 = P0KMinus1(features);
-        final double dividend = pow(c, c) * QkLambda(KFin - c - 1, c * (z + Mu * t)) * P0KMinus1;
-        final double divisor = factorial(c) * pkLambda(KFin - 1, c * z);
-        return 1 - dividend / divisor;
+        double sum = 0.0;
+        for (double i = c; i <= KFin - 1; i++) {
+            Map<SystemFeature, Double> PiiFeatures = copyOf(features);
+            PiiFeatures.put(SystemFeature.n, i);
+            double Pii = PinFin(PiiFeatures);
+            double innerSum = 0.0;
+            for (double j = 0.0; j <= i - c; j++) {
+                double part1 = pow(c * Mu * t, j) / factorial(j);
+                double part2 = pow(E, -1 * c * Mu * t);
+                innerSum += part1 * part2;
+            }
+            sum += Pii * innerSum;
+        }
+        return 1 - sum;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
