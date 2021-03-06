@@ -1,11 +1,12 @@
 {
   "featureConditions": {
-    "Lambda1": 3,
-    "Lambda2": 2,
-    "Mu": 4,
-    "c": 5,
-    "n": 5,
-    "t": 2,
-    "r": 2
+    "Lambda1": 0.16,
+    "Lambda2": 0.32,
+    "Lambda3": 0.44,
+    "Mu": 1,
+    "c": 1,
+    "n": 1,
+    "t": 1,
+    "r": 1
   }
 }
