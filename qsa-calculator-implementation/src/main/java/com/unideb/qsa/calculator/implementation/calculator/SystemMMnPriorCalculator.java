@@ -23,14 +23,16 @@ public class SystemMMnPriorCalculator {
     public double Lambda(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double Lambda2 = features.get(SystemFeature.Lambda2);
-        return Lambda1 + Lambda2;
+        final double Lambda3 = features.get(SystemFeature.Lambda3);
+        return Lambda1 + Lambda2 + Lambda3;
     }
 
     public double LambdaAvg(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda3 = features.get(SystemFeature.Lambda3);
         final double Lambda = Lambda(features);
-        return Lambda1 / Lambda + Lambda2 / Lambda;
+        return Lambda1 / Lambda + Lambda2 / Lambda + Lambda3 / Lambda;
     }
 
     public double D2N(Map<SystemFeature, Double> features) {
@@ -245,6 +247,12 @@ public class SystemMMnPriorCalculator {
         return Lambda2 * WAvg2;
     }
 
+    public double QAvg3(Map<SystemFeature, Double> features) {
+        final double Lambda3 = features.get(SystemFeature.Lambda3);
+        final double WAvg3 = WAvg3(features);
+        return Lambda3 * WAvg3;
+    }
+
     public double NAvg1(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double TAvg1 = TAvg1(features);
@@ -255,6 +263,12 @@ public class SystemMMnPriorCalculator {
         final double Lambda2 = features.get(SystemFeature.Lambda2);
         final double TAvg2 = TAvg2(features);
         return Lambda2 * TAvg2;
+    }
+
+    public double NAvg3(Map<SystemFeature, Double> features) {
+        final double Lambda3 = features.get(SystemFeature.Lambda3);
+        final double TAvg3 = TAvg3(features);
+        return Lambda3 * TAvg3;
     }
 
     public double Ro(Map<SystemFeature, Double> features) {
@@ -286,6 +300,12 @@ public class SystemMMnPriorCalculator {
         return WAvg2 + SAvg;
     }
 
+    public double TAvg3(Map<SystemFeature, Double> features) {
+        final double WAvg3 = WAvg3(features);
+        final double SAvg = SAvg(features);
+        return WAvg3 + SAvg;
+    }
+
     public double WAvg(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double Lambda2 = features.get(SystemFeature.Lambda2);
@@ -297,6 +317,15 @@ public class SystemMMnPriorCalculator {
         return part1 + part2;
     }
 
+    public double WAvg1(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double PNc = PNc(features);
+        final double SAvg = SAvg(features);
+        final double divisor = c * (1 - (Lambda1 * SAvg / c));
+        return PNc * SAvg / divisor;
+    }
+
     public double WAvg2(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Lambda1 = features.get(SystemFeature.Lambda1);
@@ -304,6 +333,19 @@ public class SystemMMnPriorCalculator {
         final double Lambda = Lambda(features);
         final double PNc = PNc(features);
         final double divisorPart1 = 1 - SAvg * Lambda1 / c;
+        final double divisorPart2 = 1 - Lambda * SAvg / c;
+        final double divisor = c * divisorPart1 * divisorPart2;
+        return PNc * SAvg / divisor;
+    }
+
+    public double WAvg3(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double SAvg = SAvg(features);
+        final double Lambda = Lambda(features);
+        final double PNc = PNc(features);
+        final double divisorPart1 = 1 - SAvg * (Lambda1 + Lambda2) / c;
         final double divisorPart2 = 1 - Lambda * SAvg / c;
         final double divisor = c * divisorPart1 * divisorPart2;
         return PNc * SAvg / divisor;
@@ -319,15 +361,6 @@ public class SystemMMnPriorCalculator {
             result = 1 - exp((-c * t * (1 - a)) / SAvg);
         }
         return result;
-    }
-
-    public double WAvg1(Map<SystemFeature, Double> features) {
-        final double c = features.get(SystemFeature.c);
-        final double Lambda1 = features.get(SystemFeature.Lambda1);
-        final double PNc = PNc(features);
-        final double SAvg = SAvg(features);
-        final double divisor = c * (1 - (Lambda1 * SAvg / c));
-        return PNc * SAvg / divisor;
     }
 
     public double a(Map<SystemFeature, Double> features) {

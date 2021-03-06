@@ -1,7 +1,8 @@
 {
   "featureConditions": {
-    "Lambda1": 0.16,
-    "Lambda2": 0.16,
+    "Lambda1": 0.1,
+    "Lambda2": 0.1,
+    "Lambda3": 0.1,
     "Mu": 1,
     "c": 1,
     "n": 1,
