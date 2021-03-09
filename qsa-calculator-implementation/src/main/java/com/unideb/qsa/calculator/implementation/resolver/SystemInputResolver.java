@@ -20,7 +20,8 @@ public class SystemInputResolver {
 
     private static final String[] DEFAULT_EMPTY_VALUE = new String[]{};
     private static final String CONFIG_INPUTS_DEFAULT = "INPUTS_DEFAULT";
-    private static final String CONFIG_INPUTS_REQUIRED = "INPUTS_REQUIRED";
+    private static final String CONFIG_INPUT_GROUPS = "INPUT_GROUPS";
+    //private static final String CONFIG_INPUTS_REQUIRED = "INPUTS_REQUIRED";
     private static final String CONFIG_INPUTS_TYPE_FRACTION = "INPUTS_TYPE_FRACTION";
     private static final String ERROR_NO_FEATURE_ID = "No system input found for [%s]";
 

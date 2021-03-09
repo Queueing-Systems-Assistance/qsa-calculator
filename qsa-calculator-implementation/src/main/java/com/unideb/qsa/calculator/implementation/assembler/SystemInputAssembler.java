@@ -42,7 +42,7 @@ public class SystemInputAssembler {
                 .withId(inputId)
                 .withName(systemFeatureAssembler.findI18nKey(inputId, resolvedI18nKeys, String.format(FEATURE_NAME_KEY, inputId)))
                 .withDescription(systemFeatureAssembler.findI18nKey(inputId, resolvedI18nKeys, String.format(FEATURE_DESCRIPTION_KEY, inputId)))
-                .withRequired(Arrays.asList(inputRequiredIds).contains(inputId))
+                .withInputGroup(Arrays.asList(inputRequiredIds).contains(inputId))
                 .withTypeFraction(Arrays.asList(inputTypeFractionIds).contains(inputId))
                 .build();
     }
