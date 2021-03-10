@@ -56,7 +56,6 @@ public class QualifierAssembler {
                 .build();
     }
 
-
     /**
      * Assembles a {@link Qualifier}. It's useful for resolving default config values.
      * @return assembled qualifier

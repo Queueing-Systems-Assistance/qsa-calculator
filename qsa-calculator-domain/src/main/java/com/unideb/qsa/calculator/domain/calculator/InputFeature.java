@@ -14,14 +14,14 @@ public final class InputFeature {
     private final String name;
     private final String description;
     private final boolean typeFraction;
-    private final boolean required;
+    private final InputGroup inputGroup;
 
     private InputFeature(InputFeature.Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.description = builder.description;
         this.typeFraction = builder.typeFraction;
-        this.required = builder.required;
+        this.inputGroup = builder.inputGroup;
     }
 
     public String getDescription() {
@@ -32,8 +32,8 @@ public final class InputFeature {
         return typeFraction;
     }
 
-    public boolean isRequired() {
-        return required;
+    public InputGroup getInputGroup() {
+        return inputGroup;
     }
 
     public String getId() {
@@ -52,7 +52,7 @@ public final class InputFeature {
         private String name;
         private String id;
         private String description;
-        private boolean required;
+        private InputGroup inputGroup;
         private boolean typeFraction;
 
         public InputFeature.Builder withName(String name) {
@@ -70,8 +70,8 @@ public final class InputFeature {
             return this;
         }
 
-        public InputFeature.Builder withRequired(boolean required) {
-            this.required = required;
+        public InputFeature.Builder withInputGroup(InputGroup inputGroup) {
+            this.inputGroup = inputGroup;
             return this;
         }
 

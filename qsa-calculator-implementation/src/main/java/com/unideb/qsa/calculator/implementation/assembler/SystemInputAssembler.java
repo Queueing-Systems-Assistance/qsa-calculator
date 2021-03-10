@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.InputFeature;
+import com.unideb.qsa.calculator.implementation.resolver.InputGroupResolver;
 
 /**
  * Creates {@link InputFeature}.
@@ -22,27 +23,28 @@ public class SystemInputAssembler {
 
     @Autowired
     private SystemFeatureAssembler systemFeatureAssembler;
+    @Autowired
+    private InputGroupResolver inputGroupResolver;
 
     /**
      * Assembles a {@link InputFeature} based on its id.
      * @param inputIds             input feature ids
-     * @param inputRequiredIds     features are required or not
      * @param inputTypeFractionIds features type are fraction or not
      * @return Optional {@link InputFeature} if the feature exists, {@link Optional#empty()} otherwise
      */
-    public List<InputFeature> assemble(String[] inputIds, String[] inputRequiredIds, String[] inputTypeFractionIds) {
+    public List<InputFeature> assemble(String[] inputIds, String[] inputTypeFractionIds, String systemId) {
         Map<String, String> resolvedI18nKeys = systemFeatureAssembler.resolveI18nKeys(inputIds);
         return Arrays.stream(inputIds)
-                     .map(inputId -> assembleInputFeature(resolvedI18nKeys, inputId, inputRequiredIds, inputTypeFractionIds))
+                     .map(inputId -> assembleInputFeature(resolvedI18nKeys, inputId, inputTypeFractionIds, systemId))
                      .collect(Collectors.toList());
     }
 
-    private InputFeature assembleInputFeature(Map<String, String> resolvedI18nKeys, String inputId, String[] inputRequiredIds, String[] inputTypeFractionIds) {
+    private InputFeature assembleInputFeature(Map<String, String> resolvedI18nKeys, String inputId, String[] inputTypeFractionIds, String systemId) {
         return new InputFeature.Builder()
                 .withId(inputId)
                 .withName(systemFeatureAssembler.findI18nKey(inputId, resolvedI18nKeys, String.format(FEATURE_NAME_KEY, inputId)))
                 .withDescription(systemFeatureAssembler.findI18nKey(inputId, resolvedI18nKeys, String.format(FEATURE_DESCRIPTION_KEY, inputId)))
-                .withRequired(Arrays.asList(inputRequiredIds).contains(inputId))
+                .withInputGroup(inputGroupResolver.resolve(systemId, inputId))
                 .withTypeFraction(Arrays.asList(inputTypeFractionIds).contains(inputId))
                 .build();
     }

@@ -20,7 +20,6 @@ public class SystemInputResolver {
 
     private static final String[] DEFAULT_EMPTY_VALUE = new String[]{};
     private static final String CONFIG_INPUTS_DEFAULT = "INPUTS_DEFAULT";
-    private static final String CONFIG_INPUTS_REQUIRED = "INPUTS_REQUIRED";
     private static final String CONFIG_INPUTS_TYPE_FRACTION = "INPUTS_TYPE_FRACTION";
     private static final String ERROR_NO_FEATURE_ID = "No system input found for [%s]";
 
@@ -40,8 +39,7 @@ public class SystemInputResolver {
         Qualifier qualifier = qualifierAssembler.assemble(systemId);
         String[] inputIds = configResolver.resolve(CONFIG_INPUTS_DEFAULT, qualifier, String[].class)
                                           .orElseThrow(() -> new QSAServerException(String.format(ERROR_NO_FEATURE_ID, systemId)));
-        String[] inputRequiredIds = configResolver.resolve(CONFIG_INPUTS_REQUIRED, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
         String[] inputTypeFractionIds = configResolver.resolve(CONFIG_INPUTS_TYPE_FRACTION, qualifier, String[].class).orElse(DEFAULT_EMPTY_VALUE);
-        return systemInputAssembler.assemble(inputIds, inputRequiredIds, inputTypeFractionIds);
+        return systemInputAssembler.assemble(inputIds, inputTypeFractionIds, systemId);
     }
 }
