@@ -1,7 +1,5 @@
 package com.unideb.qsa.calculator.implementation.resolver;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +22,9 @@ public class InputGroupResolver {
 
     /**
      * Resolves an {@link InputGroup} based on a system id and a system feature id.
-     * @param systemId             system id
-     * @param featureId            system feature id
-     * @return Optional {@link InputGroup} if the input group is valid, {@link Optional#empty()} otherwise
+     * @param systemId system id
+     * @param featureId system feature id
+     * @return resolved {@link InputGroup} if the config is valid
      */
     public InputGroup resolve(String systemId, String featureId) {
         return configResolver.resolve(CONFIG_INPUT_GROUPS, new QualifierAssembler().assemble(systemId, featureId), InputGroup.class)
