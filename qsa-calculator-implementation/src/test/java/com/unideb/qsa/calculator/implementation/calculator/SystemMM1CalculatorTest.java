@@ -403,6 +403,17 @@ public class SystemMM1CalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 9.01511111111111;
+        // WHEN
+        double result = systemMM1CalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> systemMM1 = new HashMap<>();
         systemMM1.put(SystemFeature.Lambda, 0.16);
@@ -410,6 +421,11 @@ public class SystemMM1CalculatorTest {
         systemMM1.put(SystemFeature.n, 1.0);
         systemMM1.put(SystemFeature.r, 1.0);
         systemMM1.put(SystemFeature.t, 1.0);
+        systemMM1.put(SystemFeature.CS, 2.2);
+        systemMM1.put(SystemFeature.CWS, 1.3);
+        systemMM1.put(SystemFeature.CI, 0.5);
+        systemMM1.put(SystemFeature.CSR, 4.5);
+        systemMM1.put(SystemFeature.R, 1.1);
         return systemMM1;
     }
 

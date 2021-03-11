@@ -39,5 +39,11 @@ public enum SystemFeature {
     p3,
     r,
     t,
-    Theta
+    Theta,
+    CS,
+    CWS,
+    CI,
+    CSR,
+    CLC,
+    R
 }

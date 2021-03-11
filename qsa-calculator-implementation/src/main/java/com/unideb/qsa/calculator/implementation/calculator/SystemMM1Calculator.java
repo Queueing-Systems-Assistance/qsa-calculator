@@ -1,5 +1,6 @@
 package com.unideb.qsa.calculator.implementation.calculator;
 
+import static com.unideb.qsa.calculator.implementation.calculator.helper.CalculatorHelper.copyOf;
 import static java.lang.Math.exp;
 import static java.lang.Math.log;
 import static java.lang.Math.max;
@@ -241,5 +242,19 @@ public class SystemMM1Calculator {
         final double part1 = eSPow2 / pow(1 - Ro, 3);
         final double part2 = pow(eS, 2) / pow(1 - Ro, 2);
         return part1 - part2;
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double NAvg = NAvg(features);
+        final Map<SystemFeature, Double> P0Features = copyOf(features);
+        P0Features.put(SystemFeature.n, 0.0);
+        final double P0 = Pn(P0Features);
+        return CS + NAvg * CWS + P0 * CI + CSR - Lambda * R;
     }
 }
