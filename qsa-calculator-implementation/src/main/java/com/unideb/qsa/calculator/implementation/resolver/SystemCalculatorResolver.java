@@ -1,6 +1,7 @@
 package com.unideb.qsa.calculator.implementation.resolver;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,10 +42,17 @@ public class SystemCalculatorResolver {
      */
     public List<String> resolve(String systemId, String outputId, Map<SystemFeature, Double> features) {
         List<String> result = validateOutputFeature(features, systemId, outputId);
+        setDefaultValues(features);
         if (result.isEmpty()) {
             result = calculateResult(features, systemId, outputId);
         }
         return result;
+    }
+
+    private void setDefaultValues(Map<SystemFeature, Double> features) {
+        Arrays.stream(SystemFeature.values())
+              .filter(systemFeature -> !features.containsKey(systemFeature))
+              .forEach(systemFeature -> features.put(systemFeature, 0.0));
     }
 
     private List<String> validateOutputFeature(Map<SystemFeature, Double> features, String systemId, String outputId) {
