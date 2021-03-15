@@ -20,6 +20,12 @@ public class SystemMM1BalkingCalculator {
         return Ro(features);
     }
 
+    public double PJ(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double LambdaAvg = LambdaAvg(features);
+        return LambdaAvg / Lambda;
+    }
+
     public double bn(Map<SystemFeature, Double> features) {
         final double n = features.get(SystemFeature.n);
         return 1 / (1 + n);
