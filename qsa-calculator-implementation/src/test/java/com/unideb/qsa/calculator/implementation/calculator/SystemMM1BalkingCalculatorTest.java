@@ -29,6 +29,17 @@ public class SystemMM1BalkingCalculatorTest {
     }
 
     @Test
+    public void PJTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.7869386;
+        // WHEN
+        double result = systemMM1BalkingCalculatorUnderTest.PJ(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void bnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
