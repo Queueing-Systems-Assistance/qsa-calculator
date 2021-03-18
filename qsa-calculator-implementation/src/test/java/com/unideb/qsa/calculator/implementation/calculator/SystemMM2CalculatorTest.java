@@ -315,6 +315,17 @@ public class SystemMM2CalculatorTest {
     }
 
     @Test
+    public void cAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.5;
+        // WHEN
+        double result = systemMM2CalculatorUnderTest.cAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void EDeltarTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -325,14 +336,30 @@ public class SystemMM2CalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 14.502333333333334;
+        // WHEN
+        double result = systemMM2CalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMM2 = new HashMap<>();
-        systemMM2.put(SystemFeature.Lambda, 0.31);
-        systemMM2.put(SystemFeature.Mu, 0.62);
-        systemMM2.put(SystemFeature.n, 3.0);
-        systemMM2.put(SystemFeature.r, 98.0);
-        systemMM2.put(SystemFeature.t, 3.0);
-        return systemMM2;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda, 0.31);
+        features.put(SystemFeature.Mu, 0.62);
+        features.put(SystemFeature.n, 3.0);
+        features.put(SystemFeature.r, 98.0);
+        features.put(SystemFeature.t, 3.0);
+        features.put(SystemFeature.CS, 2.2);
+        features.put(SystemFeature.CWS, 1.3);
+        features.put(SystemFeature.CI, 0.5);
+        features.put(SystemFeature.CSR, 4.5);
+        features.put(SystemFeature.R, 1.1);
+        return features;
     }
 
 }

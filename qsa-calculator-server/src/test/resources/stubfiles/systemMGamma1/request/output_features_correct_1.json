@@ -2,6 +2,11 @@
   "featureConditions": {
     "Lambda": 1,
     "Alpha": 1.2,
-    "Mu": 3.1
+    "Mu": 3.1,
+    "CS": 1.0,
+    "CWS": 2.2,
+    "CI": 3.3,
+    "CSR": 4.4,
+    "R": 1.1
   }
 }

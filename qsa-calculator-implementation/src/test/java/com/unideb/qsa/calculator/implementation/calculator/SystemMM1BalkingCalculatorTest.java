@@ -204,13 +204,29 @@ public class SystemMM1BalkingCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 4.36086551592984;
+        // WHEN
+        double result = systemMM1BalkingCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMM1Dec = new HashMap<>();
-        systemMM1Dec.put(SystemFeature.Lambda, 0.33);
-        systemMM1Dec.put(SystemFeature.Mu, 0.66);
-        systemMM1Dec.put(SystemFeature.n, 2.0);
-        systemMM1Dec.put(SystemFeature.t, 1.0);
-        return systemMM1Dec;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda, 0.33);
+        features.put(SystemFeature.Mu, 0.66);
+        features.put(SystemFeature.n, 2.0);
+        features.put(SystemFeature.t, 1.0);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
+        return features;
     }
 
 }

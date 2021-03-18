@@ -40,6 +40,17 @@ public class SystemMHyper12CalculatorTest {
     }
 
     @Test
+    public void P0Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.12878787878787878;
+        // WHEN
+        double result = systemMHyper12CalculatorUnderTest.P0(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void C2STest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -277,6 +288,11 @@ public class SystemMHyper12CalculatorTest {
         features.put(SystemFeature.Mu2, 1.2);
         features.put(SystemFeature.p1, 0.5);
         features.put(SystemFeature.p2, 0.5);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
         return features;
     }
 }

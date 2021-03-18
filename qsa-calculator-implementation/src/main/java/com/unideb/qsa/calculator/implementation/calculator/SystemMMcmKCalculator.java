@@ -309,6 +309,21 @@ public class SystemMMcmKCalculator {
         return dividend / divisor;
     }
 
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double CLC = features.get(SystemFeature.CLC);
+        final double R = features.get(SystemFeature.R);
+        final double LambdaAvg = LambdaAvg(features);
+        final double PB = PB(features);
+        final double NAvg = NAvg(features);
+        final double cAvg = cAvg(features);
+        return c * CS + NAvg * CWS + (c - cAvg) * CI + c * CSR + LambdaAvg * PB * CLC - LambdaAvg * R;
+    }
+
     private double ej(Map<SystemFeature, Double> features, double j) {
         final double LambdaFin = features.get(SystemFeature.LambdaFin);
         final double c = features.get(SystemFeature.c);
@@ -318,7 +333,7 @@ public class SystemMMcmKCalculator {
         return dividend / divisor;
     }
 
-    public double aj(Map<SystemFeature, Double> features, double j) {
+    private double aj(Map<SystemFeature, Double> features, double j) {
         final double c = features.get(SystemFeature.c);
         Map<SystemFeature, Double> PijFeatures = copyOf(features);
         PijFeatures.put(SystemFeature.n, j);

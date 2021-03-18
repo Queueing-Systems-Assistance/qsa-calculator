@@ -29,6 +29,17 @@ public class SystemMMnPriorCalculatorTest {
     }
 
     @Test
+    public void cAvgTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.8703703703703703;
+        // WHEN
+        double result = systemMMnPriorCalculatorUnderTest.cAvg(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void aTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -448,17 +459,33 @@ public class SystemMMnPriorCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 14.260647707464207;
+        // WHEN
+        double result = systemMMnPriorCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMMnPrior = new HashMap<>();
-        systemMMnPrior.put(SystemFeature.Lambda1, 0.17);
-        systemMMnPrior.put(SystemFeature.Lambda2, 0.1);
-        systemMMnPrior.put(SystemFeature.Lambda3, 0.2);
-        systemMMnPrior.put(SystemFeature.Mu, 0.54);
-        systemMMnPrior.put(SystemFeature.c, 2.0);
-        systemMMnPrior.put(SystemFeature.n, 3.0);
-        systemMMnPrior.put(SystemFeature.r, 98.0);
-        systemMMnPrior.put(SystemFeature.t, 2.0);
-        return systemMMnPrior;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda1, 0.17);
+        features.put(SystemFeature.Lambda2, 0.1);
+        features.put(SystemFeature.Lambda3, 0.2);
+        features.put(SystemFeature.Mu, 0.54);
+        features.put(SystemFeature.c, 2.0);
+        features.put(SystemFeature.n, 3.0);
+        features.put(SystemFeature.r, 98.0);
+        features.put(SystemFeature.t, 2.0);
+        features.put(SystemFeature.CS, 2.2);
+        features.put(SystemFeature.CWS, 1.3);
+        features.put(SystemFeature.CI, 0.5);
+        features.put(SystemFeature.CSR, 4.5);
+        features.put(SystemFeature.R, 1.1);
+        return features;
     }
 
 }

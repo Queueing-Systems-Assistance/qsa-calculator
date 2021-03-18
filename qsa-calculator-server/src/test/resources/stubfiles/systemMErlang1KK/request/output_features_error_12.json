@@ -1,0 +1,14 @@
+{
+  "featureConditions": {
+    "nErlang": 1,
+    "LambdaFin": 1,
+    "Mu": 1,
+    "KFin": 1,
+    "n": 1,
+    "CS": 1,
+    "CWS": 1,
+    "CI": -1,
+    "CSR": 1,
+    "R": 1
+  }
+}

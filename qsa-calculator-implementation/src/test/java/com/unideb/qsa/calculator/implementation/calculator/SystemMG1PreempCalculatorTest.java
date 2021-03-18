@@ -139,6 +139,17 @@ public class SystemMG1PreempCalculatorTest {
     }
 
     @Test
+    public void P0Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.38;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.P0(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void WAvg1Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -435,6 +446,17 @@ public class SystemMG1PreempCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 5.153000000000006;
+        // WHEN
+        double result = systemMG1PreempCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
         features.put(SystemFeature.Lambda1, 1.0);
@@ -449,6 +471,11 @@ public class SystemMG1PreempCalculatorTest {
         features.put(SystemFeature.eSc3, 0.2);
         features.put(SystemFeature.eSPow2c3, 0.4);
         features.put(SystemFeature.eSPow3c3, 0.165);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
         return features;
     }
 }

@@ -39,7 +39,7 @@
     "id": "D2S3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -60,7 +60,7 @@
     "id": "Ro3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -69,6 +69,12 @@
     "id": "Ro",
     "values": [
       "0.43"
+    ]
+  },
+  {
+    "id": "P0",
+    "values": [
+      "0.5700000000000001"
     ]
   },
   {
@@ -87,7 +93,7 @@
     "id": "WAvg3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -114,7 +120,7 @@
     "id": "D2W3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -141,7 +147,7 @@
     "id": "EW2c3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -168,7 +174,7 @@
     "id": "QAvg3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -195,7 +201,7 @@
     "id": "TAvg3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -222,7 +228,7 @@
     "id": "D2T3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -249,7 +255,7 @@
     "id": "NAvg3",
     "values": [
       "The <b>E[S<sub>3</sub>]</b> value should be higher than <b>0</b>",
-      "The <b>λ<sub>3</sub></b> value should be higher than <b>0</b>",
+      "The <b>╬╗<sub>3</sub></b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>2</sup>]</b> value should be higher than <b>0</b>",
       "The <b>E[S<sub>3</sub><sup>3</sup>]</b> value should be higher than <b>0</b>"
     ]
@@ -258,6 +264,12 @@
     "id": "NAvg",
     "values": [
       "4.528947368421053"
+    ]
+  },
+  {
+    "id": "ECost",
+    "values": [
+      "15.81468421052632"
     ]
   }
 ]

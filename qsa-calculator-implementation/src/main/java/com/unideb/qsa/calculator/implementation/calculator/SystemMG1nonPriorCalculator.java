@@ -87,6 +87,11 @@ public class SystemMG1nonPriorCalculator {
         return Lambda * SAvg;
     }
 
+    public double P0(Map<SystemFeature, Double> features) {
+        final double Ro = Ro(features);
+        return 1 - Ro;
+    }
+
     public double WAvg(Map<SystemFeature, Double> features) {
         final double Lambda = Lambda(features);
         final double eSPow2 = eSPow2(features);
@@ -218,5 +223,17 @@ public class SystemMG1nonPriorCalculator {
         final double Lambda = Lambda(features);
         final double TAvg = TAvg(features);
         return Lambda * TAvg;
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double Lambda = Lambda(features);
+        final double NAvg = NAvg(features);
+        final double P0 = P0(features);
+        return CS + NAvg * CWS + P0 * CI + CSR - Lambda * R;
     }
 }

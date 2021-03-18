@@ -277,6 +277,10 @@ public class SystemMMnCalculator {
         return 1 - P0;
     }
 
+    public double cAvg(Map<SystemFeature, Double> features) {
+        return Ro(features);
+    }
+
     public double EDelta(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double Mu = features.get(SystemFeature.Mu);
@@ -330,5 +334,18 @@ public class SystemMMnCalculator {
             result = Ro * recursive / (c + Ro * recursive);
         }
         return result;
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double c = features.get(SystemFeature.c);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double NAvg = NAvg(features);
+        final double cAvg = cAvg(features);
+        return c * CS + NAvg * CWS + (c - cAvg) * CI + c * CSR - Lambda * R;
     }
 }

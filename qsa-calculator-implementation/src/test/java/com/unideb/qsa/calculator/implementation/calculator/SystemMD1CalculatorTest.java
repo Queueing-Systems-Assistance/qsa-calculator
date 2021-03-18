@@ -40,6 +40,17 @@ public class SystemMD1CalculatorTest {
     }
 
     @Test
+    public void P0Test() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.6;
+        // WHEN
+        double result = systemMD1CalculatorUnderTest.P0(features);
+        // THEN
+        Assert.assertEquals(result, expected, DELTA);
+    }
+
+    @Test
     public void PnTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
@@ -292,12 +303,28 @@ public class SystemMD1CalculatorTest {
         Assert.assertEquals(result,expected,  DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 0.926666666;
+        // WHEN
+        double result = systemMD1CalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
         features.put(SystemFeature.Lambda, 2.0);
         features.put(SystemFeature.Ds, 0.2);
         features.put(SystemFeature.n, 2.0);
         features.put(SystemFeature.t, 4.0);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
         return features;
     }
 }
