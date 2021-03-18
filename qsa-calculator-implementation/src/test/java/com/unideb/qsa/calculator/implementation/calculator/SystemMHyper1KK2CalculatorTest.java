@@ -226,15 +226,31 @@ public class SystemMHyper1KK2CalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 4.733145954627585;
+        // WHEN
+        double result = systemMHyper1KK2CalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMHyper1KK = new HashMap<>();
-        systemMHyper1KK.put(SystemFeature.LambdaFin, 1.5);
-        systemMHyper1KK.put(SystemFeature.Mu1, 1.2);
-        systemMHyper1KK.put(SystemFeature.Mu2, 1.0);
-        systemMHyper1KK.put(SystemFeature.p1, 0.2);
-        systemMHyper1KK.put(SystemFeature.p2, 0.8);
-        systemMHyper1KK.put(SystemFeature.KFin, 3.0);
-        systemMHyper1KK.put(SystemFeature.n, 1.0);
-        return systemMHyper1KK;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.LambdaFin, 1.5);
+        features.put(SystemFeature.Mu1, 1.2);
+        features.put(SystemFeature.Mu2, 1.0);
+        features.put(SystemFeature.p1, 0.2);
+        features.put(SystemFeature.p2, 0.8);
+        features.put(SystemFeature.KFin, 3.0);
+        features.put(SystemFeature.n, 1.0);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
+        return features;
     }
 }

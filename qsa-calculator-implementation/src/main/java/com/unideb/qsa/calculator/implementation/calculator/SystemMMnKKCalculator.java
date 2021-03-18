@@ -261,6 +261,19 @@ public class SystemMMnKKCalculator {
         return result;
     }
 
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double LambdaAvg = LambdaAvg(features);
+        final double NAvg = NAvg(features);
+        final double cAvg = cAvg(features);
+        return c * CS + NAvg * CWS + (c - cAvg) * CI + c * CSR - LambdaAvg * R;
+    }
+
     private double C1(Map<SystemFeature, Double> features) {
         final double C2 = C2(features);
         return 1 + C2;

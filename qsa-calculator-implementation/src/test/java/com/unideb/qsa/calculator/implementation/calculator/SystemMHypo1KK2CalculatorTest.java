@@ -227,12 +227,17 @@ public class SystemMHypo1KK2CalculatorTest {
     }
 
     public Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMHypo1KK = new HashMap<>();
-        systemMHypo1KK.put(SystemFeature.LambdaFin, 1.5);
-        systemMHypo1KK.put(SystemFeature.Mu1, 1.2);
-        systemMHypo1KK.put(SystemFeature.Mu2, 1.0);
-        systemMHypo1KK.put(SystemFeature.KFin, 3.0);
-        systemMHypo1KK.put(SystemFeature.n, 2.0);
-        return systemMHypo1KK;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.LambdaFin, 1.5);
+        features.put(SystemFeature.Mu1, 1.2);
+        features.put(SystemFeature.Mu2, 1.0);
+        features.put(SystemFeature.KFin, 3.0);
+        features.put(SystemFeature.n, 2.0);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
+        return features;
     }
 }

@@ -243,4 +243,18 @@ public class SystemMM1KCalculator {
         }
         return pow(E, -Mut) * result;
     }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double CLC = features.get(SystemFeature.CLC);
+        final double R = features.get(SystemFeature.R);
+        final double LambdaAvg = LambdaAvg(features);
+        final double PK = PK(features);
+        final double NAvg = NAvg(features);
+        final double P0 = P0(features);
+        return CS + NAvg * CWS + P0 * CI + CSR + LambdaAvg * PK * CLC - LambdaAvg * R;
+    }
 }

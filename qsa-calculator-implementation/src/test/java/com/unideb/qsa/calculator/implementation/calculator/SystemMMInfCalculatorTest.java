@@ -139,11 +139,11 @@ public class SystemMMInfCalculatorTest {
     }
 
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMMInf = new HashMap<>();
-        systemMMInf.put(SystemFeature.Mu, 1.62);
-        systemMMInf.put(SystemFeature.n, 3.0);
-        systemMMInf.put(SystemFeature.t, 3.0);
-        systemMMInf.put(SystemFeature.Lambda, 0.81);
-        return systemMMInf;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Mu, 1.62);
+        features.put(SystemFeature.n, 3.0);
+        features.put(SystemFeature.t, 3.0);
+        features.put(SystemFeature.Lambda, 0.81);
+        return features;
     }
 }

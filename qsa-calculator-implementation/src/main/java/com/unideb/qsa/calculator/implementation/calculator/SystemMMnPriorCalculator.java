@@ -277,6 +277,10 @@ public class SystemMMnPriorCalculator {
         return Lambda / Mu;
     }
 
+    public double cAvg(Map<SystemFeature, Double> features) {
+        return Ro(features);
+    }
+
     public double SAvg(Map<SystemFeature, Double> features) {
         final double Mu = features.get(SystemFeature.Mu);
         return 1 / Mu;
@@ -376,6 +380,19 @@ public class SystemMMnPriorCalculator {
         final double dividend = 1 - P0;
         final double divisor = (Lambda1 + Lambda2) * P0;
         return dividend / divisor;
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double LambdaAvg = LambdaAvg(features);
+        final double NAvg = NAvg(features);
+        final double cAvg = cAvg(features);
+        return c * CS + NAvg * CWS + (c - cAvg) * CI + c * CSR - LambdaAvg * R;
     }
 
     private double ErlangBRecursive(double c, double Ro) {

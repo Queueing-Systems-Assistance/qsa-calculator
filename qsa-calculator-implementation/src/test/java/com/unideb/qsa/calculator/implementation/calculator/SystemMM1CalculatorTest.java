@@ -415,18 +415,18 @@ public class SystemMM1CalculatorTest {
     }
 
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMM1 = new HashMap<>();
-        systemMM1.put(SystemFeature.Lambda, 0.16);
-        systemMM1.put(SystemFeature.Mu, 0.25);
-        systemMM1.put(SystemFeature.n, 1.0);
-        systemMM1.put(SystemFeature.r, 1.0);
-        systemMM1.put(SystemFeature.t, 1.0);
-        systemMM1.put(SystemFeature.CS, 2.2);
-        systemMM1.put(SystemFeature.CWS, 1.3);
-        systemMM1.put(SystemFeature.CI, 0.5);
-        systemMM1.put(SystemFeature.CSR, 4.5);
-        systemMM1.put(SystemFeature.R, 1.1);
-        return systemMM1;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda, 0.16);
+        features.put(SystemFeature.Mu, 0.25);
+        features.put(SystemFeature.n, 1.0);
+        features.put(SystemFeature.r, 1.0);
+        features.put(SystemFeature.t, 1.0);
+        features.put(SystemFeature.CS, 2.2);
+        features.put(SystemFeature.CWS, 1.3);
+        features.put(SystemFeature.CI, 0.5);
+        features.put(SystemFeature.CSR, 4.5);
+        features.put(SystemFeature.R, 1.1);
+        return features;
     }
 
 }

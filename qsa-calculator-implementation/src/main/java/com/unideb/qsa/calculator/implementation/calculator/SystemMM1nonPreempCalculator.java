@@ -244,4 +244,19 @@ public class SystemMM1nonPreempCalculator {
         final double divisor = (Lambda1 + Lambda2) * P0;
         return dividend / divisor;
     }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double NAvg = NAvg(features);
+        final Map<SystemFeature, Double> P0Features = copyOf(features);
+        P0Features.put(SystemFeature.n, 0.0);
+        final double P0 = Pn(P0Features);
+        return CS + NAvg * CWS + P0 * CI + CSR - (Lambda1 + Lambda2) * R;
+    }
 }

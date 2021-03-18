@@ -1,0 +1,14 @@
+{
+  "featureConditions": {
+    "LambdaFin": 3,
+    "KFin": 4,
+    "Mu": 2,
+    "n": 1,
+    "t": 2,
+    "CS": -1,
+    "CWS": 1,
+    "CI": 1,
+    "CSR": 1,
+    "R": 1
+  }
+}

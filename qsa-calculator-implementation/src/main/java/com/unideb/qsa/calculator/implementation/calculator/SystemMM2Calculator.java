@@ -244,6 +244,10 @@ public class SystemMM2Calculator {
         return 1 - P0;
     }
 
+    public double cAvg(Map<SystemFeature, Double> features) {
+        return Ro(features);
+    }
+
     public double EDeltar(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
         final double P0 = P0(features);
@@ -264,5 +268,17 @@ public class SystemMM2Calculator {
         final double a = a(features);
         final double divisor = 2 * (1 - a) - 1;
         return PN2 / divisor;
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double NAvg = NAvg(features);
+        final double cAvg = cAvg(features);
+        return 2 * CS + NAvg * CWS + (2 - cAvg) * CI + 2 * CSR - Lambda * R;
     }
 }

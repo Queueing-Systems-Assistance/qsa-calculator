@@ -303,15 +303,32 @@ public class SystemMMnKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 21.57482211008315;
+        // WHEN
+        double result = systemMMnKCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMMnK = new HashMap<>();
-        systemMMnK.put(SystemFeature.Lambda, 0.39);
-        systemMMnK.put(SystemFeature.Mu, 0.78);
-        systemMMnK.put(SystemFeature.n, 2.0);
-        systemMMnK.put(SystemFeature.c, 3.0);
-        systemMMnK.put(SystemFeature.K, 5.0);
-        systemMMnK.put(SystemFeature.t, 1.0);
-        return systemMMnK;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda, 0.39);
+        features.put(SystemFeature.Mu, 0.78);
+        features.put(SystemFeature.n, 2.0);
+        features.put(SystemFeature.c, 3.0);
+        features.put(SystemFeature.K, 5.0);
+        features.put(SystemFeature.t, 1.0);
+        features.put(SystemFeature.CS, 2.2);
+        features.put(SystemFeature.CWS, 1.3);
+        features.put(SystemFeature.CI, 0.5);
+        features.put(SystemFeature.CSR, 4.5);
+        features.put(SystemFeature.CLC, 1.2);
+        features.put(SystemFeature.R, 1.1);
+        return features;
     }
 
 }

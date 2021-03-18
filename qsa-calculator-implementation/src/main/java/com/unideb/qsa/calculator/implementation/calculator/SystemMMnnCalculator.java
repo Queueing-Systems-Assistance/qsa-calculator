@@ -145,6 +145,20 @@ public class SystemMMnnCalculator {
         return dividend / divisor;
     }
 
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double c = features.get(SystemFeature.c);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double CLC = features.get(SystemFeature.CLC);
+        final double R = features.get(SystemFeature.R);
+        final double LambdaAvg = LambdaAvg(features);
+        final double NAvg = NAvg(features);
+        final double BcRo = BcRo(features);
+        return c * CS + NAvg * CWS + (c - NAvg) * CI + c * CSR + LambdaAvg * BcRo * CLC - LambdaAvg * R;
+    }
+
     private double ErlangBRecursive(double c, double Ro) {
         final double result;
         if (c == 1.0) {

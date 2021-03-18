@@ -226,6 +226,17 @@ public class SystemMErlang1KKCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 5.57212447241;
+        // WHEN
+        double result = systemMErlang1KKCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
         Map<SystemFeature, Double> features = new HashMap<>();
         features.put(SystemFeature.nErlang, 3.0);
@@ -233,6 +244,11 @@ public class SystemMErlang1KKCalculatorTest {
         features.put(SystemFeature.Mu, 2.2);
         features.put(SystemFeature.KFin, 3.0);
         features.put(SystemFeature.n, 2.0);
+        features.put(SystemFeature.CS, 1.0);
+        features.put(SystemFeature.CWS, 2.0);
+        features.put(SystemFeature.CI, 3.1);
+        features.put(SystemFeature.CSR, 1.0);
+        features.put(SystemFeature.R, 2.0);
         return features;
     }
 }

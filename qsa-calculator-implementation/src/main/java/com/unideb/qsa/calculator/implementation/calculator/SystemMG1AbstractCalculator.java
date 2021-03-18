@@ -25,6 +25,11 @@ public abstract class SystemMG1AbstractCalculator {
         return Lambda * eS;
     }
 
+    public double P0(Map<SystemFeature, Double> features) {
+        final double Ro = Ro(features);
+        return 1 - Ro;
+    }
+
     public double PN1(Map<SystemFeature, Double> features) {
         return Ro(features);
     }
@@ -186,5 +191,17 @@ public abstract class SystemMG1AbstractCalculator {
         final double TAvg = TAvg(features);
         final double D2T = D2T(features);
         return TAvg + 2.0 * sqrt(D2T);
+    }
+
+    public double ECost(Map<SystemFeature, Double> features) {
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double CS = features.get(SystemFeature.CS);
+        final double CWS = features.get(SystemFeature.CWS);
+        final double CI = features.get(SystemFeature.CI);
+        final double CSR = features.get(SystemFeature.CSR);
+        final double R = features.get(SystemFeature.R);
+        final double NAvg = NAvg(features);
+        final double P0 = P0(features);
+        return CS + NAvg * CWS + P0 * CI + CSR - Lambda * R;
     }
 }

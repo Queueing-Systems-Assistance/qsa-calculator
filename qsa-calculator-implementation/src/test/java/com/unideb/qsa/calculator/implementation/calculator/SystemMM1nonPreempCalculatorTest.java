@@ -425,15 +425,31 @@ public class SystemMM1nonPreempCalculatorTest {
         Assert.assertEquals(result, expected, DELTA);
     }
 
+    @Test
+    public void ECostTest() {
+        // GIVEN
+        Map<SystemFeature, Double> features = createTestFeatures();
+        double expected = 9.01511111111111;
+        // WHEN
+        double result = systemMM1nonPreempCalculatorUnderTest.ECost(features);
+        // THEN
+        Assert.assertEquals(result,expected,  DELTA);
+    }
+
     private Map<SystemFeature, Double> createTestFeatures() {
-        Map<SystemFeature, Double> systemMM1nonPreemp = new HashMap<>();
-        systemMM1nonPreemp.put(SystemFeature.Lambda1, 0.04);
-        systemMM1nonPreemp.put(SystemFeature.Lambda2, 0.12);
-        systemMM1nonPreemp.put(SystemFeature.Mu, 0.25);
-        systemMM1nonPreemp.put(SystemFeature.n, 1.0);
-        systemMM1nonPreemp.put(SystemFeature.r, 1.0);
-        systemMM1nonPreemp.put(SystemFeature.t, 1.0);
-        return systemMM1nonPreemp;
+        Map<SystemFeature, Double> features = new HashMap<>();
+        features.put(SystemFeature.Lambda1, 0.04);
+        features.put(SystemFeature.Lambda2, 0.12);
+        features.put(SystemFeature.Mu, 0.25);
+        features.put(SystemFeature.n, 1.0);
+        features.put(SystemFeature.r, 1.0);
+        features.put(SystemFeature.t, 1.0);
+        features.put(SystemFeature.CS, 2.2);
+        features.put(SystemFeature.CWS, 1.3);
+        features.put(SystemFeature.CI, 0.5);
+        features.put(SystemFeature.CSR, 4.5);
+        features.put(SystemFeature.R, 1.1);
+        return features;
     }
 
 }
