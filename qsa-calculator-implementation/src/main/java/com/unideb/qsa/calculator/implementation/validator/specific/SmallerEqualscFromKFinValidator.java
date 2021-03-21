@@ -10,10 +10,12 @@ import com.unideb.qsa.calculator.domain.SystemFeature;
 import com.unideb.qsa.calculator.implementation.validator.FeatureValidator;
 
 /**
- * Validates c < KFin.
+ * Validates c <= KFin.
  */
 @Component
-public class SmallercFromKFinValidator extends FeatureValidator {
+public class SmallerEqualscFromKFinValidator extends FeatureValidator {
+
+    private static final String ERROR_MESSAGE = "error.validation.feature.c.should.be.smaller.or.equal.to.K";
 
     @Override
     public Optional<Map<String, List<String>>> validate(Map<SystemFeature, Double> features, String featureId) {
@@ -21,10 +23,10 @@ public class SmallercFromKFinValidator extends FeatureValidator {
         Optional<Map<String, List<String>>> result = Optional.empty();
         double c = features.get(SystemFeature.c);
         double KFin = features.get(SystemFeature.KFin);
-        if (c >= KFin) {
+        if (c > KFin) {
             result = Optional.of(Map.of(
-                    SystemFeature.c.name(), List.of("error.validation.feature.c.should.be.smaller.from.K"),
-                    SystemFeature.KFin.name(), List.of("error.validation.feature.c.should.be.smaller.from.K")));
+                    SystemFeature.c.name(), List.of(ERROR_MESSAGE),
+                    SystemFeature.KFin.name(), List.of(ERROR_MESSAGE)));
         }
         return result;
     }
