@@ -236,10 +236,18 @@ public class SystemMMnKCalculator {
         return sum;
     }
 
+    public double PW(Map<SystemFeature, Double> features) {
+        return 1 - Pe(features);
+    }
+
     public double EDelta(Map<SystemFeature, Double> features) {
-        final double US = US(features);
-        final double eAvg = eAvg(features);
-        return US * eAvg / (1 - US);
+        final double Lambda = features.get(SystemFeature.Lambda);
+        final double SAvg = SAvg(features);
+        final double a = a(features);
+        final double Pe = Pe(features);
+        final double dividend = a * SAvg;
+        final double divisor = (1 - a) * Lambda * Pe;
+        return dividend / divisor;
     }
 
     public double EDeltar(Map<SystemFeature, Double> features) {
