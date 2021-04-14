@@ -333,11 +333,11 @@ public class SystemMMnPriorCalculator {
     public double WAvg2(Map<SystemFeature, Double> features) {
         final double c = features.get(SystemFeature.c);
         final double Lambda1 = features.get(SystemFeature.Lambda1);
+        final double Lambda2 = features.get(SystemFeature.Lambda2);
         final double SAvg = SAvg(features);
-        final double Lambda = Lambda(features);
         final double PNc = PNc(features);
         final double divisorPart1 = 1 - SAvg * Lambda1 / c;
-        final double divisorPart2 = 1 - Lambda * SAvg / c;
+        final double divisorPart2 = 1 - (Lambda1 + Lambda2) * SAvg / c;
         final double divisor = c * divisorPart1 * divisorPart2;
         return PNc * SAvg / divisor;
     }
