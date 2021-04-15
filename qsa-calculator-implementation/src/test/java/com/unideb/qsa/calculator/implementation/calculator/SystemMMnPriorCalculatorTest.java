@@ -122,7 +122,7 @@ public class SystemMMnPriorCalculatorTest {
     public void WAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.18717642373556348;
+        double expected = 0.43265370076581067;
         // WHEN
         double result = systemMMnPriorCalculatorUnderTest.WAvg(features);
         // THEN
@@ -364,7 +364,7 @@ public class SystemMMnPriorCalculatorTest {
     public void TAvgTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.039028275587415;
+        double expected = 2.284505552617662;
         // WHEN
         double result = systemMMnPriorCalculatorUnderTest.TAvg(features);
         // THEN
@@ -419,7 +419,7 @@ public class SystemMMnPriorCalculatorTest {
     public void D2TTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 5.722032091539053;
+        double expected = 4.660702780243112;
         // WHEN
         double result = systemMMnPriorCalculatorUnderTest.D2T(features);
         // THEN
@@ -430,7 +430,7 @@ public class SystemMMnPriorCalculatorTest {
     public void PiT90Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 5.148728298853486;
+        double expected = 5.091031465309518;
         // WHEN
         double result = systemMMnPriorCalculatorUnderTest.PiT90(features);
         // THEN
@@ -441,7 +441,7 @@ public class SystemMMnPriorCalculatorTest {
     public void PiT95Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 6.823182157535216;
+        double expected = 6.602237725989749;
         // WHEN
         double result = systemMMnPriorCalculatorUnderTest.PiT95(features);
         // THEN
