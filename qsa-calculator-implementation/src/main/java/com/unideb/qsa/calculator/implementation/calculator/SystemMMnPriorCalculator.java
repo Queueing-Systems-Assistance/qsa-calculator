@@ -313,12 +313,15 @@ public class SystemMMnPriorCalculator {
     public double WAvg(Map<SystemFeature, Double> features) {
         final double Lambda1 = features.get(SystemFeature.Lambda1);
         final double Lambda2 = features.get(SystemFeature.Lambda2);
+        final double Lambda3 = features.get(SystemFeature.Lambda3);
         final double Lambda = Lambda(features);
         final double WAvg1 = WAvg1(features);
         final double WAvg2 = WAvg2(features);
+        final double WAvg3 = WAvg3(features);
         final double part1 = Lambda1 * WAvg1 / Lambda;
         final double part2 = Lambda2 * WAvg2 / Lambda;
-        return part1 + part2;
+        final double part3 = Lambda3 * WAvg3 / Lambda;
+        return part1 + part2 + part3;
     }
 
     public double WAvg1(Map<SystemFeature, Double> features) {
