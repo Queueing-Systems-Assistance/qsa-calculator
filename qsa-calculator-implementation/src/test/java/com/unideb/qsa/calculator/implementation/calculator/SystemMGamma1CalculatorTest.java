@@ -98,7 +98,7 @@ public class SystemMGamma1CalculatorTest {
     public void D2TLCFSTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2.081257;
+        double expected = 3.1666589506172858;
         // WHEN
         double result = systemMGamma1CalculatorUnderTest.D2TLCFS(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMGamma1CalculatorTest {
     public void D2TSIROTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.638647;
+        double expected = 1.913647030651342;
         // WHEN
         double result = systemMGamma1CalculatorUnderTest.D2TSIRO(features);
         // THEN

@@ -99,22 +99,26 @@ public abstract class SystemMG1AbstractCalculator {
 
     public double D2TLCFS(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
+        final double eS = eS(features);
         final double eSPow2 = eSPow2(features);
         final double eSPow3 = eSPow3(features);
         final double Ro = Ro(features);
-        final double part1 = Lambda * eSPow3 / (3 * (1 - Ro));
+        final double D2S = eSPow2 - pow(eS, 2);
+        final double part1 = Lambda * eSPow3 / (3 * pow(1 - Ro, 2));
         final double part2 = pow(Lambda, 2) * (1 + Ro) * pow(eSPow2, 2) / (4 * pow(1 - Ro, 3));
-        return part1 + part2;
+        return D2S + part1 + part2;
     }
 
     public double D2TSIRO(Map<SystemFeature, Double> features) {
         final double Lambda = features.get(SystemFeature.Lambda);
+        final double eS = eS(features);
         final double eSPow2 = eSPow2(features);
         final double eSPow3 = eSPow3(features);
         final double Ro = Ro(features);
+        final double D2S = eSPow2 - pow(eS, 2);
         final double part1 = 2 * Lambda * eSPow3 / (3 * (1 - Ro) * (2 - Ro));
         final double part2 = pow(Lambda, 2) * (2 + Ro) * pow(eSPow2, 2) / (4 * pow(1 - Ro, 2) * (2 - Ro));
-        return part1 + part2;
+        return D2S + part1 + part2;
     }
 
     public double QAvg(Map<SystemFeature, Double> features) {

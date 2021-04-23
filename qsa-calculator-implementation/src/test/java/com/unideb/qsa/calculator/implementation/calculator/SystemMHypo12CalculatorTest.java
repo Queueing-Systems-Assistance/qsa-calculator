@@ -98,7 +98,7 @@ public class SystemMHypo12CalculatorTest {
     public void D2TLCFSTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 2699.16241;
+        double expected = 2909.0475151515225;
         // WHEN
         double result = systemMHypo12CalculatorUnderTest.D2TLCFS(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMHypo12CalculatorTest {
     public void D2TSIROTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 318.90683;
+        double expected = 319.60954332052984;
         // WHEN
         double result = systemMHypo12CalculatorUnderTest.D2TSIRO(features);
         // THEN
