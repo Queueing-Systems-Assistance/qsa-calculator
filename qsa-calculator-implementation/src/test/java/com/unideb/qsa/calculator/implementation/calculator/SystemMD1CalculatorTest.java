@@ -109,7 +109,7 @@ public class SystemMD1CalculatorTest {
     public void D2TLCFSTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.019259259;
+        double expected = 0.025185185185185192;
         // WHEN
         double result = systemMD1CalculatorUnderTest.D2TLCFS(features);
         // THEN

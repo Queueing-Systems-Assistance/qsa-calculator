@@ -98,7 +98,7 @@ public class SystemMHyper12CalculatorTest {
     public void D2TLCFSTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 516.890923;
+        double expected = 587.5132911255477;
         // WHEN
         double result = systemMHyper12CalculatorUnderTest.D2TLCFS(features);
         // THEN
@@ -109,7 +109,7 @@ public class SystemMHyper12CalculatorTest {
     public void D2TSIROTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 106.980579;
+        double expected = 107.74245986975059;
         // WHEN
         double result = systemMHyper12CalculatorUnderTest.D2TSIRO(features);
         // THEN
