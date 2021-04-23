@@ -285,7 +285,7 @@ public class SystemMMnKCalculatorTest {
     public void EDeltaTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 1.3006796081938536;
+        double expected = 1.3012272627657244;
         // WHEN
         double result = systemMMnKCalculatorUnderTest.EDelta(features);
         // THEN
