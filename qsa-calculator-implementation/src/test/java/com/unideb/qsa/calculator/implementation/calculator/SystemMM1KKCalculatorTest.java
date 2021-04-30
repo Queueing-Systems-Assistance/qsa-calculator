@@ -230,7 +230,7 @@ public class SystemMM1KKCalculatorTest {
     public void EWW0Test() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 0.6544318414;
+        double expected = 0.7500000000000002;
         // WHEN
         double result = systemMM1KKCalculatorUnderTest.EWW0(features);
         // THEN
