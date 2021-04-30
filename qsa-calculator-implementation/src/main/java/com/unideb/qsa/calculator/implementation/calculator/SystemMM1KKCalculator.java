@@ -30,8 +30,8 @@ public class SystemMM1KKCalculator {
 
     public double EWW0(Map<SystemFeature, Double> features) {
         final double WAvg = WAvg(features);
-        final double P0 = P0(features);
-        return WAvg / (1 - P0);
+        final double Pi0 = Pi0(features);
+        return WAvg / (1 - Pi0);
     }
 
     public double PTt(Map<SystemFeature, Double> features) {
