@@ -25,7 +25,7 @@ public class SystemFeatureAssembler {
     private MessageResolver messageResolver;
 
     /**
-     * Resolve feature i18n keys based on featueId. This will resolve {@link SystemFeatureAssembler#FEATURE_DESCRIPTION_KEY} and {@link
+     * Resolve feature i18n keys based on featureId. This will resolve {@link SystemFeatureAssembler#FEATURE_DESCRIPTION_KEY} and {@link
      * SystemFeatureAssembler#FEATURE_NAME_KEY}.
      * @param featureIds feature ids
      * @return a map, where the key is the i18n key and the value is the corresponding value
@@ -41,7 +41,7 @@ public class SystemFeatureAssembler {
      * Resolves feature i18n key value based on the resolved keys. See {@link SystemFeatureAssembler#resolveI18nKeys(String[])}.
      * @param featureId  feature id
      * @param i18nKeys   resolved i18n keys
-     * @param rawI18nKey unformatted i18n key (eg. {@link SystemFeatureAssembler#FEATURE_DESCRIPTION_KEY})
+     * @param rawI18nKey un-formatted i18n key (eg. {@link SystemFeatureAssembler#FEATURE_DESCRIPTION_KEY})
      */
     public String findI18nKey(String featureId, Map<String, String> i18nKeys, String rawI18nKey) {
         return i18nKeys.get(String.format(rawI18nKey, featureId));

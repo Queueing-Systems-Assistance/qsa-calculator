@@ -27,5 +27,4 @@
   <suppress checks="JavadocMethod" files=".*[/\\]*Test" />
   <suppress checks="FileLength" files=".*[/\\]*Test" />
   <suppress checks="ParameterNumber" files=".*[/\\]*Test" />
-  <suppress checks="JavadocMethod" files="com.unideb.qsa.calculator.server.integration.config.CalculatorStepDefinitions" />
 </suppressions>
