@@ -42,7 +42,7 @@ public class MessageResolver {
     private String i18nServiceUri;
 
     /**
-     * Resolve i18n keys with it's values based on the current locale (eg. en_US).
+     * Resolve i18n keys with its values based on the current locale (eg. en_US).
      * @param keys i18n keys
      * @return a map, where the key is the i18n key, value is the corresponding value
      */

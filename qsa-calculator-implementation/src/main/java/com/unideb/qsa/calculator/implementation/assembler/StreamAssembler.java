@@ -2,7 +2,6 @@ package com.unideb.qsa.calculator.implementation.assembler;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +30,9 @@ public class StreamAssembler {
     public List<Double> assemble(Map<StreamOutput, String> streamOutput) {
         streamOutputValidator.validate(streamOutput);
         return DoubleStream.iterate(
-                Double.parseDouble(streamOutput.get(StreamOutput.from)),
-                value -> streamResolver.shouldCalculateStream(streamOutput, value),
-                nextValue -> streamResolver.calculateNextValue(streamOutput, nextValue))
-                           .boxed()
-                           .collect(Collectors.toUnmodifiableList());
+                                   Double.parseDouble(streamOutput.get(StreamOutput.from)),
+                                   value -> streamResolver.shouldCalculateStream(streamOutput, value),
+                                   nextValue -> streamResolver.calculateNextValue(streamOutput, nextValue))
+                           .boxed().toList();
     }
 }
