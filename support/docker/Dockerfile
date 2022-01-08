@@ -6,6 +6,7 @@ EXPOSE 8080
 
 ENV DIRPATH /qsa-storage/qsa-calculator
 RUN mkdir -p $DIRPATH
+RUN apt-get update && apt-get install -y curl
 
 COPY ./qsa-calculator-server/build/libs/qsa-calculator-final.jar $DIRPATH/qsa-calculator.jar
 COPY ./support/docker/init.sh $DIRPATH/init.sh
