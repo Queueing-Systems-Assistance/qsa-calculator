@@ -1,4 +1,4 @@
-package com.unideb.qsa.calculator.server.integration.helper;
+package com.unideb.qsa.calculator.test.helper;
 
 import java.nio.charset.StandardCharsets;
 

@@ -1,4 +1,4 @@
-package com.unideb.qsa.calculator.server.integration.helper;
+package com.unideb.qsa.calculator.test.helper;
 
 /**
  * Utility class for creating json objects from request and response example files.

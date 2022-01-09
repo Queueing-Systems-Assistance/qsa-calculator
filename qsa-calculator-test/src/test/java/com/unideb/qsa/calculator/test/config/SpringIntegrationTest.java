@@ -1,11 +1,11 @@
-package com.unideb.qsa.calculator.server.integration.config;
+package com.unideb.qsa.calculator.test.config;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.fail;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,16 +25,14 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
-import com.unideb.qsa.calculator.server.Application;
-import com.unideb.qsa.calculator.server.integration.helper.HeaderBuilder;
-import com.unideb.qsa.calculator.server.integration.helper.JsonHandler;
+import com.unideb.qsa.calculator.test.helper.HeaderBuilder;
+import com.unideb.qsa.calculator.test.helper.JsonHandler;
 
 /**
  * Cucumber configuration for integration tests.
  */
 @CucumberContextConfiguration
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@CucumberOptions(features = "src/test/resources", glue = "com.unideb.qsa.calculator.server")
+@CucumberOptions(features = "src/test/resources")
 public class SpringIntegrationTest extends AbstractTestNGCucumberTests {
 
     private static final String RESPONSE_STATUS_CODE_DOES_NOT_MATCH = "Response status code does not match with actual status code.";
@@ -42,6 +40,7 @@ public class SpringIntegrationTest extends AbstractTestNGCucumberTests {
     private static final JsonHandler JSON_HANDLER = new JsonHandler();
     private static final HeaderBuilder HEADER_BUILDER = new HeaderBuilder();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final String LOCALHOST = "http://localhost:8080";
 
     private String system;
     private String requestFileName;
@@ -64,7 +63,8 @@ public class SpringIntegrationTest extends AbstractTestNGCucumberTests {
         String requestBody = JSON_HANDLER.buildRequestFrom(system, requestFileName);
         HttpHeaders headers = HEADER_BUILDER.setupHeaders();
         TestRestTemplate restTemplate = new TestRestTemplate();
-        httpResponse = restTemplate.exchange("http://localhost:8080" + endpoint, HttpMethod.POST, new HttpEntity<>(requestBody, headers), String.class);
+        String host = Optional.ofNullable(System.getenv("HOST")).orElse(LOCALHOST);
+        httpResponse = restTemplate.exchange(host + endpoint, HttpMethod.POST, new HttpEntity<>(requestBody, headers), String.class);
     }
 
     @Then("^I should get back expected status as (.*)")

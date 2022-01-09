@@ -1,4 +1,4 @@
-package com.unideb.qsa.calculator.server.integration.helper;
+package com.unideb.qsa.calculator.test.helper;
 
 import static org.testng.Assert.fail;
 
