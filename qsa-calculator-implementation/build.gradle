@@ -17,3 +17,4 @@ dependencies {
 }
 
 description = 'qsa-calculator-implementation'
+test.enabled = !gradle.startParameter.taskNames.contains('integrationTest')

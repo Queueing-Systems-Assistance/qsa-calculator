@@ -167,7 +167,7 @@ jobs:
       - run:
           name: Run Integration Tests
           command: |
-            ./gradlew clean build integrationTest -Prelease.version="${RELEASE_VERSION}"
+            ./gradlew -x checkstyleMain -x checkstyleTest -x build integrationTest -Prelease.version="${RELEASE_VERSION}"
   deploy-prod:
     docker:
       - image: cimg/base:2022.01

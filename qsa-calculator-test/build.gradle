@@ -16,6 +16,6 @@ description = 'qsa-calculator-test'
 
 test.enabled = gradle.startParameter.taskNames.contains('integrationTest')
 
-task integrationTest {
-  // PLACEHOLDER
+task integrationTest() {
+  dependsOn(test)
 }

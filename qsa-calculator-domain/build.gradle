@@ -6,3 +6,5 @@ dependencies {
   implementation 'com.fasterxml.jackson.core:jackson-databind'
   implementation 'com.fasterxml.jackson.core:jackson-annotations'
 }
+
+test.enabled = !gradle.startParameter.taskNames.contains('integrationTest')
