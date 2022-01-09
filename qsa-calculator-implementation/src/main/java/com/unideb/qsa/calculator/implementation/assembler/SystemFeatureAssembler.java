@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
+import com.unideb.qsa.calculator.implementation.resolver.i18n.MessageResolver;
 
 /**
  * System feature resolver which resolves 18n feature keys.

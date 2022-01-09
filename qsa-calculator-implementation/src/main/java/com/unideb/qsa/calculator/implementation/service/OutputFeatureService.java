@@ -12,8 +12,8 @@ import com.unideb.qsa.calculator.domain.calculator.OutputFeature;
 import com.unideb.qsa.calculator.domain.calculator.request.OutputFeatureRequest;
 import com.unideb.qsa.calculator.domain.calculator.request.StreamOutputFeatureRequest;
 import com.unideb.qsa.calculator.domain.exception.QSAInvalidOutputException;
-import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemOutputResolver;
+import com.unideb.qsa.calculator.implementation.resolver.i18n.MessageResolver;
 
 /**
  * Service which calculates system outputs based on the requested ids.
@@ -55,7 +55,7 @@ public class OutputFeatureService {
 
     /**
      * Calculates system outputs with streaming.
-     * @param systemId                   system id
+     * @param systemId         system id
      * @param outputFeatureIds requested outputIds
      * @return calculated system outputs
      */

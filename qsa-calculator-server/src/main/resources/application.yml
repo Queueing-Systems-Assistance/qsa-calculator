@@ -39,11 +39,13 @@ spring:
       add-mappings: false
     locale-resolver: accept_header
 
-# Config Packs
+# QSA Config
 qsa:
   config:
     uris: >
       https://qsa.inf.unideb.hu/lab/api/config/system
     refresh-rate-in-minutes: 60
-  i18n-service:
-    uri: https://qsa.inf.unideb.hu/lab/api/i18n/keys
+  aws:
+    access-key:
+    secret-key:
+    i18n-lambda-name: qsa-lab-i18n-retriever

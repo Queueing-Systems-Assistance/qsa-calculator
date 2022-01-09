@@ -46,6 +46,8 @@ allprojects {
       imports {
         mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.1'
       }
+      dependency 'com.amazonaws:aws-java-sdk-lambda:1.12.131'
+      dependency 'com.google.guava:guava:31.0.1-jre'
       dependency 'io.cucumber:cucumber-java:7.1.0'
       dependency 'io.cucumber:cucumber-spring:7.1.0'
       dependency 'io.cucumber:cucumber-testng:7.1.0'
