@@ -148,6 +148,26 @@ jobs:
       QSA_ENVIRONMENT: lab
     steps:
       - deploy
+  integration-test:
+    environment:
+      PROJECT_MAJOR_VERSION: 1
+      PROJECT_MINOR_VERSION: 1
+    docker:
+      - image: cimg/openjdk:17.0.1
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
+    steps:
+      - checkout
+      - set_local_environment
+      - restore_cache:
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - run:
+          name: Run Integration Tests
+          command: |
+            ./gradlew clean build integrationTest -Prelease.version="${RELEASE_VERSION}"
   deploy-prod:
     docker:
       - image: cimg/base:2022.01
@@ -192,6 +212,15 @@ workflows:
                 job_type: deployment
                 environment_type: staging
                 token_name: CIRCLE_CI_ARTIFACTS
+      - integration-test-hold:
+          requires:
+            - deploy-lab
+          type: approval
+      - integration-test:
+          requires:
+            - integration-test-hold
+          context:
+            - Secrets
       - deploy-hold-prod:
           requires:
             - deploy-lab
