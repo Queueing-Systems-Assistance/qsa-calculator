@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.SystemElement;
 import com.unideb.qsa.calculator.domain.exception.QSAInvalidSystemException;
-import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
 import com.unideb.qsa.calculator.implementation.resolver.SystemElementResolver;
+import com.unideb.qsa.calculator.implementation.resolver.i18n.MessageResolver;
 
 /**
  * Creates system element based on system ids.

@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.SystemFeature;
+import com.unideb.qsa.calculator.implementation.resolver.i18n.MessageResolver;
 import com.unideb.qsa.calculator.implementation.validator.feature.OutputFeatureValidatorFacade;
 
 /**

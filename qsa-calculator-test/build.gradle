@@ -1,0 +1,21 @@
+dependencies {
+  /* PROJECT */
+  testImplementation project(':qsa-calculator-domain')
+  /* TEST */
+  testImplementation 'org.testng:testng'
+  testImplementation 'org.mockito:mockito-core'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  /* INTEGRATION TEST */
+  testImplementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'io.cucumber:cucumber-java'
+  testImplementation 'io.cucumber:cucumber-spring'
+  testImplementation 'io.cucumber:cucumber-testng'
+}
+
+description = 'qsa-calculator-test'
+
+test.enabled = gradle.startParameter.taskNames.contains('integrationTest')
+
+task integrationTest() {
+  dependsOn(test)
+}

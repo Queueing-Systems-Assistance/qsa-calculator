@@ -37,3 +37,5 @@ springBoot {
     }
   }
 }
+
+test.enabled = !gradle.startParameter.taskNames.contains('integrationTest')

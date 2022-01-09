@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.unideb.qsa.calculator.domain.calculator.StreamOutput;
 import com.unideb.qsa.calculator.domain.exception.QSAValidationException;
-import com.unideb.qsa.calculator.implementation.resolver.MessageResolver;
+import com.unideb.qsa.calculator.implementation.resolver.i18n.MessageResolver;
 
 /**
  * Validator for {@link StreamOutput}.
@@ -26,6 +26,7 @@ public class StreamOutputValidator {
 
     @Autowired
     private MessageResolver messageResolver;
+
     /**
      * Validate system features.
      * @param streamOutput stream input values (from, to, steps)
@@ -68,5 +69,4 @@ public class StreamOutputValidator {
         }
         return result;
     }
-
 }
