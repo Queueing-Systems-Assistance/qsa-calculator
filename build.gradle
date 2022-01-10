@@ -41,7 +41,7 @@ allprojects {
     dependencies {
       /* QSA */
       dependency 'com.unideb.qsa:qsa-config-domain:1.1.5'
-      dependency 'com.unideb.qsa:qsa-config-resolver:1.1.3'
+      dependency 'com.unideb.qsa:qsa-config-resolver:1.1.5'
       /* DEPENDENCY */
       imports {
         mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.1'
