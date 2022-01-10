@@ -42,10 +42,9 @@ spring:
 # QSA Config
 qsa:
   config:
-    uris: >
-      https://qsa.inf.unideb.hu/lab/api/config/system
     refresh-rate-in-minutes: 60
   aws:
     access-key:
     secret-key:
     i18n-lambda-name: qsa-lab-i18n-retriever
+    config-pack-lambda-name: qsa-lab-config-pack-retriever

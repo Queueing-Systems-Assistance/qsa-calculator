@@ -27,14 +27,15 @@ public class AwsConfig {
     private String i18nLambdaName;
 
     @Bean
-    public I18nResolver i18nAWSLambdaResolver() {
+    public I18nResolver i18nAWSLambdaResolver(AWSLambda awsLambda) {
         return LambdaInvokerFactory.builder()
-                                   .lambdaClient(createAWSLambdaClient())
+                                   .lambdaClient(awsLambda)
                                    .lambdaFunctionNameResolver((method, annotation, config) -> i18nLambdaName)
                                    .build(I18nResolver.class);
     }
 
-    private AWSLambda createAWSLambdaClient() {
+    @Bean
+    public AWSLambda createAWSLambdaClient() {
         return AWSLambdaClient.builder()
                               .withRegion(Regions.EU_CENTRAL_1)
                               .withCredentials(new AWSStaticCredentialsProvider(createCredentials()))
