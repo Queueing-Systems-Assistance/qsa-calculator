@@ -65,7 +65,7 @@ public class SystemMM1CalculatorTest {
     public void D2TLCFSTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 287.253772;
+        double expected = 404.38957475994516;
         // WHEN
         double result = systemMM1CalculatorUnderTest.D2TLCFS(features);
         // THEN
@@ -76,7 +76,7 @@ public class SystemMM1CalculatorTest {
     public void D2TSIROTest() {
         // GIVEN
         Map<SystemFeature, Double> features = createTestFeatures();
-        double expected = 181.82135;
+        double expected = 197.82135076252726;
         // WHEN
         double result = systemMM1CalculatorUnderTest.D2TSIRO(features);
         // THEN
